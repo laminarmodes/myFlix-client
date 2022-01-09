@@ -2,6 +2,12 @@
 
 ## Testing
 
+## Install parcel globally using 'npm install -g parcel@next'
+## Go to project folder and install packages and dependencies using 'npm install --save react react-dom'
+## To check which version of parcel use 'parcel --version'
+
+# When issue just remove ""@parcel/transformer-sass": "^2.0.0-rc.0"" and run parcel again
+
 ### Test the project build using parcel src/index.html
 
 ### Open browser and navigate to http://localhost:1234 and look for message
