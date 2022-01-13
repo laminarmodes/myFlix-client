@@ -8,6 +8,7 @@ export class MovieCard extends React.Component {
         return <div className="movie-card" onClick={() => {
             onMovieClick(movieData);
             // console.log("movie was clicked");
-        }}>{movieData.Title}</div>;
+        }}><div><img src={movieData.ImagePath} crossOrigin="true" /></div><div>{movieData.Title}</div>
+        </div>;
     }
 }

@@ -23012,7 +23012,7 @@ class MovieCard extends _reactDefault.default.Component {
         // Access the movie data
         // This refers to the class component you are working on
         const { movieData , onMovieClick  } = this.props;
-        return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
+        return(/*#__PURE__*/ _jsxRuntime.jsxs("div", {
             className: "movie-card",
             onClick: ()=>{
                 onMovieClick(movieData);
@@ -23023,7 +23023,32 @@ class MovieCard extends _reactDefault.default.Component {
                 lineNumber: 8
             },
             __self: this,
-            children: movieData.Title
+            children: [
+                /*#__PURE__*/ _jsxRuntime.jsx("div", {
+                    __source: {
+                        fileName: "src/components/movie-card/movie-card.jsx",
+                        lineNumber: 11
+                    },
+                    __self: this,
+                    children: /*#__PURE__*/ _jsxRuntime.jsx("img", {
+                        src: movieData.ImagePath,
+                        crossOrigin: "true",
+                        __source: {
+                            fileName: "src/components/movie-card/movie-card.jsx",
+                            lineNumber: 11
+                        },
+                        __self: this
+                    })
+                }),
+                /*#__PURE__*/ _jsxRuntime.jsx("div", {
+                    __source: {
+                        fileName: "src/components/movie-card/movie-card.jsx",
+                        lineNumber: 11
+                    },
+                    __self: this,
+                    children: movieData.Title
+                })
+            ]
         }));
     }
 }
@@ -23067,6 +23092,7 @@ class MovieView extends _reactDefault.default.Component {
                     __self: this,
                     children: /*#__PURE__*/ _jsxRuntime.jsx("img", {
                         src: movieObject.ImagePath,
+                        crossOrigin: "true",
                         __source: {
                             fileName: "src/components/movie-view/movie-view.jsx",
                             lineNumber: 11
