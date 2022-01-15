@@ -40,9 +40,8 @@ export class MainView extends React.Component {
         });
     }
 
-    onRegistered(userFinishedRegistering, userRegistering) {
+    onRegistered(userRegistering) {
         this.setState({
-            userFinishedRegistering,
             userRegistering
         });
     }
@@ -64,25 +63,24 @@ export class MainView extends React.Component {
         this.setState({
             userRegistering
         });
-
     }
 
-    // handleRegister(userRegistering) {
-    //     this.setState({
-    //         userRegistering
-    //     });
-    //     console.log(userRegistering)
-    // };
+    handleRegister(userRegistering) {
+        this.setState({
+            userRegistering
+        });
+        console.log(userRegistering)
+    };
 
     render() {
         // const movies = this.state.movies;
-        const { movies, selectedMovie, userLoggedIn, userRegistering, userFinishedRegistering } = this.state;
+        const { movies, selectedMovie, userLoggedIn, userRegistering } = this.state;
 
-        // Removed & !userFinishedRegistering
+
         if (userRegistering) return (
             <div>
                 <button type="submit" onClick={
-                    userRegistering => this.onRegistering(false)
+                    userRegistering => this.handleRegister(false)
                 }>
                     Back to login
                 </button>
@@ -90,7 +88,9 @@ export class MainView extends React.Component {
                 <br />
                 Register:
                 <br />
-                <RegistrationView onRegistered={userFinishedRegistering => this.onRegistered(userFinishedRegistering)} />
+                <RegistrationView onRegistered={userRegistering => this.onRegistered(userRegistering)} />
+
+
             </div>
         )
 
@@ -105,7 +105,7 @@ export class MainView extends React.Component {
                 <LoginView onLoggedIn={userLoggedIn => this.onLoggedIn(userLoggedIn)} />
                 <br />
                 <button type="submit" onClick={
-                    userRegistering => this.onRegistering(true)
+                    userRegistering => this.handleRegister(true)
                 }>
                     Register
                 </button>

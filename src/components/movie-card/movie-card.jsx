@@ -17,15 +17,15 @@ export class MovieCard extends React.Component {
 }
 
 // Enforce and validate data types based on apps configuration
-MovieCard.PropTypes = {
+MovieCard.propTypes = {
     // The movie prop may contain a title of type string
     // shape({}) means it is an actual object
-    movie: PropTypes.shape({
+    movieData: PropTypes.shape({
         Title: PropTypes.string.isRequired,
         Description: PropTypes.string.isRequired,
         ImagePath: PropTypes.string.isRequired,
         Genre: PropTypes.shape({
-            Name: PropTypes.String.isRequired,
+            Name: PropTypes.string.isRequired,
             Description: PropTypes.string.isRequired
         })
     }).isRequired,
