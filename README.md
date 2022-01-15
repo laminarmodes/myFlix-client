@@ -13,4 +13,13 @@
 ### Open browser and navigate to http://localhost:1234 and look for message
 
 ### run npm audit fix to fix security vulnerabilities
+
+To use the Ajax, install the Axios library with npm install axios --save
+
+When running into a package mismatch issue
+- delet package-lock.json
+- delete 'node_modules' folder
+run npm i
+
+or rm -rf node_modulles package-lock.json && npm i
  
