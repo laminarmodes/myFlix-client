@@ -7,6 +7,8 @@ export function RegistrationView(props) {
     const [registrationUsername, setRegistrationUsername] = useState('');
     const [registrationPassword, setRegistrationPassword] = useState('');
     const [confirmRegistrationPassword, setConfirmRegistrationPassword] = useState('');
+    const [registrationEmail, setRegistrationEmail] = useState('');
+    const [registrationBirthday, setRegistrationBirthday] = useState('');
 
     // Update the user state of MainView and make the movies list appear
     const handleSubmit = (e) => {
@@ -36,6 +38,16 @@ export function RegistrationView(props) {
             <label>
                 Confirm Password:
                 <input type="password" value={confirmRegistrationPassword} onChange={e => setConfirmRegistrationPassword(e.target.value)} />
+            </label>
+            <br />
+            <label>
+                Email:
+                <input type="email" value={registrationEmail} onChange={e => setRegistrationEmail(e.target.value)} />
+            </label>
+            <br />
+            <label>
+                Birthday:
+                <input type="text" value={registrationBirthday} onChange={e => setRegistrationBirthday(e.target.value)} />
             </label>
             <br />
             <button type="submit" onClick={handleSubmit}>

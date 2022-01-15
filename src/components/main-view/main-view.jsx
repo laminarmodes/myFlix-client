@@ -40,14 +40,19 @@ export class MainView extends React.Component {
         });
     }
 
+    onRegistering(userRegistering) {
+        this.setState({
+            userRegistering
+        });
+
+    }
+
     onRegistered(userFinishedRegistering, userRegistering) {
         this.setState({
             userFinishedRegistering,
             userRegistering
         });
     }
-
-
 
     /* When a user successfully logs in, 
     this function updates the `user` property in 
@@ -60,19 +65,6 @@ export class MainView extends React.Component {
     }
 
 
-    onRegistering(userRegistering) {
-        this.setState({
-            userRegistering
-        });
-
-    }
-
-    // handleRegister(userRegistering) {
-    //     this.setState({
-    //         userRegistering
-    //     });
-    //     console.log(userRegistering)
-    // };
 
     render() {
         // const movies = this.state.movies;
