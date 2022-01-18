@@ -4,14 +4,15 @@ $color: steelblue;
     color: $color;
 }
 
-// .app-container {
-//     background: rgb(238,174,202);
-//     background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
-// }
-
 body {
-    background: rgb(238,174,202);
-    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    background: rgb(156,124,177);
+background: radial-gradient(circle, rgba(156,124,177,1) 0%, rgba(250,154,154,1) 50%, rgba(255,206,138,1) 100%);
     height: 100%;
     margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
 }
+
+
+

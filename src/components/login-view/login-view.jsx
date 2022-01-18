@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 
+
 export function LoginView(props) {
 
     // Set initial value of login variable
@@ -26,7 +27,6 @@ export function LoginView(props) {
 
     return (
 
-
         <Form>
             <Form.Group controlId="formUsername">
                 <Form.Label>Username: </Form.Label>
@@ -45,24 +45,6 @@ export function LoginView(props) {
         </Form>
 
 
-
-
-
-        // <form>
-        //     <label>
-        //         Username:
-        //         <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-        //     </label>
-        //     <br />
-        //     <label>
-        //         Password:
-        //         <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-        //     </label>
-        //     <br />
-        //     <button type="submit" onClick={handleSubmit}>
-        //         Login
-        //     </button>
-        // </form >
     );
 }
 

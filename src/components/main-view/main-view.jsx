@@ -98,7 +98,7 @@ export class MainView extends React.Component {
         if (!userLoggedIn) return (
 
             <Row className="justify-content-md-center">
-                <Col md={3}>
+                <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                     Login:
                     <br />
                     <LoginView onLoggedIn={userLoggedIn => this.onLoggedIn(userLoggedIn)} />
@@ -136,7 +136,7 @@ export class MainView extends React.Component {
 
 
                             movies.map(movie => (
-                                <Col md={3}>
+                                <Col xs={12} sm={6} md={4} lg={3} xl={2}>
                                     <MovieCard
                                         key={movie._id}
                                         movieData={movie}
@@ -145,26 +145,12 @@ export class MainView extends React.Component {
                                         }} />
                                 </Col>
                             ))
-
-
                         }
                     </Row>
                 </div>
             );
-
         }
-
-        // if (movies.length === 0) return <div className="main-view">The list is empty</div>;
-
-        // return (
-        //     <div className="main-view">
-        //         {movies.map(movie => <MovieCard key={movie._id} movieData={movie} />)}
-        //     </div>
-        // );
     }
-
-
-
 }
 
 export default MainView;

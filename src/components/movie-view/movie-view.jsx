@@ -6,6 +6,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import './movie-view.scss';
 
 export class MovieView extends React.Component {
 
@@ -50,59 +51,9 @@ export class MovieView extends React.Component {
                 </Row>
             </div>
 
-
-            // <div className="movie-view">
-            //     <div className="movie-poster">
-            //         <img src={movieObject.ImagePath} crossOrigin="true" />
-            //     </div>
-            //     <div className="movie-title">
-            //         <span className="label">Title: </span>
-            //         <span className="value">{movieObject.Title}</span>
-            //     </div>
-            //     <div className="movie-description">
-            //         <span className="label">Description: </span>
-            //         <span className="value">{movieObject.Description}</span>
-            //     </div>
-            //     <div className="movie-actors">
-            //         <span className="label">Actors: </span>
-            //         <span className="value">{movieObject.Actors}</span>
-            //     </div>
-            //     <div className="movie-directorName">
-            //         <span className="label">Director Name: </span>
-            //         <span className="value">{movieObject.Director.Name}</span>
-            //     </div>
-            //     <div className="movie-directorBio">
-            //         <span className="label">Director Bio: </span>
-            //         <span className="value">{movieObject.Director.Bio}</span>
-            //     </div>
-            //     <div className="movie-genreName">
-            //         <span className="label">Genre: </span>
-            //         <span className="value">{movieObject.Genre.Name}</span>
-            //     </div>
-            //     <div className="movie-genreDescription">
-            //         <span className="label">Genre Description: </span>
-            //         <span className="value">{movieObject.Genre.Description}</span>
-            //     </div>
-            //     <button onClick={() => {
-            //         onBackClick(null);
-            //     }}>Back</button>
-            // </div>
         );
     }
 }
-
-
-/* <Card className="movie-card">
-                <Card.Img variant="top" src={movieData.ImagePath} />
-                <Card.Body>
-                    <Card.Title>{movieData.Title}</Card.Title>
-                    <Card.Text>{movieData.Description}</Card.Text>
-                    <Button onClick={() => onMovieClick(movieData)} variant="link">
-                        Open
-                    </Button>
-                </Card.Body>
-            </Card> */
-
 
 MovieView.propTypes = {
     movieObject: PropTypes.shape({
