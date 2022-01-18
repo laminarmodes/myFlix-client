@@ -75,18 +75,20 @@ export class MainView extends React.Component {
 
         // Removed & !userFinishedRegistering
         if (userRegistering) return (
-            <div>
-                <button type="submit" onClick={
-                    userRegistering => this.onRegistering(false)
-                }>
-                    Back to login
-                </button>
-                <br />
-                <br />
-                Register:
-                <br />
-                <RegistrationView onRegistered={userFinishedRegistering => this.onRegistered(userFinishedRegistering)} />
-            </div>
+            <Row className="justify-content-md-center">
+                <Col md={3}>
+                    <button type="submit" onClick={
+                        userRegistering => this.onRegistering(false)
+                    }>
+                        Back to login
+                    </button>
+                    <br />
+                    <br />
+                    Register:
+                    <br />
+                    <RegistrationView onRegistered={userFinishedRegistering => this.onRegistered(userFinishedRegistering)} />
+                </Col>
+            </Row>
         )
 
         /* If there is no user, the LoginView is rendered. 
@@ -94,17 +96,22 @@ export class MainView extends React.Component {
         the user details are *passed as a prop to the LoginView*/
 
         if (!userLoggedIn) return (
-            <div>
-                Login:
-                <br />
-                <LoginView onLoggedIn={userLoggedIn => this.onLoggedIn(userLoggedIn)} />
-                <br />
-                <button type="submit" onClick={
-                    userRegistering => this.onRegistering(true)
-                }>
-                    Register
-                </button>
-            </div >
+
+            <Row className="justify-content-md-center">
+                <Col md={3}>
+                    Login:
+                    <br />
+                    <LoginView onLoggedIn={userLoggedIn => this.onLoggedIn(userLoggedIn)} />
+                    <br />
+                    <button type="submit" onClick={
+                        userRegistering => this.onRegistering(true)
+                    }>
+                        Register
+                    </button>
+                </Col>
+            </Row>
+
+
         );
 
         if (movies.length === 0) {

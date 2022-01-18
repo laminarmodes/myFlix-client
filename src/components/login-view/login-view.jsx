@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
+
 export function LoginView(props) {
 
     // Set initial value of login variable
@@ -24,6 +25,8 @@ export function LoginView(props) {
     };
 
     return (
+
+
         <Form>
             <Form.Group controlId="formUsername">
                 <Form.Label>Username: </Form.Label>
@@ -40,6 +43,9 @@ export function LoginView(props) {
             </Button>
 
         </Form>
+
+
+
 
 
         // <form>
