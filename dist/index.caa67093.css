@@ -2,9 +2,11 @@
   color: steelblue;
 }
 
-.app-container {
+body {
   background: #eeaeca;
   background: radial-gradient(circle, #eeaeca 0%, #94bbe9 100%);
+  height: 100%;
+  margin: 0;
 }
 /* Card */
 .movie-card {
