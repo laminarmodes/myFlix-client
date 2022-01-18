@@ -21,7 +21,11 @@
     "cors": "^2.8.5",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
+    "react-bootstrap": "^2.1.1",
     "react-dom": "^17.0.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@parcel/transformer-image": "^2.0.0-rc.0",
+    "@parcel/transformer-sass": "^2.0.0-rc.0"
+  }
 }

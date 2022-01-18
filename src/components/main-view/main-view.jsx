@@ -8,6 +8,9 @@ import { MovieView } from '../movie-view/movie-view';
 import interstellarImage from '../temp-images/interstellar.jpg';
 import inceptionImage from '../temp-images/inception.jpg';
 import arrivalImage from '../temp-images/arrival.jpeg';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import './main-view.scss';
 
 export class MainView extends React.Component {
 
@@ -105,29 +108,43 @@ export class MainView extends React.Component {
         );
 
         if (movies.length === 0) {
-            return <div className="main-view" />;
+            return <div class="main-view" />;
         } else {
             return (
-                <div className="main-view">
-                    {selectedMovie ?
-                        // Display Single Movie View
-                        <MovieView
-                            movieObject={selectedMovie}
-                            onBackClick={newSelectedMovie => {
-                                this.setSelectedMovie(newSelectedMovie);
-                            }} />
-                        :
-                        // Display full list of movies
-                        movies.map(movie => (
-                            <MovieCard
-                                key={movie._id}
-                                movieData={movie}
-                                onMovieClick={movie => {
-                                    this.setSelectedMovie(movie)
-                                }} />))
-                    }
+                <div className={"gradientBackground"}>
+                    <Row className="justify-content-md-center">
+                        {selectedMovie ? (
+                            // Display Single Movie View
+
+                            <Col md={8}>
+                                <MovieView
+                                    movieObject={selectedMovie}
+                                    onBackClick={newSelectedMovie => {
+                                        this.setSelectedMovie(newSelectedMovie);
+                                    }} />
+                            </Col>)
+
+                            :
+                            // Display full list of movies
+
+
+                            movies.map(movie => (
+                                <Col md={3}>
+                                    <MovieCard
+                                        key={movie._id}
+                                        movieData={movie}
+                                        onMovieClick={movie => {
+                                            this.setSelectedMovie(movie)
+                                        }} />
+                                </Col>
+                            ))
+
+
+                        }
+                    </Row>
                 </div>
             );
+
         }
 
         // if (movies.length === 0) return <div className="main-view">The list is empty</div>;
