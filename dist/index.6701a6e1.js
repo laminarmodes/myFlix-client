@@ -23003,7 +23003,12 @@ class MainView extends _reactDefault.default.Component {
             },
             __self: this,
             children: /*#__PURE__*/ _jsxRuntime.jsxs(_colDefault.default, {
-                md: 3,
+                xs: 12,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                xl: 12,
+                xxl: 12,
                 __source: {
                     fileName: "src/components/main-view/main-view.jsx",
                     lineNumber: 79
@@ -23192,7 +23197,7 @@ exports.default = MainView;
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","@parcel/transformer-js/src/esmodule-helpers.js":"jShue","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"858Y4","../movie-card/movie-card":"6EiBJ","../movie-view/movie-view":"ikZdr","../temp-images/interstellar.jpg":"kG4GB","../temp-images/arrival.jpeg":"4u8E5","../temp-images/inception.jpg":"4yJEY","axios":"iYoWk","../login-view/login-view":"054li","../registration-view/registration-view":"aP2YV","react-bootstrap/Row":"c0x1x","react-bootstrap/Col":"fbam0","./main-view.scss":"jyMAr"}],"6EiBJ":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","@parcel/transformer-js/src/esmodule-helpers.js":"jShue","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"858Y4","../movie-card/movie-card":"6EiBJ","../movie-view/movie-view":"ikZdr","../temp-images/interstellar.jpg":"kG4GB","../temp-images/arrival.jpeg":"4u8E5","../temp-images/inception.jpg":"4yJEY","axios":"iYoWk","../registration-view/registration-view":"aP2YV","../login-view/login-view":"054li","react-bootstrap/Row":"c0x1x","react-bootstrap/Col":"fbam0","./main-view.scss":"jyMAr"}],"6EiBJ":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$4249 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -28676,16 +28681,16 @@ module.exports = CancelToken;
     return typeof payload === 'object' && payload.isAxiosError === true;
 };
 
-},{}],"054li":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$02dd = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+},{}],"aP2YV":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$8dd4 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$02dd.prelude(module);
+$parcel$ReactRefreshHelpers$8dd4.prelude(module);
 
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "LoginView", ()=>LoginView
+parcelHelpers.export(exports, "RegistrationView", ()=>RegistrationView
 );
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
@@ -28697,52 +28702,56 @@ var _formDefault = parcelHelpers.interopDefault(_form);
 var _button = require("react-bootstrap/Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
 var _s = $RefreshSig$();
-function LoginView(props) {
+function RegistrationView(props) {
     _s();
     // Set initial value of login variable
     // useState() returns array of paired values that break down variables
-    const [username, setUsername] = _react.useState('');
-    const [password, setPassword] = _react.useState('');
+    const [registrationUsername, setRegistrationUsername] = _react.useState('');
+    const [registrationPassword, setRegistrationPassword] = _react.useState('');
+    const [confirmRegistrationPassword, setConfirmRegistrationPassword] = _react.useState('');
+    const [registrationEmail, setRegistrationEmail] = _react.useState('');
+    const [registrationBirthday, setRegistrationBirthday] = _react.useState('');
     // Update the user state of MainView and make the movies list appear
     const handleSubmit = (e)=>{
         // Prevents submit button from causing page to refresh
         e.preventDefault();
         // log the username and password to console
-        console.log(username, password);
-        // Allow user to be automatically logged in regardless of credntials
-        props.onLoggedIn(username);
+        console.log(registrationUsername, registrationPassword);
+        // Allow user to be automatically registered in regardless of credntials
+        props.onRegistered(registrationUsername);
     };
     return(/*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default, {
         __source: {
-            fileName: "src/components/login-view/login-view.jsx",
-            lineNumber: 30
+            fileName: "src/components/registration-view/registration-view.jsx",
+            lineNumber: 31
         },
         __self: this,
         children: [
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 controlId: "formUsername",
                 __source: {
-                    fileName: "src/components/login-view/login-view.jsx",
-                    lineNumber: 31
+                    fileName: "src/components/registration-view/registration-view.jsx",
+                    lineNumber: 32
                 },
                 __self: this,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
-                            fileName: "src/components/login-view/login-view.jsx",
-                            lineNumber: 32
+                            fileName: "src/components/registration-view/registration-view.jsx",
+                            lineNumber: 33
                         },
                         __self: this,
-                        children: "Username: "
+                        children: "Username "
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
                         type: "text",
+                        value: registrationUsername,
                         placeholder: "enter username",
-                        onChange: (event)=>setUsername(event.target.value)
+                        onChange: (event)=>setRegistrationUsername(event.target.value)
                         ,
                         __source: {
-                            fileName: "src/components/login-view/login-view.jsx",
-                            lineNumber: 33
+                            fileName: "src/components/registration-view/registration-view.jsx",
+                            lineNumber: 34
                         },
                         __self: this
                     })
@@ -28751,27 +28760,114 @@ function LoginView(props) {
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 controlId: "formPassword",
                 __source: {
-                    fileName: "src/components/login-view/login-view.jsx",
-                    lineNumber: 36
+                    fileName: "src/components/registration-view/registration-view.jsx",
+                    lineNumber: 37
                 },
                 __self: this,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
-                            fileName: "src/components/login-view/login-view.jsx",
-                            lineNumber: 37
+                            fileName: "src/components/registration-view/registration-view.jsx",
+                            lineNumber: 38
                         },
                         __self: this,
-                        children: "Password: "
+                        children: "Password"
+                    }),
+                    /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
+                        type: "password",
+                        vaue: registrationPassword,
+                        onChange: (e)=>setRegistrationPassword(e.target.value)
+                        ,
+                        __source: {
+                            fileName: "src/components/registration-view/registration-view.jsx",
+                            lineNumber: 39
+                        },
+                        __self: this
+                    })
+                ]
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
+                controlId: "formConfirmPassword",
+                __source: {
+                    fileName: "src/components/registration-view/registration-view.jsx",
+                    lineNumber: 42
+                },
+                __self: this,
+                children: [
+                    /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
+                        __source: {
+                            fileName: "src/components/registration-view/registration-view.jsx",
+                            lineNumber: 43
+                        },
+                        __self: this,
+                        children: "Confirm Password"
+                    }),
+                    /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
+                        type: "password",
+                        value: confirmRegistrationPassword,
+                        onChange: (e)=>setConfirmRegistrationPassword(e.target.value)
+                        ,
+                        __source: {
+                            fileName: "src/components/registration-view/registration-view.jsx",
+                            lineNumber: 44
+                        },
+                        __self: this
+                    })
+                ]
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
+                controlId: "formEmail",
+                __source: {
+                    fileName: "src/components/registration-view/registration-view.jsx",
+                    lineNumber: 47
+                },
+                __self: this,
+                children: [
+                    /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
+                        __source: {
+                            fileName: "src/components/registration-view/registration-view.jsx",
+                            lineNumber: 48
+                        },
+                        __self: this,
+                        children: "Email"
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
                         type: "text",
-                        placeholder: "enter password",
-                        onChange: (event)=>setPassword(event.target.value)
+                        value: registrationEmail,
+                        onChange: (e)=>setRegistrationEmail(e.target.value)
                         ,
                         __source: {
-                            fileName: "src/components/login-view/login-view.jsx",
-                            lineNumber: 38
+                            fileName: "src/components/registration-view/registration-view.jsx",
+                            lineNumber: 49
+                        },
+                        __self: this
+                    })
+                ]
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
+                controlId: "formBirthday",
+                __source: {
+                    fileName: "src/components/registration-view/registration-view.jsx",
+                    lineNumber: 52
+                },
+                __self: this,
+                children: [
+                    /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
+                        __source: {
+                            fileName: "src/components/registration-view/registration-view.jsx",
+                            lineNumber: 53
+                        },
+                        __self: this,
+                        children: "Birthday"
+                    }),
+                    /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
+                        type: "text",
+                        value: registrationBirthday,
+                        onChange: (e)=>setRegistrationBirthday(e.target.value)
+                        ,
+                        __source: {
+                            fileName: "src/components/registration-view/registration-view.jsx",
+                            lineNumber: 54
                         },
                         __self: this
                     })
@@ -28782,29 +28878,29 @@ function LoginView(props) {
                 type: "submit",
                 onClick: handleSubmit,
                 __source: {
-                    fileName: "src/components/login-view/login-view.jsx",
-                    lineNumber: 41
+                    fileName: "src/components/registration-view/registration-view.jsx",
+                    lineNumber: 57
                 },
                 __self: this,
-                children: "Submit"
+                children: "Register"
             })
         ]
     }));
 }
-_s(LoginView, "wuQOK7xaXdVz4RMrZQhWbI751Oc=");
-_c = LoginView;
-LoginView.propTypes = {
-    onLoggedIn: _propTypesDefault.default.func.isRequired
+_s(RegistrationView, "x02VxG/tdIgown4umjRthMgyJP4=");
+_c = RegistrationView;
+RegistrationView.propTypes = {
+    onRegistered: _propTypesDefault.default.func.isRequired
 };
 var _c;
-$RefreshReg$(_c, "LoginView");
+$RefreshReg$(_c, "RegistrationView");
 
-  $parcel$ReactRefreshHelpers$02dd.postlude(module);
+  $parcel$ReactRefreshHelpers$8dd4.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","@parcel/transformer-js/src/esmodule-helpers.js":"jShue","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"858Y4","prop-types":"1tgq3","react-bootstrap/Form":"5ykgY","react-bootstrap/Button":"9CzHT"}],"5ykgY":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","prop-types":"1tgq3","react-bootstrap/Form":"5ykgY","react-bootstrap/Button":"9CzHT","@parcel/transformer-js/src/esmodule-helpers.js":"jShue","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"858Y4"}],"5ykgY":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -29302,16 +29398,16 @@ const FloatingLabel = /*#__PURE__*/ _react.forwardRef(({ bsPrefix , className , 
 FloatingLabel.displayName = 'FloatingLabel';
 exports.default = FloatingLabel;
 
-},{"classnames":"bOXOh","react":"6TuXu","./FormGroup":"gWNri","./ThemeProvider":"eeqfi","react/jsx-runtime":"8xIwr","@parcel/transformer-js/src/esmodule-helpers.js":"jShue"}],"aP2YV":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$8dd4 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+},{"classnames":"bOXOh","react":"6TuXu","./FormGroup":"gWNri","./ThemeProvider":"eeqfi","react/jsx-runtime":"8xIwr","@parcel/transformer-js/src/esmodule-helpers.js":"jShue"}],"054li":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$02dd = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$8dd4.prelude(module);
+$parcel$ReactRefreshHelpers$02dd.prelude(module);
 
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "RegistrationView", ()=>RegistrationView
+parcelHelpers.export(exports, "LoginView", ()=>LoginView
 );
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
@@ -29323,56 +29419,52 @@ var _formDefault = parcelHelpers.interopDefault(_form);
 var _button = require("react-bootstrap/Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
 var _s = $RefreshSig$();
-function RegistrationView(props) {
+function LoginView(props) {
     _s();
     // Set initial value of login variable
     // useState() returns array of paired values that break down variables
-    const [registrationUsername, setRegistrationUsername] = _react.useState('');
-    const [registrationPassword, setRegistrationPassword] = _react.useState('');
-    const [confirmRegistrationPassword, setConfirmRegistrationPassword] = _react.useState('');
-    const [registrationEmail, setRegistrationEmail] = _react.useState('');
-    const [registrationBirthday, setRegistrationBirthday] = _react.useState('');
+    const [username, setUsername] = _react.useState('');
+    const [password, setPassword] = _react.useState('');
     // Update the user state of MainView and make the movies list appear
     const handleSubmit = (e)=>{
         // Prevents submit button from causing page to refresh
         e.preventDefault();
         // log the username and password to console
-        console.log(registrationUsername, registrationPassword);
-        // Allow user to be automatically registered in regardless of credntials
-        props.onRegistered(registrationUsername);
+        console.log(username, password);
+        // Allow user to be automatically logged in regardless of credntials
+        props.onLoggedIn(username);
     };
     return(/*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default, {
         __source: {
-            fileName: "src/components/registration-view/registration-view.jsx",
-            lineNumber: 31
+            fileName: "src/components/login-view/login-view.jsx",
+            lineNumber: 30
         },
         __self: this,
         children: [
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 controlId: "formUsername",
                 __source: {
-                    fileName: "src/components/registration-view/registration-view.jsx",
-                    lineNumber: 32
+                    fileName: "src/components/login-view/login-view.jsx",
+                    lineNumber: 31
                 },
                 __self: this,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
-                            fileName: "src/components/registration-view/registration-view.jsx",
-                            lineNumber: 33
+                            fileName: "src/components/login-view/login-view.jsx",
+                            lineNumber: 32
                         },
                         __self: this,
-                        children: "Username "
+                        children: "Username: "
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
                         type: "text",
-                        value: registrationUsername,
                         placeholder: "enter username",
-                        onChange: (event)=>setRegistrationUsername(event.target.value)
+                        onChange: (event)=>setUsername(event.target.value)
                         ,
                         __source: {
-                            fileName: "src/components/registration-view/registration-view.jsx",
-                            lineNumber: 34
+                            fileName: "src/components/login-view/login-view.jsx",
+                            lineNumber: 33
                         },
                         __self: this
                     })
@@ -29381,114 +29473,27 @@ function RegistrationView(props) {
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 controlId: "formPassword",
                 __source: {
-                    fileName: "src/components/registration-view/registration-view.jsx",
-                    lineNumber: 37
+                    fileName: "src/components/login-view/login-view.jsx",
+                    lineNumber: 36
                 },
                 __self: this,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
-                            fileName: "src/components/registration-view/registration-view.jsx",
+                            fileName: "src/components/login-view/login-view.jsx",
+                            lineNumber: 37
+                        },
+                        __self: this,
+                        children: "Password: "
+                    }),
+                    /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
+                        type: "text",
+                        placeholder: "enter password",
+                        onChange: (event)=>setPassword(event.target.value)
+                        ,
+                        __source: {
+                            fileName: "src/components/login-view/login-view.jsx",
                             lineNumber: 38
-                        },
-                        __self: this,
-                        children: "Password"
-                    }),
-                    /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
-                        type: "password",
-                        vaue: registrationPassword,
-                        onChange: (e)=>setRegistrationPassword(e.target.value)
-                        ,
-                        __source: {
-                            fileName: "src/components/registration-view/registration-view.jsx",
-                            lineNumber: 39
-                        },
-                        __self: this
-                    })
-                ]
-            }),
-            /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
-                controlId: "formConfirmPassword",
-                __source: {
-                    fileName: "src/components/registration-view/registration-view.jsx",
-                    lineNumber: 42
-                },
-                __self: this,
-                children: [
-                    /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
-                        __source: {
-                            fileName: "src/components/registration-view/registration-view.jsx",
-                            lineNumber: 43
-                        },
-                        __self: this,
-                        children: "Confirm Password"
-                    }),
-                    /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
-                        type: "password",
-                        value: confirmRegistrationPassword,
-                        onChange: (e)=>setConfirmRegistrationPassword(e.target.value)
-                        ,
-                        __source: {
-                            fileName: "src/components/registration-view/registration-view.jsx",
-                            lineNumber: 44
-                        },
-                        __self: this
-                    })
-                ]
-            }),
-            /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
-                controlId: "formEmail",
-                __source: {
-                    fileName: "src/components/registration-view/registration-view.jsx",
-                    lineNumber: 47
-                },
-                __self: this,
-                children: [
-                    /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
-                        __source: {
-                            fileName: "src/components/registration-view/registration-view.jsx",
-                            lineNumber: 48
-                        },
-                        __self: this,
-                        children: "Email"
-                    }),
-                    /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
-                        type: "text",
-                        value: registrationEmail,
-                        onChange: (e)=>setRegistrationEmail(e.target.value)
-                        ,
-                        __source: {
-                            fileName: "src/components/registration-view/registration-view.jsx",
-                            lineNumber: 49
-                        },
-                        __self: this
-                    })
-                ]
-            }),
-            /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
-                controlId: "formBirthday",
-                __source: {
-                    fileName: "src/components/registration-view/registration-view.jsx",
-                    lineNumber: 52
-                },
-                __self: this,
-                children: [
-                    /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
-                        __source: {
-                            fileName: "src/components/registration-view/registration-view.jsx",
-                            lineNumber: 53
-                        },
-                        __self: this,
-                        children: "Birthday"
-                    }),
-                    /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
-                        type: "text",
-                        value: registrationBirthday,
-                        onChange: (e)=>setRegistrationBirthday(e.target.value)
-                        ,
-                        __source: {
-                            fileName: "src/components/registration-view/registration-view.jsx",
-                            lineNumber: 54
                         },
                         __self: this
                     })
@@ -29499,29 +29504,29 @@ function RegistrationView(props) {
                 type: "submit",
                 onClick: handleSubmit,
                 __source: {
-                    fileName: "src/components/registration-view/registration-view.jsx",
-                    lineNumber: 57
+                    fileName: "src/components/login-view/login-view.jsx",
+                    lineNumber: 41
                 },
                 __self: this,
-                children: "Register"
+                children: "Submit"
             })
         ]
     }));
 }
-_s(RegistrationView, "x02VxG/tdIgown4umjRthMgyJP4=");
-_c = RegistrationView;
-RegistrationView.propTypes = {
-    onRegistered: _propTypesDefault.default.func.isRequired
+_s(LoginView, "wuQOK7xaXdVz4RMrZQhWbI751Oc=");
+_c = LoginView;
+LoginView.propTypes = {
+    onLoggedIn: _propTypesDefault.default.func.isRequired
 };
 var _c;
-$RefreshReg$(_c, "RegistrationView");
+$RefreshReg$(_c, "LoginView");
 
-  $parcel$ReactRefreshHelpers$8dd4.postlude(module);
+  $parcel$ReactRefreshHelpers$02dd.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","@parcel/transformer-js/src/esmodule-helpers.js":"jShue","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"858Y4","prop-types":"1tgq3","react-bootstrap/Form":"5ykgY","react-bootstrap/Button":"9CzHT"}],"jyMAr":[function() {},{}],"2PRIq":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","prop-types":"1tgq3","react-bootstrap/Form":"5ykgY","react-bootstrap/Button":"9CzHT","@parcel/transformer-js/src/esmodule-helpers.js":"jShue","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"858Y4"}],"jyMAr":[function() {},{}],"2PRIq":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");

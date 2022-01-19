@@ -76,7 +76,7 @@ export class MainView extends React.Component {
         // Removed & !userFinishedRegistering
         if (userRegistering) return (
             <Row className="justify-content-md-center">
-                <Col md={3}>
+                <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                     <button type="submit" onClick={
                         userRegistering => this.onRegistering(false)
                     }>
