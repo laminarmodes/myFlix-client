@@ -7,6 +7,8 @@ import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+import { DirectorView } from '../director-view/director-view';
+import { GenreView } from '../genre-view/genre-view';
 import interstellarImage from '../temp-images/interstellar.jpg';
 import inceptionImage from '../temp-images/inception.jpg';
 import arrivalImage from '../temp-images/arrival.jpeg';
@@ -195,28 +197,32 @@ export class MainView extends React.Component {
                                     ))
                                 } /> */}
 
-                            <Route exact path="/movies/:movieId" render={({ match }) => {
+                            <Route exact path="/movies/:movieId" render={({ match, history }) => {
                                 return (
                                     <Col md={8}>
                                         <MovieView
-                                            movieObject={movies.find(m => m._id === match.params.movieId)}
+                                            movieObject={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()}
                                         />
                                     </Col>
                                 )
                             }} />
 
-                            <Route exact path="/genres/:name" render={({ match }) => {
+                            <Route exact path="/genres/:name" render={({ match, history }) => {
                                 return (
                                     <Col md={8}>
-                                        genreObject={movie.find(m => m.Genre.Name == match.params.name).Genre}
+                                        <GenreView
+                                            genreObject={movies.find(m => m.Genre.Name == match.params.name).Genre} onBackClick={() => history.goBack()}
+                                        />
                                     </Col>
                                 )
                             }} />
 
-                            <Route exact path="/directors/:name" render={({ match }) => {
+                            <Route exact path="/directors/:name" render={({ match, history }) => {
                                 return (
                                     <Col md={8}>
-                                        directorObject={movies.find(m => m.Director.Name === match.params.name).Director}
+                                        <DirectorView
+                                            directorObject={movies.find(m => m.Director.Name === match.params.name).Director} onBackClick={() => history.goBack()}
+                                        />
                                     </Col>
                                 )
                             }} />
