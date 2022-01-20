@@ -8,6 +8,8 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import './movie-view.scss';
 
+import { Link } from "react-router-dom";
+
 export class MovieView extends React.Component {
 
     keypressCallback(event) {
@@ -27,11 +29,23 @@ export class MovieView extends React.Component {
                         <Card.Subtitle>Directed by</Card.Subtitle>
                         <Card.Text> {movieObject.Director.Name}</Card.Text>
 
+                        <Link to={`/directors/${movieObject.Director.Name}`}>
+                            <Button variant="link">
+                                Director Info
+                            </Button>
+                        </Link>
+
                         <Card.Subtitle>Plot</Card.Subtitle>
                         <Card.Text>{movieObject.Description}</Card.Text>
 
                         <Card.Subtitle>Genre</Card.Subtitle>
                         <Card.Text>{movieObject.Genre.Name}</Card.Text>
+
+                        <Link to={`/genres/${movieObject.Genre.Name}`}>
+                            <Button variant="link">
+                                Genre Info
+                            </Button>
+                        </Link>
 
                     </Card.Body>
 
