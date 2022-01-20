@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 
-
-
+// testuser4567
+// testpassword4567
 export function LoginView(props) {
 
     // Set initial value of login variable
@@ -18,11 +19,26 @@ export function LoginView(props) {
         // Prevents submit button from causing page to refresh
         e.preventDefault();
 
+        /* Send a request to the server for authentication */
+        /* A POST request is made by sending the username and password to the
+        login endpoint */
+        axios.post('https://myflixappcf.herokuapp.com/login', {
+            Username: username,
+            Password: password
+        }).then(response => {
+            // If there is a match, the onLoggedIn method that was passed through the props is called
+            const data = response.data;
+            // Remember, data contains the token and username both?s
+            props.onLoggedIn(data);
+        }).catch(error => {
+            console.log('no such user')
+        });
+
         // log the username and password to console
-        console.log(username, password);
+        // console.log(username, password);
 
         // Allow user to be automatically logged in regardless of credntials
-        props.onLoggedIn(username);
+        // props.onLoggedIn(username);
     };
 
     return (

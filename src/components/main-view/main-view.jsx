@@ -11,6 +11,7 @@ import arrivalImage from '../temp-images/arrival.jpeg';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './main-view.scss';
+import Button from 'react-bootstrap/Button';
 
 export class MainView extends React.Component {
 
@@ -24,14 +25,22 @@ export class MainView extends React.Component {
         };
     }
 
+    // This is called every time the user loads the page
+
     componentDidMount() {
-        axios.get('https://myflixappcf.herokuapp.com/movies').then(response => {
+
+        // Persist login data
+        // Check if the user is logged in by checking localStorage
+        // Get the value of the token from the localStorage
+        let accessToken = localStorage.getItem('token');
+        if (accessToken !== null) {
+            // If access key is present, user is logged in and can call getMovies method
             this.setState({
-                movies: response.data
+                userLoggedIn: localStorage.getItem('user')
             });
-        }).catch(error => {
-            console.log(error);
-        });
+            // Make the get request only if the user is logged in
+            this.getMovies(accessToken);
+        }
     }
 
     /*When a movie is clicked, this function is 
@@ -61,13 +70,47 @@ export class MainView extends React.Component {
     this function updates the `user` property in 
     state to that *particular user*/
     // This method will be passed in as a prop with the same name to LoginView
-    onLoggedIn(userLoggedIn) {
+    // It is called when the user logs in, by the handleSubmit method
+    // When handleSubmit method is called, it updates the state with the logged in authData
+    onLoggedIn(authData) {
+        // auth data contains both user and token
+        console.log(authData)
         this.setState({
-            userLoggedIn
+            // The user's username is saved in the user state
+            userLoggedIn: authData.user.Username
+        });
+
+        // The token and user are saved in localStorage, as key and value
+        localStorage.setItem('token', authData.token);
+        localStorage.setItem('user', authData.user.Username);
+        // Gets the movies from API once the user is logged in
+        // Remember 'this' refers to the object itself (the MainView class)
+        this.getMovies(authData.token);
+    }
+
+    onLoggedOut() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        this.setState({
+            userLoggedIn: null
         });
     }
 
-
+    getMovies(token) {
+        // User Axios to make a GET request to the "movies" endpoint of Node.js API
+        axios.get('https://myflixappcf.herokuapp.com/movies', {
+            // Passing in bearer authorization in header to make authenticated requests
+            headers: { Authorization: `Bearer ${token}` }
+        }).then(response => {
+            // Assign the result to the state
+            this.setState({
+                movies: response.data
+            });
+        }).catch(function (error) {
+            console.log("error in getMovies")
+            console.log(error);
+        });
+    }
 
     render() {
         // const movies = this.state.movies;
@@ -96,7 +139,6 @@ export class MainView extends React.Component {
         the user details are *passed as a prop to the LoginView*/
 
         if (!userLoggedIn) return (
-
             <Row className="justify-content-md-center">
                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                     Login:
@@ -115,10 +157,17 @@ export class MainView extends React.Component {
         );
 
         if (movies.length === 0) {
-            return <div class="main-view" />;
+            return <div className="main-view" />;
         } else {
             return (
                 <div className={"gradientBackground"}>
+                    <Row>
+                        <Col>
+                            <Button variant="primary" onClick={() => this.onLoggedOut()}>
+                                Logout
+                            </Button>
+                        </Col>
+                    </Row>
                     <Row className="justify-content-md-center">
                         {selectedMovie ? (
                             // Display Single Movie View
@@ -147,6 +196,9 @@ export class MainView extends React.Component {
                             ))
                         }
                     </Row>
+
+
+
                 </div>
             );
         }
