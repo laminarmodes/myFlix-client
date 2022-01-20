@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
@@ -162,49 +162,73 @@ export class MainView extends React.Component {
             return <div className="main-view" />;
         } else {
             return (
-                <div className={"gradientBackground"}>
-                    <Row>
-                        <Col>
-                            <Button variant="primary" onClick={() => this.onLoggedOut()}>
-                                Logout
-                            </Button>
-                        </Col>
-                    </Row>
-                    <Row className="justify-content-md-center">
-                        {selectedMovie ? (
-                            // Display Single Movie View
+                <Router>
+                    <div className={"gradientBackground"}>
 
-                            <Col md={8}>
-                                <MovieView
-                                    movieObject={selectedMovie}
-                                    onBackClick={newSelectedMovie => {
-                                        this.setSelectedMovie(newSelectedMovie);
-                                    }} />
-                            </Col>)
+                        <Row>
+                            <Col>
+                                <Button variant="primary" onClick={() => this.onLoggedOut()}>
+                                    Logout
+                                </Button>
+                            </Col>
+                        </Row>
 
-                            :
-                            // Display full list of movies
+                        <Row className="justify-content-md-center">
 
+                            <Route exact path="/" render={() => {
+                                return (
+                                    movies.map(movie => (
+                                        <Col xs={12} sm={6} md={4} lg={3} xl={2} key={movie._id}>
+                                            <MovieCard
+                                                movieData={movie} />
+                                        </Col>
+                                    ))
+                                )
+                            }} />
 
-                            movies.map(movie => (
-                                <Col xs={12} sm={6} md={4} lg={3} xl={2}>
-                                    <MovieCard
-                                        key={movie._id}
-                                        movieData={movie}
-                                        onMovieClick={movie => {
-                                            this.setSelectedMovie(movie)
-                                        }} />
-                                </Col>
-                            ))
-                        }
-                    </Row>
+                            {/* <Route exact path="/" element={
+                                    movies.map(movie => (
+                                        <Col xs={12} sm={6} md={4} lg={3} xl={2} key={movie._id}>
+                                            <MovieCard
+                                                movieData={movie} />
+                                        </Col>
+                                    ))
+                                } /> */}
 
+                            <Route exact path="/movies/:movieId" render={({ match }) => {
+                                return (
+                                    <Col md={8}>
+                                        <MovieView
+                                            movieObject={movies.find(m => m._id === match.params.movieId)}
+                                        />
+                                    </Col>
+                                )
+                            }} />
 
+                            <Route exact path="/genres/:name" render={({ match }) => {
+                                return (
+                                    <Col md={8}>
+                                        genreObject={movie.find(m => m.Genre.Name == match.params.name).Genre}
+                                    </Col>
+                                )
+                            }} />
 
-                </div>
+                            <Route exact path="/directors/:name" render={({ match }) => {
+                                return (
+                                    <Col md={8}>
+                                        directorObject={movies.find(m => m.Director.Name === match.params.name).Director}
+                                    </Col>
+                                )
+                            }} />
+
+                        </Row>
+
+                    </div>
+                </Router>
             );
         }
     }
 }
 
+// npm install react-router-dom@5.2.0
 export default MainView;
