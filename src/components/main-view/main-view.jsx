@@ -17,6 +17,8 @@ import Col from 'react-bootstrap/Col';
 import './main-view.scss';
 import Button from 'react-bootstrap/Button';
 
+import { NavBar } from '../navbar-view/navbar-view';
+
 export class MainView extends React.Component {
 
     constructor() {
@@ -166,14 +168,25 @@ export class MainView extends React.Component {
             return (
                 <Router>
                     <div className={"gradientBackground"}>
-
-                        <Row>
+                        {/* <Row>
                             <Col>
                                 <Button variant="primary" onClick={() => this.onLoggedOut()}>
                                     Logout
                                 </Button>
                             </Col>
-                        </Row>
+                        </Row> */}
+
+                        <Route path="/" render={() => {
+                            if (userLoggedIn) {
+                                return (
+                                    <Row>
+                                        <Col md={12} style={{ padding: 0 }}>
+                                            <NavBar onLoggedOut={() => this.onLoggedOut()} />
+                                        </Col>
+                                    </Row>
+                                )
+                            }
+                        }} />
 
                         <Row className="justify-content-md-center">
 
@@ -188,14 +201,6 @@ export class MainView extends React.Component {
                                 )
                             }} />
 
-                            {/* <Route exact path="/" element={
-                                    movies.map(movie => (
-                                        <Col xs={12} sm={6} md={4} lg={3} xl={2} key={movie._id}>
-                                            <MovieCard
-                                                movieData={movie} />
-                                        </Col>
-                                    ))
-                                } /> */}
 
                             <Route exact path="/movies/:movieId" render={({ match, history }) => {
                                 return (

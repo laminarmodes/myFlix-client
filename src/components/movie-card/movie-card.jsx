@@ -12,21 +12,21 @@ export class MovieCard extends React.Component {
         // This refers to the class component you are working on
         const { movieData, onMovieClick } = this.props;
         return (
-            <div onClick={() => onMovieClick(movieData)}>
-                <Card className="movie-card">
-                    <Card.Img variant="top" src={movieData.ImagePath} />
-                    <Card.Body>
-                        <Card.Title>{movieData.Title}</Card.Title>
-                        <Card.Subtitle>Directed by</Card.Subtitle>
-                        <Card.Text>{movieData.Director.Name}</Card.Text>
-                        <Link to={`/movies/${movieData._id}`}>
-                            <Button variant="link">
-                                Open
-                            </Button>
-                        </Link>
-                    </Card.Body>
-                </Card>
-            </div>
+
+            <Card className="movie-card">
+                <Card.Img variant="top" src={movieData.ImagePath} />
+                <Card.Body>
+                    <Card.Title>{movieData.Title}</Card.Title>
+                    <Card.Subtitle>Directed by</Card.Subtitle>
+                    <Card.Text>{movieData.Director.Name}</Card.Text>
+                    <Link to={`/movies/${movieData._id}`}>
+                        <Button variant="link">
+                            Open
+                        </Button>
+                    </Link>
+                </Card.Body>
+            </Card>
+
         );
     }
 
@@ -46,14 +46,5 @@ MovieCard.propTypes = {
         })
     }).isRequired,
     // The props object must contain onMovieclick and it must be a function
-    onMovieClick: PropTypes.func.isRequired
+    //onMovieClick: PropTypes.func.isRequired
 };
-
-
-
-{/* <div className="movie-card" onClick={() => {
-            onMovieClick(movieData);
-            // console.log("movie was clicked");
-        }}><div><img src={movieData.ImagePath} crossOrigin="true" /></div><div>{movieData.Title}</div>
-            <br />
-        </div>; */}
