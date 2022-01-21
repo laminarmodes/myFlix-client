@@ -135,7 +135,8 @@ export class MainView extends React.Component {
                     <br />
                     Register:
                     <br />
-                    <RegistrationView onRegistered={userFinishedRegistering => this.onRegistered(userFinishedRegistering)} />
+                    {/* <RegistrationView onRegistered={userFinishedRegistering => this.onRegistered(userFinishedRegistering)} /> */}
+                    <RegistrationView />
                 </Col>
             </Row>
         )

@@ -63,7 +63,7 @@ export function RegistrationView(props) {
 
 
     // Update the user state of MainView and make the movies list appear
-    const handleSubmit = (e) => {
+    const handleRegistration = (e) => {
 
         // Prevents submit button from causing page to refresh
         e.preventDefault();
@@ -81,7 +81,7 @@ export function RegistrationView(props) {
             }).then(response => {
                 const data = response.data;
                 console.log(data);
-                alert('Registration successful, returning you to login!')
+                window.open('/', '_self');
             }).catch(response => {
                 console.error(response);
                 alert('Unable to register');
@@ -134,7 +134,7 @@ export function RegistrationView(props) {
                 <Form.Control type="text" value={registrationBirthday} onChange={e => setRegistrationBirthday(e.target.value)} />
             </Form.Group>
 
-            <Button variant="primary" type="submit" onClick={handleSubmit}>
+            <Button variant="primary" type="submit" onClick={handleRegistration}>
                 Register
             </Button>
         </Form>
@@ -142,6 +142,6 @@ export function RegistrationView(props) {
     )
 }
 
-RegistrationView.propTypes = {
-    onRegistered: PropTypes.func.isRequired
-};
+// RegistrationView.propTypes = {
+//     onRegistered: PropTypes.func.isRequired
+// };

@@ -23096,11 +23096,9 @@ class MainView extends _reactDefault.default.Component {
                         __self: this
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsx(_registrationView.RegistrationView, {
-                        onRegistered: (userFinishedRegistering1)=>this.onRegistered(userFinishedRegistering1)
-                        ,
                         __source: {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 138
+                            lineNumber: 139
                         },
                         __self: this
                     })
@@ -23113,7 +23111,7 @@ class MainView extends _reactDefault.default.Component {
             className: "justify-content-md-center",
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 148
+                lineNumber: 149
             },
             __self: this,
             children: /*#__PURE__*/ _jsxRuntime.jsxs(_colDefault.default, {
@@ -23125,7 +23123,7 @@ class MainView extends _reactDefault.default.Component {
                 xxl: 12,
                 __source: {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 149
+                    lineNumber: 150
                 },
                 __self: this,
                 children: [
@@ -23133,7 +23131,7 @@ class MainView extends _reactDefault.default.Component {
                     /*#__PURE__*/ _jsxRuntime.jsx("br", {
                         __source: {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 151
+                            lineNumber: 152
                         },
                         __self: this
                     }),
@@ -23142,14 +23140,14 @@ class MainView extends _reactDefault.default.Component {
                         ,
                         __source: {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 152
+                            lineNumber: 153
                         },
                         __self: this
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsx("br", {
                         __source: {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 153
+                            lineNumber: 154
                         },
                         __self: this
                     }),
@@ -23159,7 +23157,7 @@ class MainView extends _reactDefault.default.Component {
                         ,
                         __source: {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 154
+                            lineNumber: 155
                         },
                         __self: this,
                         children: "Register"
@@ -23171,21 +23169,21 @@ class MainView extends _reactDefault.default.Component {
             className: "main-view",
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 166
+                lineNumber: 167
             },
             __self: this
         }));
         else return(/*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.BrowserRouter, {
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 169
+                lineNumber: 170
             },
             __self: this,
             children: /*#__PURE__*/ _jsxRuntime.jsxs("div", {
                 className: "gradientBackground",
                 __source: {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 170
+                    lineNumber: 171
                 },
                 __self: this,
                 children: [
@@ -23206,7 +23204,7 @@ class MainView extends _reactDefault.default.Component {
                         },
                         __source: {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 179
+                            lineNumber: 180
                         },
                         __self: this
                     }),
@@ -23214,7 +23212,7 @@ class MainView extends _reactDefault.default.Component {
                         className: "justify-content-md-center",
                         __source: {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 191
+                            lineNumber: 192
                         },
                         __self: this,
                         children: [
@@ -23236,7 +23234,7 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 193
+                                    lineNumber: 194
                                 },
                                 __self: this
                             }),
@@ -23255,7 +23253,7 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 205
+                                    lineNumber: 206
                                 },
                                 __self: this
                             }),
@@ -23274,7 +23272,7 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 215
+                                    lineNumber: 216
                                 },
                                 __self: this
                             }),
@@ -23293,7 +23291,7 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 225
+                                    lineNumber: 226
                                 },
                                 __self: this
                             })
@@ -31133,7 +31131,10 @@ try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "RegistrationView", ()=>RegistrationView
-);
+) // RegistrationView.propTypes = {
+ //     onRegistered: PropTypes.func.isRequired
+ // };
+;
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
@@ -31193,7 +31194,7 @@ function RegistrationView(props) {
         return isRequired;
     };
     // Update the user state of MainView and make the movies list appear
-    const handleSubmit = (e)=>{
+    const handleRegistration = (e)=>{
         // Prevents submit button from causing page to refresh
         e.preventDefault();
         const isRequired = validate();
@@ -31206,7 +31207,7 @@ function RegistrationView(props) {
         }).then((response)=>{
             const data = response.data;
             console.log(data);
-            alert('Registration successful, returning you to login!');
+            window.open('/', '_self');
         }).catch((response)=>{
             console.error(response);
             alert('Unable to register');
@@ -31442,7 +31443,7 @@ function RegistrationView(props) {
             /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
                 variant: "primary",
                 type: "submit",
-                onClick: handleSubmit,
+                onClick: handleRegistration,
                 __source: {
                     fileName: "src/components/registration-view/registration-view.jsx",
                     lineNumber: 137
@@ -31455,9 +31456,6 @@ function RegistrationView(props) {
 }
 _s(RegistrationView, "bM5d4/OzYv/xmJ6byTxiHew9lJA=");
 _c = RegistrationView;
-RegistrationView.propTypes = {
-    onRegistered: _propTypesDefault.default.func.isRequired
-};
 var _c;
 $RefreshReg$(_c, "RegistrationView");
 
