@@ -4,6 +4,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 
+import { Link } from "react-router-dom";
+
 // testuser4567
 // testpassword4567
 export function LoginView(props) {
@@ -43,23 +45,31 @@ export function LoginView(props) {
 
     return (
 
-        <Form>
-            <Form.Group controlId="formUsername">
-                <Form.Label>Username: </Form.Label>
-                <Form.Control type="text" placeholder="enter username" onChange={event => setUsername(event.target.value)} />
-            </Form.Group>
+        <div>
+            Login:
 
-            <Form.Group controlId="formPassword">
-                <Form.Label>Password: </Form.Label>
-                <Form.Control type="text" placeholder="enter password" onChange={event => setPassword(event.target.value)} />
-            </Form.Group>
+            <Form>
+                <Form.Group controlId="formUsername">
+                    <Form.Label>Username: </Form.Label>
+                    <Form.Control type="text" placeholder="enter username" onChange={event => setUsername(event.target.value)} />
+                </Form.Group>
 
-            <Button variant="primary" type="submit" onClick={handleSubmit}>
-                Submit
-            </Button>
+                <Form.Group controlId="formPassword">
+                    <Form.Label>Password: </Form.Label>
+                    <Form.Control type="text" placeholder="enter password" onChange={event => setPassword(event.target.value)} />
+                </Form.Group>
 
-        </Form>
+                <Button variant="primary" type="submit" onClick={handleSubmit}>
+                    Submit
+                </Button>
 
+            </Form>
+            {/* <Link to="/register">
+                <Button variant="link">
+                    Register
+                </Button>
+            </Link> */}
+        </div>
 
     );
 }

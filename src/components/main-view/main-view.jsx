@@ -18,6 +18,7 @@ import './main-view.scss';
 import Button from 'react-bootstrap/Button';
 
 import { NavBar } from '../navbar-view/navbar-view';
+import { Link } from "react-router-dom";
 
 export class MainView extends React.Component {
 
@@ -119,57 +120,175 @@ export class MainView extends React.Component {
     }
 
     render() {
-        // const movies = this.state.movies;
+
         const { movies, selectedMovie, userLoggedIn, userRegistering, userFinishedRegistering } = this.state;
 
-        // Removed & !userFinishedRegistering
-        if (userRegistering) return (
-            <Row className="justify-content-md-center">
-                <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-                    <button type="submit" onClick={
-                        userRegistering => this.onRegistering(false)
-                    }>
-                        Back to login
-                    </button>
-                    <br />
-                    <br />
-                    Register:
-                    <br />
-                    {/* <RegistrationView onRegistered={userFinishedRegistering => this.onRegistered(userFinishedRegistering)} /> */}
-                    <RegistrationView />
-                </Col>
-            </Row>
-        )
+        return (
+            <Router>
 
-        /* If there is no user, the LoginView is rendered. 
-        If there is a user logged in, 
-        the user details are *passed as a prop to the LoginView*/
+                {/* Navigation Bar */}
+                <Route path="/" render={() => {
+                    if (userLoggedIn) {
+                        return (
+                            <Row>
+                                <Col md={12} style={{ padding: 0 }}>
+                                    <NavBar onLoggedOut={() => this.onLoggedOut()} />
+                                </Col>
+                            </Row>
+                        )
+                    }
+                }} />
 
-        if (!userLoggedIn) return (
-            <Row className="justify-content-md-center">
-                <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-                    Login:
-                    <br />
-                    <LoginView onLoggedIn={userLoggedIn => this.onLoggedIn(userLoggedIn)} />
-                    <br />
-                    <button type="submit" onClick={
-                        userRegistering => this.onRegistering(true)
-                    }>
-                        Register
-                    </button>
-                </Col>
-            </Row>
+                < Row className="justify-content-md-center" >
+
+                    {/* Registration */}
+                    <Route path="/register" render={() => {
+                        return (
+                            <Row className="justify-content-md-center">
+                                <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
+                                    {/* <button type="submit" onClick={
+                                        userRegistering => this.onRegistering(false)
+                                    }>
+                                        Back to login
+                                    </button> */}
+                                    <Link to="/">
+                                        Back to login
+                                    </Link>
+                                    <br />
+                                    Register:
+                                    <br />
+                                    {/* <RegistrationView onRegistered={userFinishedRegistering => this.onRegistered(userFinishedRegistering)} /> */}
+                                    <RegistrationView />
+                                </Col>
+                            </Row>
+                        )
+                    }} />
+
+                    {/* Login */}
+                    <Route exact path="/" render={() => {
+                        if (!userLoggedIn) return (
+                            <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
+                                <LoginView onLoggedIn={userLoggedIn => this.onLoggedIn(userLoggedIn)} />
+                                <br />
+                                <Link to="/register">
+                                    Register
+                                    {/* <Button variant="link" onClick={
+                                        userRegistering => this.onRegistering(true)
+                                    }>
+                                        
+                                    </Button> */}
+                                </Link>
+
+                            </Col>
+                        );
+                        // if (movies.length === 0) {
+                        //     return <div className="main-view" />;
+                        // }
+                    }
+                    } />
 
 
+                    {/* Movie List */}
+                    < Route exact path="/" render={() => {
+                        return (
+                            movies.map(movie => (
+                                <Col xs={12} sm={6} md={4} lg={3} xl={2} key={movie._id}>
+                                    <MovieCard
+                                        movieData={movie} />
+                                </Col>
+                            ))
+                        )
+                    }} />
+
+
+                    < Route path="/movies/:movieId" render={({ match, history }) => {
+                        return (
+                            <Col md={8}>
+                                <MovieView
+                                    movieObject={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()}
+                                />
+                            </Col>
+                        )
+                    }} />
+
+                    < Route path="/genres/:name" render={({ match, history }) => {
+                        return (
+                            <Col md={8}>
+                                <GenreView
+                                    genreObject={movies.find(m => m.Genre.Name == match.params.name).Genre} onBackClick={() => history.goBack()}
+                                />
+                            </Col>
+                        )
+                    }} />
+
+                    < Route path="/directors/:name" render={({ match, history }) => {
+                        return (
+                            <Col md={8}>
+                                <DirectorView
+                                    directorObject={movies.find(m => m.Director.Name === match.params.name).Director} onBackClick={() => history.goBack()}
+                                />
+                            </Col>
+                        )
+                    }} />
+
+                </Row >
+
+
+            </Router >
         );
 
-        if (movies.length === 0) {
-            return <div className="main-view" />;
-        } else {
-            return (
-                <Router>
-                    <div className={"gradientBackground"}>
-                        {/* <Row>
+    }
+}
+
+// npm install react-router-dom@5.2.0
+export default MainView;
+
+
+
+
+
+// Removed & !userFinishedRegistering
+// if (userRegistering) return (
+//     <Row className="justify-content-md-center">
+//         <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
+//             <button type="submit" onClick={
+//                 userRegistering => this.onRegistering(false)
+//             }>
+//                 Back to login
+//             </button>
+//             <br />
+//             <br />
+//             Register:
+//             <br />
+//             {/* <RegistrationView onRegistered={userFinishedRegistering => this.onRegistered(userFinishedRegistering)} /> */}
+//             <RegistrationView />
+//         </Col>
+//     </Row>
+// )
+
+/* If there is no user, the LoginView is rendered. 
+If there is a user logged in, 
+the user details are *passed as a prop to the LoginView*/
+
+// if (!userLoggedIn) return (
+//     <Row className="justify-content-md-center">
+//         <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
+//             Login:
+//             <br />
+//             <LoginView onLoggedIn={userLoggedIn => this.onLoggedIn(userLoggedIn)} />
+//             <br />
+//             <button type="submit" onClick={
+//                 userRegistering => this.onRegistering(true)
+//             }>
+//                 Register
+//             </button>
+//         </Col>
+//     </Row>
+// );
+
+
+
+{/* <Row>
                             <Col>
                                 <Button variant="primary" onClick={() => this.onLoggedOut()}>
                                     Logout
@@ -177,70 +296,8 @@ export class MainView extends React.Component {
                             </Col>
                         </Row> */}
 
-                        <Route path="/" render={() => {
-                            if (userLoggedIn) {
-                                return (
-                                    <Row>
-                                        <Col md={12} style={{ padding: 0 }}>
-                                            <NavBar onLoggedOut={() => this.onLoggedOut()} />
-                                        </Col>
-                                    </Row>
-                                )
-                            }
-                        }} />
-
-                        <Row className="justify-content-md-center">
-
-                            <Route exact path="/" render={() => {
-                                return (
-                                    movies.map(movie => (
-                                        <Col xs={12} sm={6} md={4} lg={3} xl={2} key={movie._id}>
-                                            <MovieCard
-                                                movieData={movie} />
-                                        </Col>
-                                    ))
-                                )
-                            }} />
-
-
-                            <Route exact path="/movies/:movieId" render={({ match, history }) => {
-                                return (
-                                    <Col md={8}>
-                                        <MovieView
-                                            movieObject={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()}
-                                        />
-                                    </Col>
-                                )
-                            }} />
-
-                            <Route exact path="/genres/:name" render={({ match, history }) => {
-                                return (
-                                    <Col md={8}>
-                                        <GenreView
-                                            genreObject={movies.find(m => m.Genre.Name == match.params.name).Genre} onBackClick={() => history.goBack()}
-                                        />
-                                    </Col>
-                                )
-                            }} />
-
-                            <Route exact path="/directors/:name" render={({ match, history }) => {
-                                return (
-                                    <Col md={8}>
-                                        <DirectorView
-                                            directorObject={movies.find(m => m.Director.Name === match.params.name).Director} onBackClick={() => history.goBack()}
-                                        />
-                                    </Col>
-                                )
-                            }} />
-
-                        </Row>
-
-                    </div>
-                </Router>
-            );
-        }
-    }
-}
-
-// npm install react-router-dom@5.2.0
-export default MainView;
+{/* <button type="submit" onClick={
+                                        userRegistering => this.onRegistering(true)
+                                    }>
+                                        Register
+                                    </button> */}
