@@ -8,6 +8,8 @@ import Col from 'react-bootstrap/Col';
 import './profile-view.scss';
 import axios from 'axios';
 
+import { MovieCard } from '../movie-card/movie-card';
+
 import { Link } from "react-router-dom";
 
 export class ProfileView extends React.Component {
@@ -117,8 +119,9 @@ export class ProfileView extends React.Component {
     }
 
     render() {
+        const { movies, onBackClick } = this.props;
+        const { Username, Email, Birthday, FavoriteMovies } = this.state;
 
-        const { Username, Email, Birthday } = this.state;
 
         return (
             <div>
@@ -137,6 +140,21 @@ export class ProfileView extends React.Component {
                             </Card.Body>
                         </Card>
                     </Col>
+                </Row>
+                <br />
+                <br />
+                <Row>
+
+                    {
+                        FavoriteMovies.length && FavoriteMovies.map((movie) => (
+                            <Col xs={12} sm={6} md={4} lg={3} xl={2} key={movie._id}>
+                                <MovieCard
+                                    movieData={movies.find((m) => m._id === movie)} />
+                                {/* ${movie} */}
+                            </Col>
+                        ))
+                    }
+
                 </Row>
                 <br /><br /><br /><br />
                 <Row>

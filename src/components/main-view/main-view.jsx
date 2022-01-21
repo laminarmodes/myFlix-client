@@ -246,7 +246,10 @@ export class MainView extends React.Component {
                         }
                         return (
                             <Col>
-                                <ProfileView movies={movies} onLoggedOut={() => this.onLoggedOut} onBackClick={() => history.goBack()} />
+                                <ProfileView
+                                    movies={movies}
+                                    onLoggedOut={() => this.onLoggedOut}
+                                    onBackClick={() => history.goBack()} />
                             </Col>
                         )
                     }} />
