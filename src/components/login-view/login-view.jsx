@@ -64,11 +64,9 @@ export function LoginView(props) {
                 </Button>
 
             </Form>
-            {/* <Link to="/register">
-                <Button variant="link">
-                    Register
-                </Button>
-            </Link> */}
+            <Link to="/register">
+                Register
+            </Link>
         </div>
 
     );

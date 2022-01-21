@@ -146,18 +146,10 @@ export class MainView extends React.Component {
                         return (
                             <Row className="justify-content-md-center">
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-                                    {/* <button type="submit" onClick={
-                                        userRegistering => this.onRegistering(false)
-                                    }>
-                                        Back to login
-                                    </button> */}
                                     <Link to="/">
                                         Back to login
                                     </Link>
                                     <br />
-                                    Register:
-                                    <br />
-                                    {/* <RegistrationView onRegistered={userFinishedRegistering => this.onRegistered(userFinishedRegistering)} /> */}
                                     <RegistrationView />
                                 </Col>
                             </Row>
@@ -169,21 +161,11 @@ export class MainView extends React.Component {
                         if (!userLoggedIn) return (
                             <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                                 <LoginView onLoggedIn={userLoggedIn => this.onLoggedIn(userLoggedIn)} />
-                                <br />
-                                <Link to="/register">
-                                    Register
-                                    {/* <Button variant="link" onClick={
-                                        userRegistering => this.onRegistering(true)
-                                    }>
-                                        
-                                    </Button> */}
-                                </Link>
-
                             </Col>
                         );
-                        // if (movies.length === 0) {
-                        //     return <div className="main-view" />;
-                        // }
+                        if (movies.length === 0) {
+                            return <div className="main-view" />;
+                        }
                     }
                     } />
 
@@ -202,6 +184,14 @@ export class MainView extends React.Component {
 
 
                     < Route path="/movies/:movieId" render={({ match, history }) => {
+                        if (!userLoggedIn) return (
+                            <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
+                                <LoginView onLoggedIn={userLoggedIn => this.onLoggedIn(userLoggedIn)} />
+                            </Col>
+                        );
+                        if (movies.length === 0) {
+                            return <div className="main-view" />;
+                        }
                         return (
                             <Col md={8}>
                                 <MovieView
@@ -212,6 +202,14 @@ export class MainView extends React.Component {
                     }} />
 
                     < Route path="/genres/:name" render={({ match, history }) => {
+                        if (!userLoggedIn) return (
+                            <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
+                                <LoginView onLoggedIn={userLoggedIn => this.onLoggedIn(userLoggedIn)} />
+                            </Col>
+                        );
+                        if (movies.length === 0) {
+                            return <div className="main-view" />;
+                        }
                         return (
                             <Col md={8}>
                                 <GenreView
@@ -222,6 +220,14 @@ export class MainView extends React.Component {
                     }} />
 
                     < Route path="/directors/:name" render={({ match, history }) => {
+                        if (!userLoggedIn) return (
+                            <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
+                                <LoginView onLoggedIn={userLoggedIn => this.onLoggedIn(userLoggedIn)} />
+                            </Col>
+                        );
+                        if (movies.length === 0) {
+                            return <div className="main-view" />;
+                        }
                         return (
                             <Col md={8}>
                                 <DirectorView
