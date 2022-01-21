@@ -9,7 +9,7 @@ export function RegistrationView(props) {
     // Set initial value of login variable
     // Hooks
     // useState() returns array of paired values that break down variables
-    const [registrationName, setRegistrationName] = useState('');
+    // const [registrationName, setRegistrationName] = useState('');
     const [registrationUsername, setRegistrationUsername] = useState('');
     const [registrationPassword, setRegistrationPassword] = useState('');
     const [confirmRegistrationPassword, setConfirmRegistrationPassword] = useState('');
@@ -97,15 +97,13 @@ export function RegistrationView(props) {
 
     return (
         <div>
-            Register
-
             <Form>
 
-                <Form.Group controlId="formName">
+                {/* <Form.Group controlId="formName">
                     <Form.Label>Name </Form.Label>
                     <Form.Control type="text" value={registrationName} placeholder="enter username" onChange={event => setRegistrationName(event.target.value)} />
                     {nameErr && <p>{nameErr}</p>}
-                </Form.Group>
+                </Form.Group> */}
 
                 <Form.Group controlId="formUsername">
                     <Form.Label>Username </Form.Label>
@@ -133,12 +131,13 @@ export function RegistrationView(props) {
 
                 <Form.Group controlId="formBirthday">
                     <Form.Label>Birthday</Form.Label>
-                    <Form.Control type="text" value={registrationBirthday} onChange={e => setRegistrationBirthday(e.target.value)} />
+                    <Form.Control type="date" value={registrationBirthday} onChange={e => setRegistrationBirthday(e.target.value)} />
                 </Form.Group>
 
                 <Button variant="primary" type="submit" onClick={handleRegistration}>
                     Register
                 </Button>
+
             </Form>
 
         </div>

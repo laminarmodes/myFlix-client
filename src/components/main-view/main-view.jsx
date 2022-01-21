@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
@@ -9,9 +9,7 @@ import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
-import interstellarImage from '../temp-images/interstellar.jpg';
-import inceptionImage from '../temp-images/inception.jpg';
-import arrivalImage from '../temp-images/arrival.jpeg';
+import { ProfileView } from '../profile-view/profile-view';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './main-view.scss';
@@ -19,6 +17,7 @@ import Button from 'react-bootstrap/Button';
 
 import { NavBar } from '../navbar-view/navbar-view';
 import { Link } from "react-router-dom";
+import { ProfileView } from '../profile-view/profile-view';
 
 export class MainView extends React.Component {
 
@@ -27,8 +26,7 @@ export class MainView extends React.Component {
         this.state = {
             movies: [],
             selectedMovie: null,
-            userLoggedIn: null,
-            userRegistering: null
+            userLoggedIn: null
         };
     }
 
@@ -59,18 +57,11 @@ export class MainView extends React.Component {
         });
     }
 
-    onRegistering(userRegistering) {
+    setUser(userLoggedIn) {
         this.setState({
-            userRegistering
+            userLoggedIn
         });
-
-    }
-
-    onRegistered(userFinishedRegistering, userRegistering) {
-        this.setState({
-            userFinishedRegistering,
-            userRegistering
-        });
+        //localStorage.setItem('user', JSON.stringify(userLoggedIn));
     }
 
     /* When a user successfully logs in, 
@@ -84,6 +75,7 @@ export class MainView extends React.Component {
         console.log(authData)
         this.setState({
             // The user's username is saved in the user state
+            // userLoggedIn: authData.user.Username
             userLoggedIn: authData.user.Username
         });
 
@@ -121,7 +113,7 @@ export class MainView extends React.Component {
 
     render() {
 
-        const { movies, selectedMovie, userLoggedIn, userRegistering, userFinishedRegistering } = this.state;
+        const { movies, selectedMovie, userLoggedIn } = this.state;
 
         return (
             <Router>
@@ -131,7 +123,7 @@ export class MainView extends React.Component {
                     if (userLoggedIn) {
                         return (
                             <Row>
-                                <Col md={12} style={{ padding: 0 }}>
+                                <Col style={{ padding: 0 }}>
                                     <NavBar onLoggedOut={() => this.onLoggedOut()} />
                                 </Col>
                             </Row>
@@ -143,6 +135,9 @@ export class MainView extends React.Component {
 
                     {/* Registration */}
                     <Route path="/register" render={() => {
+                        if (userLoggedIn) {
+                            return <Redirect to="/" />
+                        }
                         return (
                             <Row className="justify-content-md-center">
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
@@ -182,7 +177,7 @@ export class MainView extends React.Component {
                         )
                     }} />
 
-
+                    {/* Single Movie View */}
                     < Route path="/movies/:movieId" render={({ match, history }) => {
                         if (!userLoggedIn) return (
                             <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
@@ -201,6 +196,7 @@ export class MainView extends React.Component {
                         )
                     }} />
 
+                    {/* Genere View */}
                     < Route path="/genres/:name" render={({ match, history }) => {
                         if (!userLoggedIn) return (
                             <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
@@ -219,6 +215,7 @@ export class MainView extends React.Component {
                         )
                     }} />
 
+                    {/* Director View */}
                     < Route path="/directors/:name" render={({ match, history }) => {
                         if (!userLoggedIn) return (
                             <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
@@ -237,6 +234,23 @@ export class MainView extends React.Component {
                         )
                     }} />
 
+                    {/* Profile View */}
+                    <Route path="/profile" render={({ match, history }) => {
+                        if (!userLoggedIn) return (
+                            <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
+                                <LoginView onLoggedIn={userLoggedIn => this.onLoggedIn(userLoggedIn)} />
+                            </Col>
+                        );
+                        if (movies.length === 0) {
+                            return <div className="main-view" />;
+                        }
+                        return (
+                            <Col>
+                                <ProfileView movies={movies} onLoggedOut={() => this.onLoggedOut} onBackClick={() => history.goBack()} />
+                            </Col>
+                        )
+                    }} />
+
                 </Row >
 
 
@@ -248,62 +262,3 @@ export class MainView extends React.Component {
 
 // npm install react-router-dom@5.2.0
 export default MainView;
-
-
-
-
-
-// Removed & !userFinishedRegistering
-// if (userRegistering) return (
-//     <Row className="justify-content-md-center">
-//         <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-//             <button type="submit" onClick={
-//                 userRegistering => this.onRegistering(false)
-//             }>
-//                 Back to login
-//             </button>
-//             <br />
-//             <br />
-//             Register:
-//             <br />
-//             {/* <RegistrationView onRegistered={userFinishedRegistering => this.onRegistered(userFinishedRegistering)} /> */}
-//             <RegistrationView />
-//         </Col>
-//     </Row>
-// )
-
-/* If there is no user, the LoginView is rendered. 
-If there is a user logged in, 
-the user details are *passed as a prop to the LoginView*/
-
-// if (!userLoggedIn) return (
-//     <Row className="justify-content-md-center">
-//         <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-//             Login:
-//             <br />
-//             <LoginView onLoggedIn={userLoggedIn => this.onLoggedIn(userLoggedIn)} />
-//             <br />
-//             <button type="submit" onClick={
-//                 userRegistering => this.onRegistering(true)
-//             }>
-//                 Register
-//             </button>
-//         </Col>
-//     </Row>
-// );
-
-
-
-{/* <Row>
-                            <Col>
-                                <Button variant="primary" onClick={() => this.onLoggedOut()}>
-                                    Logout
-                                </Button>
-                            </Col>
-                        </Row> */}
-
-{/* <button type="submit" onClick={
-                                        userRegistering => this.onRegistering(true)
-                                    }>
-                                        Register
-                                    </button> */}
