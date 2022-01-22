@@ -87,11 +87,11 @@ export class MainView extends React.Component {
     }
 
     setUser(user) {
-        // this.setState({
-        //     user
-        // });
-        localStorage.setItem('user', user);
-        user.getUser()
+        this.setState({
+            userObject
+        });
+        localStorage.setItem('user', userObject.Username);
+
     }
 
     /* When a user successfully logs in, 
@@ -150,6 +150,8 @@ export class MainView extends React.Component {
         this.setState({ userObject: tempObj })
 
     }
+
+
 
     render() {
 

@@ -7,9 +7,6 @@ import axios from 'axios';
 export function RegistrationView(props) {
 
     // Set initial value of login variable
-    // Hooks
-    // useState() returns array of paired values that break down variables
-    // const [registrationName, setRegistrationName] = useState('');
     const [registrationUsername, setRegistrationUsername] = useState('');
     const [registrationPassword, setRegistrationPassword] = useState('');
     const [confirmRegistrationPassword, setConfirmRegistrationPassword] = useState('');
@@ -26,11 +23,6 @@ export function RegistrationView(props) {
     const validate = () => {
 
         let isRequired = true;
-
-        // if (!registrationName) {
-        //     setNameErr('Name is required')
-        //     isRequired = false;
-        // }
 
         if (!registrationUsername) {
             setUsernameErr('Username is required')
@@ -72,7 +64,6 @@ export function RegistrationView(props) {
 
         if (isRequired) {
             axios.post('https://myflixappcf.herokuapp.com/users', {
-
                 Username: registrationUsername,
                 Password: registrationPassword,
                 Email: registrationEmail,
@@ -88,22 +79,11 @@ export function RegistrationView(props) {
             });
         }
 
-        // // log the username and password to console
-        // console.log(registrationUsername, registrationPassword);
-
-        // // Allow user to be automatically registered in regardless of credntials
-        // props.onRegistered(registrationUsername);
     };
 
     return (
         <div>
             <Form>
-
-                {/* <Form.Group controlId="formName">
-                    <Form.Label>Name </Form.Label>
-                    <Form.Control type="text" value={registrationName} placeholder="enter username" onChange={event => setRegistrationName(event.target.value)} />
-                    {nameErr && <p>{nameErr}</p>}
-                </Form.Group> */}
 
                 <Form.Group controlId="formUsername">
                     <Form.Label>Username </Form.Label>
