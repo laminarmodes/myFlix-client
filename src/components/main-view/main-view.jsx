@@ -27,6 +27,7 @@ export class MainView extends React.Component {
             movies: [],
             selectedMovie: null,
             user: null,
+            userObject: {}
         };
     }
 
@@ -38,6 +39,7 @@ export class MainView extends React.Component {
         // Check if the user is logged in by checking localStorage
         // Get the value of the token from the localStorage
         let accessToken = localStorage.getItem('token');
+        let user = localStorage.getItem('user');
         if (accessToken !== null) {
             // If access key is present, user is logged in and can call getMovies method
             this.setState({
@@ -46,6 +48,7 @@ export class MainView extends React.Component {
             });
             // Make the get request only if the user is logged in
             this.getMovies(accessToken);
+            this.getUser(accessToken, user); ////// Yes
         }
 
     }
@@ -59,20 +62,21 @@ export class MainView extends React.Component {
         });
     }
 
-    getUser() {
-        const userName = localStorage.getItem("user");
-        const token = localStorage.getItem("token");
+    getUser(token, userName) {
+        //const userName = localStorage.getItem("user");
+        //const token = localStorage.getItem("token");
         axios
             .get(`https://myflixappcf.herokuapp.com/users/${userName}`, {
                 headers: { Authorization: `Bearer ${token}` },
             })
             .then((response) => {
                 this.setState({
-                    Username: response.data.Username,
-                    Password: response.data.Password,
-                    Email: response.data.Email,
-                    Birthday: response.data.Birthday,
-                    FavoriteMovies: response.data.FavoriteMovies
+                    // Username: response.data.Username,
+                    // Password: response.data.Password,
+                    // Email: response.data.Email,
+                    // Birthday: response.data.Birthday,
+                    // FavoriteMovies: response.data.FavoriteMovies
+                    userObject: response.data
                 });
                 console.log("got user")
             })
@@ -102,7 +106,8 @@ export class MainView extends React.Component {
         this.setState({
             // The user's username is saved in the user state
             // user: authData.user.Username
-            user: authData.user
+            user: authData.user.Username,
+            userObject: authData.user
         });
 
         // The token and user are saved in localStorage, as key and value
@@ -111,13 +116,15 @@ export class MainView extends React.Component {
         // Gets the movies from API once the user is logged in
         // Remember 'this' refers to the object itself (the MainView class)
         this.getMovies(authData.token);
+        this.getUser(accessToken, user);
     }
 
     onLoggedOut() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         this.setState({
-            user: null
+            user: null,
+            userObject: authData.user
         });
     }
 
@@ -139,7 +146,7 @@ export class MainView extends React.Component {
 
     render() {
 
-        const { movies, selectedMovie, user } = this.state;
+        const { movies, selectedMovie, user, userObject } = this.state;
 
         return (
             <Router>
@@ -274,7 +281,8 @@ export class MainView extends React.Component {
                             <Col>
                                 <ProfileView
                                     movies={movies}
-                                    user={user}
+                                    user={this.state.user}
+                                    userObject={userObject}
                                     setUser={user => this.setUser(user)}
                                     onLoggedOut={() => this.onLoggedOut}
                                     onBackClick={() => history.goBack()} />

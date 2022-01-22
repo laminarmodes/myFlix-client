@@ -22953,7 +22953,9 @@ class MainView extends _reactDefault.default.Component {
         this.state = {
             movies: [],
             selectedMovie: null,
-            user: null
+            user: null,
+            userObject: {
+            }
         };
     }
     // This is called every time the user loads the page
@@ -22962,6 +22964,7 @@ class MainView extends _reactDefault.default.Component {
         // Check if the user is logged in by checking localStorage
         // Get the value of the token from the localStorage
         let accessToken = localStorage.getItem('token');
+        let user = localStorage.getItem('user');
         if (accessToken !== null) {
             // If access key is present, user is logged in and can call getMovies method
             this.setState({
@@ -22970,6 +22973,7 @@ class MainView extends _reactDefault.default.Component {
             });
             // Make the get request only if the user is logged in
             this.getMovies(accessToken);
+            this.getUser(accessToken, user); ////// Yes
         }
     }
     /*When a movie is clicked, this function is 
@@ -22979,20 +22983,21 @@ class MainView extends _reactDefault.default.Component {
             selectedMovie: newSelectedMovie
         });
     }
-    getUser() {
-        const userName = localStorage.getItem("user");
-        const token = localStorage.getItem("token");
+    getUser(token, userName) {
+        //const userName = localStorage.getItem("user");
+        //const token = localStorage.getItem("token");
         _axiosDefault.default.get(`https://myflixappcf.herokuapp.com/users/${userName}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         }).then((response)=>{
             this.setState({
-                Username: response.data.Username,
-                Password: response.data.Password,
-                Email: response.data.Email,
-                Birthday: response.data.Birthday,
-                FavoriteMovies: response.data.FavoriteMovies
+                // Username: response.data.Username,
+                // Password: response.data.Password,
+                // Email: response.data.Email,
+                // Birthday: response.data.Birthday,
+                // FavoriteMovies: response.data.FavoriteMovies
+                userObject: response.data
             });
             console.log("got user");
         }).catch(function(error) {
@@ -23018,7 +23023,8 @@ class MainView extends _reactDefault.default.Component {
         this.setState({
             // The user's username is saved in the user state
             // user: authData.user.Username
-            user: authData.user
+            user: authData.user.Username,
+            userObject: authData.user
         });
         // The token and user are saved in localStorage, as key and value
         localStorage.setItem('token', authData.token);
@@ -23026,12 +23032,14 @@ class MainView extends _reactDefault.default.Component {
         // Gets the movies from API once the user is logged in
         // Remember 'this' refers to the object itself (the MainView class)
         this.getMovies(authData.token);
+        this.getUser(accessToken, user);
     }
     onLoggedOut() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         this.setState({
-            user: null
+            user: null,
+            userObject: authData.user
         });
     }
     getMovies(token) {
@@ -23052,11 +23060,11 @@ class MainView extends _reactDefault.default.Component {
         });
     }
     render() {
-        const { movies , selectedMovie , user  } = this.state;
+        const { movies , selectedMovie , user , userObject  } = this.state;
         return(/*#__PURE__*/ _jsxRuntime.jsxs(_reactRouterDom.BrowserRouter, {
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 145
+                lineNumber: 152
             },
             __self: this,
             children: [
@@ -23076,7 +23084,7 @@ class MainView extends _reactDefault.default.Component {
                     },
                     __source: {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 148
+                        lineNumber: 155
                     },
                     __self: this
                 }),
@@ -23084,7 +23092,7 @@ class MainView extends _reactDefault.default.Component {
                     className: "justify-content-md-center",
                     __source: {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 160
+                        lineNumber: 167
                     },
                     __self: this,
                     children: [
@@ -23118,7 +23126,7 @@ class MainView extends _reactDefault.default.Component {
                             },
                             __source: {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 163
+                                lineNumber: 170
                             },
                             __self: this
                         }),
@@ -23143,7 +23151,7 @@ class MainView extends _reactDefault.default.Component {
                             },
                             __source: {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 181
+                                lineNumber: 188
                             },
                             __self: this
                         }),
@@ -23165,7 +23173,7 @@ class MainView extends _reactDefault.default.Component {
                             },
                             __source: {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 195
+                                lineNumber: 202
                             },
                             __self: this
                         }),
@@ -23197,7 +23205,7 @@ class MainView extends _reactDefault.default.Component {
                             },
                             __source: {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 207
+                                lineNumber: 214
                             },
                             __self: this
                         }),
@@ -23229,7 +23237,7 @@ class MainView extends _reactDefault.default.Component {
                             },
                             __source: {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 226
+                                lineNumber: 233
                             },
                             __self: this
                         }),
@@ -23261,7 +23269,7 @@ class MainView extends _reactDefault.default.Component {
                             },
                             __source: {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 245
+                                lineNumber: 252
                             },
                             __self: this
                         }),
@@ -23285,7 +23293,8 @@ class MainView extends _reactDefault.default.Component {
                                 return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
                                     children: /*#__PURE__*/ _jsxRuntime.jsx(_profileView.ProfileView, {
                                         movies: movies,
-                                        user: user,
+                                        user: this.state.user,
+                                        userObject: userObject,
                                         setUser: (user1)=>this.setUser(user1)
                                         ,
                                         onLoggedOut: ()=>this.onLoggedOut
@@ -23296,7 +23305,7 @@ class MainView extends _reactDefault.default.Component {
                             },
                             __source: {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 264
+                                lineNumber: 271
                             },
                             __self: this
                         })
@@ -34178,8 +34187,24 @@ $parcel$ReactRefreshHelpers$58c6.prelude(module);
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+// export function ProfileView(movies, user, userObject, setUser, onLoggedOut, onBackClick) {
 parcelHelpers.export(exports, "ProfileView", ()=>ProfileView
-);
+) // // Enforce and validate data types based on apps configuration
+ // ProfileView.propTypes = {
+ //     // The movie prop may contain a title of type string
+ //     // shape({}) means it is an actual object
+ //     user: PropTypes.shape({
+ //         Username: PropTypes.string.isRequired,
+ //         Email: PropTypes.string.isRequired,
+ //         Password: PropTypes.string.isRequired,
+ //         Birthday: PropTypes.string,
+ //         FavoriteMovies: PropTypes.array
+ //     }).isRequired,
+ //     setUser: PropTypes.func.isRequired,
+ //     // The props object must contain onMovieclick and it must be a function
+ //     //onMovieClick: PropTypes.func.isRequired
+ // };
+;
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
@@ -34201,8 +34226,9 @@ var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _movieCard = require("../movie-card/movie-card");
 var _reactRouterDom = require("react-router-dom");
 var _s = $RefreshSig$();
-function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
+function ProfileView(props) {
     _s();
+    const { movies , user , userObject , setUser , onLoggedOut , onBackClick  } = props;
     //const { movies, user, setUser, onBackClick } = this.props;
     const [registrationUsername, setRegistrationUsername] = _react.useState('');
     const [registrationPassword, setRegistrationPassword] = _react.useState('');
@@ -34259,7 +34285,7 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
         }
         return isRequired;
     };
-    getUser = ()=>{
+    function getUser() {
         const userName = localStorage.getItem("user");
         const token = localStorage.getItem("token");
         _axiosDefault.default.get(`https://myflixappcf.herokuapp.com/users/${userName}`, {
@@ -34280,7 +34306,7 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
             console.log("error in getUser");
             console.log(error);
         });
-    };
+    }
     // setUsername(userName) {
     //     this.state.Username = userName;
     // }
@@ -34360,40 +34386,40 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
     return(/*#__PURE__*/ _jsxRuntime.jsxs("div", {
         __source: {
             fileName: "src/components/profile-view/profile-view.jsx",
-            lineNumber: 204
+            lineNumber: 208
         },
         __self: this,
         children: [
             /*#__PURE__*/ _jsxRuntime.jsx(_rowDefault.default, {
                 __source: {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 206
+                    lineNumber: 210
                 },
                 __self: this,
                 children: /*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
                     __source: {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 207
+                        lineNumber: 211
                     },
                     __self: this,
                     children: /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default, {
                         className: "profile-view",
                         __source: {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 208
+                            lineNumber: 212
                         },
                         __self: this,
                         children: /*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default.Body, {
                             __source: {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 209
+                                lineNumber: 213
                             },
                             __self: this,
                             children: [
                                 /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Title, {
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 210
+                                        lineNumber: 214
                                     },
                                     __self: this,
                                     children: "Profile Informaion"
@@ -34401,7 +34427,7 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
                                 /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Subtitle, {
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 211
+                                        lineNumber: 215
                                     },
                                     __self: this,
                                     children: "Username"
@@ -34409,15 +34435,15 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
                                 /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Text, {
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 212
+                                        lineNumber: 216
                                     },
                                     __self: this,
-                                    children: user.Username
+                                    children: userObject.Username
                                 }),
                                 /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Subtitle, {
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 213
+                                        lineNumber: 217
                                     },
                                     __self: this,
                                     children: "Email"
@@ -34425,15 +34451,15 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
                                 /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Text, {
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 214
+                                        lineNumber: 218
                                     },
                                     __self: this,
-                                    children: user.Email
+                                    children: userObject.Email
                                 }),
                                 /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Subtitle, {
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 215
+                                        lineNumber: 219
                                     },
                                     __self: this,
                                     children: "Birthday"
@@ -34441,10 +34467,10 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
                                 /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Text, {
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 216
+                                        lineNumber: 220
                                     },
                                     __self: this,
-                                    children: user.Birthday
+                                    children: userObject.Birthday
                                 })
                             ]
                         })
@@ -34454,62 +34480,99 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
             /*#__PURE__*/ _jsxRuntime.jsx("br", {
                 __source: {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 221
+                    lineNumber: 225
                 },
                 __self: this
             }),
             /*#__PURE__*/ _jsxRuntime.jsx("br", {
                 __source: {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 222
+                    lineNumber: 226
                 },
                 __self: this
             }),
             /*#__PURE__*/ _jsxRuntime.jsx(_rowDefault.default, {
                 __source: {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 223
+                    lineNumber: 227
+                },
+                __self: this,
+                children: userObject.FavoriteMovies.length && userObject.FavoriteMovies.map((movie)=>/*#__PURE__*/ _jsxRuntime.jsxs(_colDefault.default, {
+                        xs: 12,
+                        sm: 6,
+                        md: 4,
+                        lg: 6,
+                        xl: 6,
+                        xxl: 6,
+                        __source: {
+                            fileName: "src/components/profile-view/profile-view.jsx",
+                            lineNumber: 231
+                        },
+                        __self: this,
+                        children: [
+                            /*#__PURE__*/ _jsxRuntime.jsx(_movieCard.MovieCard, {
+                                movieData: movies.find((m)=>m._id === movie
+                                ),
+                                __source: {
+                                    fileName: "src/components/profile-view/profile-view.jsx",
+                                    lineNumber: 232
+                                },
+                                __self: this
+                            }),
+                            /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
+                                type: "danger",
+                                onClick: ()=>this.deleteFavorite(movies.find((m)=>m._id === movie
+                                    )._id)
+                                ,
+                                __source: {
+                                    fileName: "src/components/profile-view/profile-view.jsx",
+                                    lineNumber: 234
+                                },
+                                __self: this,
+                                children: "Delete"
+                            })
+                        ]
+                    }, movie._id)
+                )
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsx("br", {
+                __source: {
+                    fileName: "src/components/profile-view/profile-view.jsx",
+                    lineNumber: 241
                 },
                 __self: this
             }),
             /*#__PURE__*/ _jsxRuntime.jsx("br", {
                 __source: {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 237
+                    lineNumber: 241
                 },
                 __self: this
             }),
             /*#__PURE__*/ _jsxRuntime.jsx("br", {
                 __source: {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 237
+                    lineNumber: 241
                 },
                 __self: this
             }),
             /*#__PURE__*/ _jsxRuntime.jsx("br", {
                 __source: {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 237
-                },
-                __self: this
-            }),
-            /*#__PURE__*/ _jsxRuntime.jsx("br", {
-                __source: {
-                    fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 237
+                    lineNumber: 241
                 },
                 __self: this
             }),
             /*#__PURE__*/ _jsxRuntime.jsx(_rowDefault.default, {
                 __source: {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 238
+                    lineNumber: 242
                 },
                 __self: this,
                 children: /*#__PURE__*/ _jsxRuntime.jsxs(_colDefault.default, {
                     __source: {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 239
+                        lineNumber: 243
                     },
                     __self: this,
                     children: [
@@ -34517,7 +34580,7 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
                         /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default, {
                             __source: {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 241
+                                lineNumber: 245
                             },
                             __self: this,
                             children: [
@@ -34525,14 +34588,14 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
                                     controlId: "formUsername",
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 242
+                                        lineNumber: 246
                                     },
                                     __self: this,
                                     children: [
                                         /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                                             __source: {
                                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                                lineNumber: 243
+                                                lineNumber: 247
                                             },
                                             __self: this,
                                             children: "Username "
@@ -34543,7 +34606,7 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
                                             ,
                                             __source: {
                                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                                lineNumber: 244
+                                                lineNumber: 248
                                             },
                                             __self: this
                                         })
@@ -34553,14 +34616,14 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
                                     controlId: "formEmail",
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 248
+                                        lineNumber: 252
                                     },
                                     __self: this,
                                     children: [
                                         /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                                             __source: {
                                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                                lineNumber: 249
+                                                lineNumber: 253
                                             },
                                             __self: this,
                                             children: "Email"
@@ -34571,7 +34634,7 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
                                             ,
                                             __source: {
                                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                                lineNumber: 250
+                                                lineNumber: 254
                                             },
                                             __self: this
                                         })
@@ -34581,14 +34644,14 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
                                     controlId: "formBirthday",
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 254
+                                        lineNumber: 258
                                     },
                                     __self: this,
                                     children: [
                                         /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                                             __source: {
                                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                                lineNumber: 255
+                                                lineNumber: 259
                                             },
                                             __self: this,
                                             children: "Birthday"
@@ -34599,7 +34662,7 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
                                             ,
                                             __source: {
                                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                                lineNumber: 256
+                                                lineNumber: 260
                                             },
                                             __self: this
                                         })
@@ -34609,14 +34672,14 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
                                     controlId: "formPassword",
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 259
+                                        lineNumber: 263
                                     },
                                     __self: this,
                                     children: [
                                         /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                                             __source: {
                                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                                lineNumber: 260
+                                                lineNumber: 264
                                             },
                                             __self: this,
                                             children: "Password"
@@ -34627,7 +34690,7 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
                                             ,
                                             __source: {
                                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                                lineNumber: 261
+                                                lineNumber: 265
                                             },
                                             __self: this
                                         })
@@ -34637,14 +34700,14 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
                                     controlId: "formPassword",
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 265
+                                        lineNumber: 269
                                     },
                                     __self: this,
                                     children: [
                                         /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                                             __source: {
                                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                                lineNumber: 266
+                                                lineNumber: 270
                                             },
                                             __self: this,
                                             children: "Confirm Password"
@@ -34655,7 +34718,7 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
                                             ,
                                             __source: {
                                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                                lineNumber: 267
+                                                lineNumber: 271
                                             },
                                             __self: this
                                         })
@@ -34667,7 +34730,7 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
                                     onClick: this.handleUpdate,
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 271
+                                        lineNumber: 275
                                     },
                                     __self: this,
                                     children: "Update"
@@ -34675,21 +34738,21 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
                                 /*#__PURE__*/ _jsxRuntime.jsx("br", {
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 274
+                                        lineNumber: 278
                                     },
                                     __self: this
                                 }),
                                 /*#__PURE__*/ _jsxRuntime.jsx("br", {
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 275
+                                        lineNumber: 279
                                     },
                                     __self: this
                                 }),
                                 /*#__PURE__*/ _jsxRuntime.jsx("br", {
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 276
+                                        lineNumber: 280
                                     },
                                     __self: this
                                 }),
@@ -34699,7 +34762,7 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
                                     ,
                                     __source: {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 277
+                                        lineNumber: 281
                                     },
                                     __self: this,
                                     children: "Delete my account"
@@ -34715,19 +34778,6 @@ function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
 }
 _s(ProfileView, "NPRfMmhGKJrS6f6hT2TIUhQARgQ=");
 _c = ProfileView;
-// Enforce and validate data types based on apps configuration
-ProfileView.propTypes = {
-    // The movie prop may contain a title of type string
-    // shape({}) means it is an actual object
-    user: _propTypesDefault.default.shape({
-        Username: _propTypesDefault.default.string.isRequired,
-        Email: _propTypesDefault.default.string.isRequired,
-        Password: _propTypesDefault.default.string.isRequired,
-        Birthday: _propTypesDefault.default.string,
-        FavoriteMovies: _propTypesDefault.default.array
-    }).isRequired,
-    setUser: _propTypesDefault.default.func.isRequired
-};
 var _c;
 $RefreshReg$(_c, "ProfileView");
 

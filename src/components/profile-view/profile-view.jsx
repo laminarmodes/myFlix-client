@@ -12,7 +12,11 @@ import { MovieCard } from '../movie-card/movie-card';
 
 import { Link } from "react-router-dom";
 
-export function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
+// export function ProfileView(movies, user, userObject, setUser, onLoggedOut, onBackClick) {
+
+export function ProfileView(props) {
+
+    const { movies, user, userObject, setUser, onLoggedOut, onBackClick } = props;
 
     //const { movies, user, setUser, onBackClick } = this.props;
 
@@ -86,7 +90,7 @@ export function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
         return isRequired;
     }
 
-    getUser = () => {
+    function getUser() {
         const userName = localStorage.getItem("user");
         const token = localStorage.getItem("token");
         axios
@@ -209,11 +213,11 @@ export function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
                         <Card.Body>
                             <Card.Title>Profile Informaion</Card.Title>
                             <Card.Subtitle>Username</Card.Subtitle>
-                            <Card.Text>{user.Username}</Card.Text>
+                            <Card.Text>{userObject.Username}</Card.Text>
                             <Card.Subtitle>Email</Card.Subtitle>
-                            <Card.Text>{user.Email}</Card.Text>
+                            <Card.Text>{userObject.Email}</Card.Text>
                             <Card.Subtitle>Birthday</Card.Subtitle>
-                            <Card.Text>{user.Birthday}</Card.Text>
+                            <Card.Text>{userObject.Birthday}</Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -223,13 +227,13 @@ export function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
             <Row>
 
                 {
-                    // user.FavoriteMovies.length && user.FavoriteMovies.map((movie) => (
-                    //     <Col xs={12} sm={6} md={4} lg={6} xl={6} xxl={6} key={movie._id}>
-                    //         <MovieCard
-                    //             movieData={movies.find((m) => m._id === movie)} />
-                    //         <Button type="danger" onClick={() => this.deleteFavorite((movies.find((m) => m._id === movie))._id)}>Delete</Button>
-                    //     </Col>
-                    // ))
+                    userObject.FavoriteMovies.length && userObject.FavoriteMovies.map((movie) => (
+                        <Col xs={12} sm={6} md={4} lg={6} xl={6} xxl={6} key={movie._id}>
+                            <MovieCard
+                                movieData={movies.find((m) => m._id === movie)} />
+                            <Button type="danger" onClick={() => this.deleteFavorite((movies.find((m) => m._id === movie))._id)}>Delete</Button>
+                        </Col>
+                    ))
 
                 }
 
@@ -288,18 +292,18 @@ export function ProfileView(movies, user, setUser, onLoggedOut, onBackClick) {
 
 }
 
-// Enforce and validate data types based on apps configuration
-ProfileView.propTypes = {
-    // The movie prop may contain a title of type string
-    // shape({}) means it is an actual object
-    user: PropTypes.shape({
-        Username: PropTypes.string.isRequired,
-        Email: PropTypes.string.isRequired,
-        Password: PropTypes.string.isRequired,
-        Birthday: PropTypes.string,
-        FavoriteMovies: PropTypes.array
-    }).isRequired,
-    setUser: PropTypes.func.isRequired,
-    // The props object must contain onMovieclick and it must be a function
-    //onMovieClick: PropTypes.func.isRequired
-};
+// // Enforce and validate data types based on apps configuration
+// ProfileView.propTypes = {
+//     // The movie prop may contain a title of type string
+//     // shape({}) means it is an actual object
+//     user: PropTypes.shape({
+//         Username: PropTypes.string.isRequired,
+//         Email: PropTypes.string.isRequired,
+//         Password: PropTypes.string.isRequired,
+//         Birthday: PropTypes.string,
+//         FavoriteMovies: PropTypes.array
+//     }).isRequired,
+//     setUser: PropTypes.func.isRequired,
+//     // The props object must contain onMovieclick and it must be a function
+//     //onMovieClick: PropTypes.func.isRequired
+// };
