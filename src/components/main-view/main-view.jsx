@@ -26,7 +26,7 @@ export class MainView extends React.Component {
         this.state = {
             movies: [],
             selectedMovie: null,
-            userLoggedIn: null
+            user: null,
         };
     }
 
@@ -41,11 +41,13 @@ export class MainView extends React.Component {
         if (accessToken !== null) {
             // If access key is present, user is logged in and can call getMovies method
             this.setState({
-                userLoggedIn: localStorage.getItem('user')
+                // user: localStorage.getItem('user')
+                user: localStorage.getItem('user')
             });
             // Make the get request only if the user is logged in
             this.getMovies(accessToken);
         }
+
     }
 
     /*When a movie is clicked, this function is 
@@ -57,11 +59,35 @@ export class MainView extends React.Component {
         });
     }
 
-    setUser(userLoggedIn) {
-        this.setState({
-            userLoggedIn
-        });
-        //localStorage.setItem('user', JSON.stringify(userLoggedIn));
+    getUser() {
+        const userName = localStorage.getItem("user");
+        const token = localStorage.getItem("token");
+        axios
+            .get(`https://myflixappcf.herokuapp.com/users/${userName}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((response) => {
+                this.setState({
+                    Username: response.data.Username,
+                    Password: response.data.Password,
+                    Email: response.data.Email,
+                    Birthday: response.data.Birthday,
+                    FavoriteMovies: response.data.FavoriteMovies
+                });
+                console.log("got user")
+            })
+            .catch(function (error) {
+                console.log("error in getUser");
+                console.log(error);
+            });
+    }
+
+    setUser(user) {
+        // this.setState({
+        //     user
+        // });
+        localStorage.setItem('user', user);
+        user.getUser()
     }
 
     /* When a user successfully logs in, 
@@ -75,8 +101,8 @@ export class MainView extends React.Component {
         console.log(authData)
         this.setState({
             // The user's username is saved in the user state
-            // userLoggedIn: authData.user.Username
-            userLoggedIn: authData.user.Username
+            // user: authData.user.Username
+            user: authData.user
         });
 
         // The token and user are saved in localStorage, as key and value
@@ -91,7 +117,7 @@ export class MainView extends React.Component {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         this.setState({
-            userLoggedIn: null
+            user: null
         });
     }
 
@@ -113,14 +139,14 @@ export class MainView extends React.Component {
 
     render() {
 
-        const { movies, selectedMovie, userLoggedIn } = this.state;
+        const { movies, selectedMovie, user } = this.state;
 
         return (
             <Router>
 
                 {/* Navigation Bar */}
                 <Route path="/" render={() => {
-                    if (userLoggedIn) {
+                    if (user) {
                         return (
                             <Row>
                                 <Col style={{ padding: 0 }}>
@@ -135,7 +161,7 @@ export class MainView extends React.Component {
 
                     {/* Registration */}
                     <Route path="/register" render={() => {
-                        if (userLoggedIn) {
+                        if (user) {
                             return <Redirect to="/" />
                         }
                         return (
@@ -153,9 +179,9 @@ export class MainView extends React.Component {
 
                     {/* Login */}
                     <Route exact path="/" render={() => {
-                        if (!userLoggedIn) return (
+                        if (!user) return (
                             <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-                                <LoginView onLoggedIn={userLoggedIn => this.onLoggedIn(userLoggedIn)} />
+                                <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                             </Col>
                         );
                         if (movies.length === 0) {
@@ -179,9 +205,9 @@ export class MainView extends React.Component {
 
                     {/* Single Movie View */}
                     < Route path="/movies/:movieId" render={({ match, history }) => {
-                        if (!userLoggedIn) return (
+                        if (!user) return (
                             <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-                                <LoginView onLoggedIn={userLoggedIn => this.onLoggedIn(userLoggedIn)} />
+                                <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                             </Col>
                         );
                         if (movies.length === 0) {
@@ -198,9 +224,9 @@ export class MainView extends React.Component {
 
                     {/* Genere View */}
                     < Route path="/genres/:name" render={({ match, history }) => {
-                        if (!userLoggedIn) return (
+                        if (!user) return (
                             <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-                                <LoginView onLoggedIn={userLoggedIn => this.onLoggedIn(userLoggedIn)} />
+                                <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                             </Col>
                         );
                         if (movies.length === 0) {
@@ -217,9 +243,9 @@ export class MainView extends React.Component {
 
                     {/* Director View */}
                     < Route path="/directors/:name" render={({ match, history }) => {
-                        if (!userLoggedIn) return (
+                        if (!user) return (
                             <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-                                <LoginView onLoggedIn={userLoggedIn => this.onLoggedIn(userLoggedIn)} />
+                                <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                             </Col>
                         );
                         if (movies.length === 0) {
@@ -236,9 +262,9 @@ export class MainView extends React.Component {
 
                     {/* Profile View */}
                     <Route path="/profile" render={({ match, history }) => {
-                        if (!userLoggedIn) return (
+                        if (!user) return (
                             <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-                                <LoginView onLoggedIn={userLoggedIn => this.onLoggedIn(userLoggedIn)} />
+                                <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                             </Col>
                         );
                         if (movies.length === 0) {
@@ -248,6 +274,8 @@ export class MainView extends React.Component {
                             <Col>
                                 <ProfileView
                                     movies={movies}
+                                    user={user}
+                                    setUser={user => this.setUser(user)}
                                     onLoggedOut={() => this.onLoggedOut}
                                     onBackClick={() => history.goBack()} />
                             </Col>
