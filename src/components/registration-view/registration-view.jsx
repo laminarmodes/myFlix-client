@@ -27,10 +27,10 @@ export function RegistrationView(props) {
 
         let isRequired = true;
 
-        if (!registrationName) {
-            setNameErr('Name is required')
-            isRequired = false;
-        }
+        // if (!registrationName) {
+        //     setNameErr('Name is required')
+        //     isRequired = false;
+        // }
 
         if (!registrationUsername) {
             setUsernameErr('Username is required')
@@ -72,7 +72,7 @@ export function RegistrationView(props) {
 
         if (isRequired) {
             axios.post('https://myflixappcf.herokuapp.com/users', {
-                Name: registrationName,
+
                 Username: registrationUsername,
                 Password: registrationPassword,
                 Email: registrationEmail,

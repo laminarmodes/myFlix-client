@@ -144,6 +144,13 @@ export class MainView extends React.Component {
         });
     }
 
+    onFavoriteDelete = (id) => {
+        let tempObj = { ... this.state.userObject }
+        tempObj.FavoriteMovies = tempObj.FavoriteMovies.filter(movie => movie !== id)
+        this.setState({ userObject: tempObj })
+
+    }
+
     render() {
 
         const { movies, selectedMovie, user, userObject } = this.state;
@@ -285,7 +292,8 @@ export class MainView extends React.Component {
                                     userObject={userObject}
                                     setUser={user => this.setUser(user)}
                                     onLoggedOut={() => this.onLoggedOut}
-                                    onBackClick={() => history.goBack()} />
+                                    onBackClick={() => history.goBack()}
+                                />
                             </Col>
                         )
                     }} />
