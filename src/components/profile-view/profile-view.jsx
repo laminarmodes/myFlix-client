@@ -101,6 +101,23 @@ export class ProfileView extends React.Component {
             });
     };
 
+    deleteFavorite(movieId) {
+        const userName = localStorage.getItem("user");
+        const token = localStorage.getItem("token");
+
+        axios.delete(`https://myflixappcf.herokuapp.com/users/${userName}/movies/${movieId}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        }).then((response) => {
+            console.log(response);
+            // getUser???
+            this.componentDidMount();
+            alert("Movie has been deleted")
+
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+
     deleteUser() {
         const userName = localStorage.getItem('user');
         const token = localStorage.getItem('token');
@@ -147,10 +164,10 @@ export class ProfileView extends React.Component {
 
                     {
                         FavoriteMovies.length && FavoriteMovies.map((movie) => (
-                            <Col xs={12} sm={6} md={4} lg={3} xl={2} key={movie._id}>
+                            <Col xs={12} sm={6} md={4} lg={6} xl={6} xxl={6} key={movie._id}>
                                 <MovieCard
                                     movieData={movies.find((m) => m._id === movie)} />
-                                {/* ${movie} */}
+                                <Button type="danger" onClick={() => this.deleteFavorite((movies.find((m) => m._id === movie))._id)}>Delete</Button>
                             </Col>
                         ))
                     }
