@@ -29,6 +29,8 @@ export function ProfileView(props) {
     const [emailErr, setEmailErr] = useState('');
     const [birthdayErr, setBirthdayErr] = useState('');
 
+    const [favorites, setFavorites] = useState(userObject.FavoriteMovies);
+
     const validate = () => {
 
         let isRequired = true;
@@ -95,6 +97,7 @@ export function ProfileView(props) {
                     The component should rerender when there is a change in state
                     The state change right here, so it should rerender the view of user info? */
                     setUser(response.data);
+                    //userObject.setState(response.data);
                     localStorage.setItem('user', data.Username);
                     alert(`Profile is updated with ${this.state.Username}, ${data}`);
                 }).catch(function (error) {
@@ -116,7 +119,8 @@ export function ProfileView(props) {
             console.log(response);
             alert("Movie has been deleted")
             onFavoriteDelete(movieId);
-
+            // Using this to change the state of "favorites"
+            setFavorites(userObject.FavoriteMovies);
         }).catch(function (error) {
             console.log(error);
         });
@@ -161,15 +165,26 @@ export function ProfileView(props) {
             <br />
             <Row>
 
+                {/* Using the userObject prop */}
                 {
-                    userObject.FavoriteMovies.length && userObject.FavoriteMovies.map((movie) => (
+                    // userObject.FavoriteMovies.length && userObject.FavoriteMovies.map((movie) => (
+                    //     <Col xs={12} sm={6} md={4} lg={6} xl={6} xxl={6} key={movie._id}>
+                    //         <MovieCard
+                    //             movieData={movies.find((m) => m._id === movie)} key={movie} />
+                    //         <Button type="danger" onClick={(e) => deleteFavorite((movies.find((m) => m._id === movie))._id)}>Delete</Button>
+                    //     </Col>
+                    // ))
+                }
+
+                {/* Using the state variable "favorites" */}
+                {
+                    favorites.length && favorites.map((movie) => (
                         <Col xs={12} sm={6} md={4} lg={6} xl={6} xxl={6} key={movie._id}>
                             <MovieCard
                                 movieData={movies.find((m) => m._id === movie)} key={movie} />
                             <Button type="danger" onClick={(e) => deleteFavorite((movies.find((m) => m._id === movie))._id)}>Delete</Button>
                         </Col>
                     ))
-
                 }
 
             </Row>
@@ -223,8 +238,6 @@ export function ProfileView(props) {
 
         </div >
     );
-    //}
-
 
 }
 
@@ -232,7 +245,7 @@ export function ProfileView(props) {
 // ProfileView.propTypes = {
 //     // The movie prop may contain a title of type string
 //     // shape({}) means it is an actual object
-//     user: PropTypes.shape({
+//     userObject: PropTypes.shape({
 //         Username: PropTypes.string.isRequired,
 //         Email: PropTypes.string.isRequired,
 //         Password: PropTypes.string.isRequired,
