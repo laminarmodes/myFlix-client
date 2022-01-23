@@ -71,11 +71,6 @@ export class MainView extends React.Component {
             })
             .then((response) => {
                 this.setState({
-                    // Username: response.data.Username,
-                    // Password: response.data.Password,
-                    // Email: response.data.Email,
-                    // Birthday: response.data.Birthday,
-                    // FavoriteMovies: response.data.FavoriteMovies
                     userObject: response.data
                 });
                 console.log("got user")
@@ -143,15 +138,6 @@ export class MainView extends React.Component {
             console.log(error);
         });
     }
-
-    onFavoriteDelete = (id) => {
-        let tempObj = { ... this.state.userObject }
-        tempObj.FavoriteMovies = tempObj.FavoriteMovies.filter(movie => movie !== id)
-        this.setState({ userObject: tempObj })
-
-    }
-
-
 
     render() {
 
@@ -290,9 +276,7 @@ export class MainView extends React.Component {
                             <Col>
                                 <ProfileView
                                     movies={movies}
-                                    user={this.state.user}
                                     userObject={userObject}
-                                    setUser={user => this.setUser(user)}
                                     onLoggedOut={() => this.onLoggedOut}
                                     onBackClick={() => history.goBack()}
                                 />

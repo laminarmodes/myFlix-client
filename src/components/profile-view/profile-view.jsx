@@ -10,11 +10,9 @@ import axios from 'axios';
 
 import { MovieCard } from '../movie-card/movie-card';
 
-import { Link } from "react-router-dom";
-
 export function ProfileView(props) {
 
-    const { movies, user, userObject, setUser, onLoggedOut, onBackClick } = props;
+    const { movies, userObject, onLoggedOut, onBackClick } = props;
 
     const [registrationUsername, setRegistrationUsername] = useState('');
     const [registrationPassword, setRegistrationPassword] = useState('');
@@ -23,13 +21,15 @@ export function ProfileView(props) {
     const [registrationBirthday, setRegistrationBirthday] = useState('');
 
     // Form validation
-    const [nameErr, setNameErr] = useState('');
     const [usernameErr, setUsernameErr] = useState('');
     const [passwordErr, setPasswordErr] = useState('');
     const [emailErr, setEmailErr] = useState('');
     const [birthdayErr, setBirthdayErr] = useState('');
 
+    // User information
     const [favorites, setFavorites] = useState(userObject.FavoriteMovies);
+    const [user, setUser] = useState(userObject);
+
 
     const validate = () => {
 
@@ -93,13 +93,13 @@ export function ProfileView(props) {
 
                     const data = response.data;
                     console.log(data);
-                    /* Question
-                    The component should rerender when there is a change in state
-                    The state change right here, so it should rerender the view of user info? */
-                    setUser(response.data);
-                    //userObject.setState(response.data);
+
+
+                    setUser(response.data); // Did this delete me as a user?
+
+
                     localStorage.setItem('user', data.Username);
-                    alert(`Profile is updated with ${this.state.Username}, ${data}`);
+                    //alert(`Profile is updated with ${response.data.Username}, ${data}`);
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -117,10 +117,8 @@ export function ProfileView(props) {
             headers: { Authorization: `Bearer ${token}` }
         }).then((response) => {
             console.log(response);
+            setFavorites(response.data.FavoriteMovies);
             alert("Movie has been deleted")
-            onFavoriteDelete(movieId);
-            // Using this to change the state of "favorites"
-            setFavorites(userObject.FavoriteMovies);
         }).catch(function (error) {
             console.log(error);
         });
@@ -133,11 +131,11 @@ export function ProfileView(props) {
         axios.delete(`https://myflixappcf.herokuapp.com/users/${userName}`, {
             headers: { Authorization: `Bearer ${token}` },
         }).then((response) => {
-            alert("User deleted");
-            console.log(reponse);
+            console.log(response);
             localStorage.removeItem("user");
             localStorage.removeItem("token");
             window.open(`/`, "_self");
+            alert("User deleted");
         }).catch(function (error) {
             console.log(error);
         });
@@ -152,11 +150,11 @@ export function ProfileView(props) {
                         <Card.Body>
                             <Card.Title>Profile Informaion</Card.Title>
                             <Card.Subtitle>Username</Card.Subtitle>
-                            <Card.Text>{userObject.Username}</Card.Text>
+                            <Card.Text>{user.Username}</Card.Text>
                             <Card.Subtitle>Email</Card.Subtitle>
-                            <Card.Text>{userObject.Email}</Card.Text>
+                            <Card.Text>{user.Email}</Card.Text>
                             <Card.Subtitle>Birthday</Card.Subtitle>
-                            <Card.Text>{userObject.Birthday}</Card.Text>
+                            <Card.Text>{user.Birthday}</Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -164,19 +162,6 @@ export function ProfileView(props) {
             <br />
             <br />
             <Row>
-
-                {/* Using the userObject prop */}
-                {
-                    // userObject.FavoriteMovies.length && userObject.FavoriteMovies.map((movie) => (
-                    //     <Col xs={12} sm={6} md={4} lg={6} xl={6} xxl={6} key={movie._id}>
-                    //         <MovieCard
-                    //             movieData={movies.find((m) => m._id === movie)} key={movie} />
-                    //         <Button type="danger" onClick={(e) => deleteFavorite((movies.find((m) => m._id === movie))._id)}>Delete</Button>
-                    //     </Col>
-                    // ))
-                }
-
-                {/* Using the state variable "favorites" */}
                 {
                     favorites.length && favorites.map((movie) => (
                         <Col xs={12} sm={6} md={4} lg={6} xl={6} xxl={6} key={movie._id}>
@@ -186,7 +171,6 @@ export function ProfileView(props) {
                         </Col>
                     ))
                 }
-
             </Row>
             <br /><br /><br /><br />
             <Row>
@@ -229,7 +213,7 @@ export function ProfileView(props) {
                         <br />
                         <br />
                         <br />
-                        <Button variant="danger" onClick={() => this.deleteUser()}>
+                        <Button variant="danger" onClick={(e) => deleteUser()}>
                             Delete my account
                         </Button>
                     </Form>
@@ -241,18 +225,15 @@ export function ProfileView(props) {
 
 }
 
-// // Enforce and validate data types based on apps configuration
-// ProfileView.propTypes = {
-//     // The movie prop may contain a title of type string
-//     // shape({}) means it is an actual object
-//     userObject: PropTypes.shape({
-//         Username: PropTypes.string.isRequired,
-//         Email: PropTypes.string.isRequired,
-//         Password: PropTypes.string.isRequired,
-//         Birthday: PropTypes.string,
-//         FavoriteMovies: PropTypes.array
-//     }).isRequired,
-//     setUser: PropTypes.func.isRequired,
-//     // The props object must contain onMovieclick and it must be a function
-//     //onMovieClick: PropTypes.func.isRequired
-// };
+// Enforce and validate data types based on apps configuration
+ProfileView.propTypes = {
+    // The movie prop may contain a title of type string
+    // shape({}) means it is an actual object
+    userObject: PropTypes.shape({
+        Username: PropTypes.string.isRequired,
+        Email: PropTypes.string.isRequired,
+        Password: PropTypes.string.isRequired,
+        Birthday: PropTypes.string,
+        FavoriteMovies: PropTypes.array
+    }).isRequired
+};
