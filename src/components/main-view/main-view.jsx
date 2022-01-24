@@ -146,15 +146,11 @@ export class MainView extends React.Component {
         return (
             <Router>
 
-                {/* Navigation Bar */}
+                {/* Navigation Bar - Shows on any page as long as the user is logged in */}
                 <Route path="/" render={() => {
                     if (user) {
                         return (
-                            <Row>
-                                <Col style={{ padding: 0 }}>
-                                    <NavBar onLoggedOut={() => this.onLoggedOut()} />
-                                </Col>
-                            </Row>
+                            <NavBar onLoggedOut={() => this.onLoggedOut()} />
                         )
                     }
                 }} />
@@ -194,7 +190,7 @@ export class MainView extends React.Component {
 
 
                     {/* Movie List */}
-                    < Route exact path="/" render={() => {
+                    <Route exact path="/" render={() => {
                         return (
                             movies.map(movie => (
                                 <Col xs={12} sm={6} md={4} lg={3} xl={2} key={movie._id}>

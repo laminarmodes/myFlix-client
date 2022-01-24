@@ -15,11 +15,12 @@ class MyFlixApplication extends React.Component {
     render() {
         return (
             <Container>
-                <Row sm={12} md={12} lg={12}>
+                {/* <Row sm={12} md={12} lg={12}>
                     <Col>
-                        <MainView />
+                        
                     </Col>
-                </Row>
+                </Row> */}
+                <MainView />
             </Container>
         );
     }
