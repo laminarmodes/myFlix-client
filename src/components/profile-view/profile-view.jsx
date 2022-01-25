@@ -12,7 +12,7 @@ import { MovieCard } from '../movie-card/movie-card';
 
 export function ProfileView(props) {
 
-    const { movies, userObject, onLoggedOut, onBackClick } = props;
+    const { movies, user, userObject, setUser, onLoggedOut, onBackClick } = props;
 
     const [registrationUsername, setRegistrationUsername] = useState('');
     const [registrationPassword, setRegistrationPassword] = useState('');
@@ -28,7 +28,7 @@ export function ProfileView(props) {
 
     // User information
     const [favorites, setFavorites] = useState(userObject.FavoriteMovies);
-    const [user, setUser] = useState(userObject);
+    //const [user, setUser] = useState(userObject);
 
 
     const validate = () => {
@@ -117,7 +117,8 @@ export function ProfileView(props) {
             headers: { Authorization: `Bearer ${token}` }
         }).then((response) => {
             console.log(response);
-            setFavorites(response.data.FavoriteMovies);
+            // setFavorites(response.data.FavoriteMovies);
+            setUser(response.data);
             alert("Movie has been deleted")
         }).catch(function (error) {
             console.log(error);
@@ -148,13 +149,20 @@ export function ProfileView(props) {
                 <Col>
                     <Card className="profile-view">
                         <Card.Body>
-                            <Card.Title>Profile Informaion</Card.Title>
+                            {/* <Card.Title>Profile Informaion</Card.Title>
                             <Card.Subtitle>Username</Card.Subtitle>
                             <Card.Text>{user.Username}</Card.Text>
                             <Card.Subtitle>Email</Card.Subtitle>
                             <Card.Text>{user.Email}</Card.Text>
                             <Card.Subtitle>Birthday</Card.Subtitle>
-                            <Card.Text>{user.Birthday}</Card.Text>
+                            <Card.Text>{user.Birthday}</Card.Text> */}
+                            <Card.Title>Profile Informaion</Card.Title>
+                            <Card.Subtitle>Username</Card.Subtitle>
+                            <Card.Text>{userObject.Username}</Card.Text>
+                            <Card.Subtitle>Email</Card.Subtitle>
+                            <Card.Text>{userObject.Email}</Card.Text>
+                            <Card.Subtitle>Birthday</Card.Subtitle>
+                            <Card.Text>{userObject.Birthday}</Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -162,7 +170,18 @@ export function ProfileView(props) {
             <br />
             <br />
             <Row>
+
                 {
+                    userObject.FavoriteMovies.length ? userObject.FavoriteMovies.map((movie) => (
+                        <Col xs={12} sm={6} md={4} lg={6} xl={6} xxl={6} key={movie._id}>
+                            <MovieCard
+                                movieData={movies.find((m) => m._id === movie)} key={movie} />
+                            <Button type="danger" onClick={(e) => deleteFavorite((movies.find((m) => m._id === movie))._id)}>Delete</Button>
+                        </Col>
+                    )) : <p>No favorite movies</p>
+                }
+
+                {/* {
                     favorites.length && favorites.map((movie) => (
                         <Col xs={12} sm={6} md={4} lg={6} xl={6} xxl={6} key={movie._id}>
                             <MovieCard
@@ -170,7 +189,7 @@ export function ProfileView(props) {
                             <Button type="danger" onClick={(e) => deleteFavorite((movies.find((m) => m._id === movie))._id)}>Delete</Button>
                         </Col>
                     ))
-                }
+                } */}
             </Row>
             <br /><br /><br /><br />
             <Row>

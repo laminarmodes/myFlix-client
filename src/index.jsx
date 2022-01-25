@@ -14,14 +14,9 @@ import './index.scss';
 class MyFlixApplication extends React.Component {
     render() {
         return (
-            <Container>
-                {/* <Row sm={12} md={12} lg={12}>
-                    <Col>
-                        
-                    </Col>
-                </Row> */}
-                <MainView />
-            </Container>
+
+            <MainView />
+
         );
     }
 }
