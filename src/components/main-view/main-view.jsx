@@ -1,7 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 
+import { connect } from 'redux';
+
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+
+import { setMovies } from '../../actions/actions';
+import MoviesList from '../movies-list/movies-list';
 
 import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
@@ -25,12 +30,12 @@ export class MainView extends React.Component {
     constructor() {
         super();
         this.state = {
-            movies: [],
-            selectedMovie: null,
             user: null,
             userObject: {}
         };
     }
+
+    // selectedMovie: null,
 
     // This is called every time the user loads the page
 
@@ -57,11 +62,11 @@ export class MainView extends React.Component {
     /*When a movie is clicked, this function is 
     invoked and updates the state of 
     the `selectedMovie` *property to that movie*/
-    setSelectedMovie(newSelectedMovie) {
-        this.setState({
-            selectedMovie: newSelectedMovie
-        });
-    }
+    // setSelectedMovie(newSelectedMovie) {
+    //     this.setState({
+    //         selectedMovie: newSelectedMovie
+    //     });
+    // }
 
     getUser(token, userName) {
         //const userName = localStorage.getItem("user");
@@ -101,7 +106,7 @@ export class MainView extends React.Component {
         console.log(authData)
         this.setState({
             // The user's username is saved in the user state
-            // user: authData.user.Username
+
             user: authData.user.Username,
             userObject: authData.user
         });
@@ -131,9 +136,10 @@ export class MainView extends React.Component {
             headers: { Authorization: `Bearer ${token}` }
         }).then(response => {
             // Assign the result to the state
-            this.setState({
-                movies: response.data
-            });
+            // this.setState({
+            //     movies: response.data
+            // });
+            this.props.setMovies(response.data);
         }).catch(function (error) {
             console.log("error in getMovies")
             console.log(error);
@@ -142,25 +148,17 @@ export class MainView extends React.Component {
 
     render() {
 
-        const { movies, selectedMovie, user, userObject } = this.state;
+        // const { movies, selectedMovie, user, userObject } = this.state;
+
+        let { movies } = this.props;
+        let { user, userObject } = this.state;
 
         return (
             <Router>
 
-                {/* Navigation Bar - Shows on any page as long as the user is logged in */}
-                {/* <Route path="/" render={() => {
-                    if (user) {
-                        return (
-                            <NavBar onLoggedOut={() => this.onLoggedOut()} />
-                        )
-                    }
-                }} /> */}
-
                 <NavBar onLoggedOut={() => this.onLoggedOut()} user={this.state.user} />
 
                 <Container>
-
-
                     < Row className="justify-content-md-center" >
 
                         {/* Registration */}
@@ -198,12 +196,14 @@ export class MainView extends React.Component {
                         {/* Movie List */}
                         <Route exact path="/" render={() => {
                             return (
-                                movies.map(movie => (
-                                    <Col xs={12} sm={6} md={4} lg={3} xl={2} key={movie._id}>
-                                        <MovieCard
-                                            movieData={movie} />
-                                    </Col>
-                                ))
+                                // movies.map(movie => (
+                                //     <Col xs={12} sm={6} md={4} lg={3} xl={2} key={movie._id}>
+                                //         <MovieCard
+                                //             movieData={movie} />
+                                //     </Col>
+                                // ))sdf
+                                <MoviesList movies={movies} />
+                                // <Col></Col>
                             )
                         }} />
 
@@ -299,5 +299,18 @@ export class MainView extends React.Component {
     }
 }
 
+// Gets the state from the store
+// and passes it as props to the component that is connected to a store
+// instead of the component accessing the state directly, it accesses the state as props
+let mapStateToProps = (state) => {
+    // The movies is the prop
+    // Passing movies as the prop of this component
+    return { movies: state.movies }
+}
+
 // npm install react-router-dom@5.2.0
-export default MainView;
+// export default MainView;
+
+// setMovies is the action creator
+// can now use this.props.setMovies
+export default connect(mapStateToProps, { setMovies })(MainView);
