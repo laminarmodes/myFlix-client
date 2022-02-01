@@ -35,10 +35,7 @@ export class MainView extends React.Component {
         };
     }
 
-    // selectedMovie: null,
-
     // This is called every time the user loads the page
-
     componentDidMount() {
 
         // Persist login data
@@ -77,9 +74,9 @@ export class MainView extends React.Component {
             });
     }
 
-    setUser = (userParameter) => {
+    setUser = (userObject) => {
         this.setState({
-            userObject: userParameter
+            userObject: userObject
         });
         localStorage.setItem('user', userObject.Username);
 
@@ -257,12 +254,7 @@ export class MainView extends React.Component {
                             }
                             return (
                                 <Col>
-                                    <ProfileView
-                                        movies={movies}
-                                        //user={this.state.user}
-                                        setUser={user => this.setUser(user)}
-                                        userObject={userObject}
-                                        onBackClick={() => history.goBack()}
+                                    <ProfileView movies={movies} setUser={userObject => this.setUser(userObject)} userObject={userObject} onBackClick={() => history.goBack()}
                                     />
                                 </Col>
                             )
