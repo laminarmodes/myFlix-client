@@ -184,14 +184,7 @@ export class MainView extends React.Component {
                         {/* Movie List */}
                         <Route exact path="/" render={() => {
                             return (
-                                // movies.map(movie => (
-                                //     <Col xs={12} sm={6} md={4} lg={3} xl={2} key={movie._id}>
-                                //         <MovieCard
-                                //             movieData={movie} />
-                                //     </Col>
-                                // ))
                                 < MoviesList movies={movies} />
-                                //<Col></Col>
                             )
                         }} />
 

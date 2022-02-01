@@ -164,9 +164,9 @@ export function ProfileView(props) {
 
                 {
                     userObject.FavoriteMovies.length ? userObject.FavoriteMovies.map((movie) => (
-                        <Col xs={12} sm={6} md={4} lg={6} xl={6} xxl={6} key={movie._id}>
+                        <Col xs={12} sm={6} md={4} lg={6} xl={6} xxl={6}>
                             <MovieCard
-                                movieData={movies.find((m) => m._id === movie)} key={movie} />
+                                movieData={movies.find((m) => m._id === movie)} key={movie._id} />
                             <Button type="danger" onClick={(e) => deleteFavorite((movies.find((m) => m._id === movie))._id)}>Delete</Button>
                         </Col>
                     )) : <p>No favorite movies</p>

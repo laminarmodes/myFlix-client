@@ -22974,13 +22974,7 @@ class MainView extends _reactDefault.default.Component {
                                 exact: true,
                                 path: "/",
                                 render: ()=>{
-                                    return(// movies.map(movie => (
-                                    //     <Col xs={12} sm={6} md={4} lg={3} xl={2} key={movie._id}>
-                                    //         <MovieCard
-                                    //             movieData={movie} />
-                                    //     </Col>
-                                    // ))
-                                    /*#__PURE__*/ _jsxRuntime.jsx(_moviesListDefault.default, {
+                                    return(/*#__PURE__*/ _jsxRuntime.jsx(_moviesListDefault.default, {
                                         movies: movies
                                     }));
                                 },
@@ -23018,7 +23012,7 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 199
+                                    lineNumber: 192
                                 },
                                 __self: this
                             }),
@@ -23050,7 +23044,7 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 218
+                                    lineNumber: 211
                                 },
                                 __self: this
                             }),
@@ -23082,7 +23076,7 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 237
+                                    lineNumber: 230
                                 },
                                 __self: this
                             }),
@@ -23116,7 +23110,7 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 256
+                                    lineNumber: 249
                                 },
                                 __self: this
                             })
@@ -34192,7 +34186,7 @@ function ProfileView(props) {
                                     lineNumber: 168
                                 },
                                 __self: this
-                            }, movie),
+                            }, movie._id),
                             /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
                                 type: "danger",
                                 onClick: (e)=>deleteFavorite(movies.find((m)=>m._id === movie
@@ -34206,7 +34200,7 @@ function ProfileView(props) {
                                 children: "Delete"
                             })
                         ]
-                    }, movie._id)
+                    })
                 ) : /*#__PURE__*/ _jsxRuntime.jsx("p", {
                     __source: {
                         fileName: "src/components/profile-view/profile-view.jsx",
