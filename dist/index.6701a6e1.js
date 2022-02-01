@@ -28689,16 +28689,21 @@ parcelHelpers.export(exports, "SET_MOVIES", ()=>SET_MOVIES
 );
 parcelHelpers.export(exports, "SET_FILTER", ()=>SET_FILTER
 );
+parcelHelpers.export(exports, "SET_USER", ()=>SET_USER
+);
 parcelHelpers.export(exports, "SET_USEROBJECT", ()=>SET_USEROBJECT
 );
 parcelHelpers.export(exports, "setMovies", ()=>setMovies
 );
 parcelHelpers.export(exports, "setFilter", ()=>setFilter
 );
+parcelHelpers.export(exports, "setUser", ()=>setUser
+);
 parcelHelpers.export(exports, "setUserObject", ()=>setUserObject
 );
 const SET_MOVIES = 'SET_MOVIES';
 const SET_FILTER = 'SET_FILTER';
+const SET_USER = 'SET_USER';
 const SET_USEROBJECT = 'SET_USEROBJECT';
 function setMovies(value) {
     console.log("SET_MOVIES action triggered");
@@ -28710,6 +28715,12 @@ function setMovies(value) {
 function setFilter(value) {
     return {
         type: SET_FILTER,
+        value
+    };
+}
+function setUser(value) {
+    return {
+        type: SET_USER,
         value
     };
 }
@@ -36942,6 +36953,15 @@ function movies(state = [], action) {
             return state;
     }
 }
+function user(state = [], action) {
+    switch(action.type){
+        case _actions.SET_USER:
+            console.log("SET_USER reducer reached");
+            return action.value;
+        default:
+            return state;
+    }
+}
 function userObject(state = [], action) {
     switch(action.type){
         case _actions.SET_USEROBJECT:
@@ -36954,6 +36974,7 @@ function userObject(state = [], action) {
 const moviesApp = _redux.combineReducers({
     visibilityFilter,
     movies,
+    user,
     userObject
 });
 exports.default = moviesApp;
