@@ -23150,7 +23150,7 @@ class MainView extends _reactDefault.default.Component {
                                     //         <MovieCard
                                     //             movieData={movie} />
                                     //     </Col>
-                                    // ))sdf
+                                    // ))
                                     /*#__PURE__*/ _jsxRuntime.jsx(_moviesListDefault.default, {
                                         movies: movies
                                     }));

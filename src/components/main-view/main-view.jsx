@@ -201,7 +201,7 @@ export class MainView extends React.Component {
                                 //         <MovieCard
                                 //             movieData={movie} />
                                 //     </Col>
-                                // ))sdf
+                                // ))
                                 <MoviesList movies={movies} />
                                 // <Col></Col>
                             )
