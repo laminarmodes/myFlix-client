@@ -1,14 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MainView from './components/main-view/main-view';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
 
 import { createStore } from 'redux';
-import { Provider } from 'react';
+import { Provider } from 'react-redux';
 import moviesApp from './reducers/reducers';
 import { devToolsEnhancer } from 'redux-devtools-extension';
 

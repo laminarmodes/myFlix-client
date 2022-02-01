@@ -1,6 +1,6 @@
 import React from 'react';
 import Col from 'react-bootstrap/Col';
-import { connect } from 'react';
+import { connect } from 'react-redux';
 
 import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';
 
@@ -17,7 +17,7 @@ function MoviesList(props) {
     let filteredMovies = movies;
 
     if (visibilityFilter !== '') {
-        filteredMovies = movies.filter((m) => m.Title.toLowerCase().includes(visibilityFilter.toLowerCase()));
+        filteredMovies = movies.filter(m => m.Title.toLowerCase().includes(visibilityFilter.toLowerCase()));
     }
 
     if (!movies) {
@@ -27,8 +27,7 @@ function MoviesList(props) {
 
     return (
 
-        <Row>
-            <h1>Filter should be here</h1>
+        <>
             <Col md={12} style={{ margin: '1em' }}>
                 <br />
                 <br />
@@ -40,11 +39,11 @@ function MoviesList(props) {
             {
                 filteredMovies.map((m) => (
                     <Col md={3} key={m._id}>
-                        <MovieCard movie={m} />
+                        <MovieCard movieData={m} />
                     </Col>
                 ))
             }
-        </Row>
+        </>
 
     )
 

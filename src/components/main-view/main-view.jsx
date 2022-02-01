@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import { connect } from 'redux';
+import { connect } from 'react-redux';
 
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
@@ -49,12 +49,12 @@ export class MainView extends React.Component {
         if (accessToken !== null) {
             // If access key is present, user is logged in and can call getMovies method
             this.setState({
-                // user: localStorage.getItem('user')
+
                 user: localStorage.getItem('user')
             });
             // Make the get request only if the user is logged in
             this.getMovies(accessToken);
-            this.getUser(accessToken, user); ////// Yes
+            this.getUser(accessToken, user);
         }
 
     }
@@ -140,6 +140,7 @@ export class MainView extends React.Component {
             //     movies: response.data
             // });
             this.props.setMovies(response.data);
+            //this.props.dispatch(setMovies(response.data));
         }).catch(function (error) {
             console.log("error in getMovies")
             console.log(error);
@@ -152,6 +153,8 @@ export class MainView extends React.Component {
 
         let { movies } = this.props;
         let { user, userObject } = this.state;
+
+        console.log(`there are ${movies[0]}`)
 
         return (
             <Router>
@@ -202,8 +205,8 @@ export class MainView extends React.Component {
                                 //             movieData={movie} />
                                 //     </Col>
                                 // ))
-                                <MoviesList movies={movies} />
-                                // <Col></Col>
+                                < MoviesList movies={movies} />
+                                //<Col></Col>
                             )
                         }} />
 
@@ -302,7 +305,7 @@ export class MainView extends React.Component {
 // Gets the state from the store
 // and passes it as props to the component that is connected to a store
 // instead of the component accessing the state directly, it accesses the state as props
-let mapStateToProps = (state) => {
+let mapStateToProps = state => {
     // The movies is the prop
     // Passing movies as the prop of this component
     return { movies: state.movies }
