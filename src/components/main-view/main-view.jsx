@@ -87,9 +87,9 @@ export class MainView extends React.Component {
             });
     }
 
-    setUser = (user) => {
+    setUser = (userParameter) => {
         this.setState({
-            userObject: user
+            userObject: userParameter
         });
         localStorage.setItem('user', userObject.Username);
 
@@ -281,10 +281,9 @@ export class MainView extends React.Component {
                                 <Col>
                                     <ProfileView
                                         movies={movies}
-                                        user={this.state.user}
+                                        //user={this.state.user}
                                         setUser={user => this.setUser(user)}
                                         userObject={userObject}
-                                        onLoggedOut={() => this.onLoggedOut}
                                         onBackClick={() => history.goBack()}
                                     />
                                 </Col>

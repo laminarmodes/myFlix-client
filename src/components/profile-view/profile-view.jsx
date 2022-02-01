@@ -12,7 +12,9 @@ import { MovieCard } from '../movie-card/movie-card';
 
 export function ProfileView(props) {
 
-    const { movies, user, userObject, setUser, onLoggedOut, onBackClick } = props;
+    //const { movies, user, userObject, setUser, onLoggedOut, onBackClick } = props;
+
+    const { movies, userObject, setUser, onBackClick } = props;
 
     const [registrationUsername, setRegistrationUsername] = useState('');
     const [registrationPassword, setRegistrationPassword] = useState('');
@@ -28,21 +30,17 @@ export function ProfileView(props) {
 
     // User information
     const [favorites, setFavorites] = useState(userObject.FavoriteMovies);
-    //const [user, setUser] = useState(userObject);
-
 
     const validate = () => {
 
         let isRequired = true;
 
         if (!registrationUsername) {
-            //setRegistrationUsername(userObject.Username);
             setUsernameErr("Please enter a username");
             isRequired = false;
         }
 
         if (!registrationPassword) {
-            //setRegistrationPassword(userObject.Password);
             setPasswordErr("Please enter a password");
             isRequired = false;
         } else {
@@ -56,7 +54,6 @@ export function ProfileView(props) {
         }
 
         if (!registrationEmail) {
-            //setRegistrationEmail(userObject.Email);
             setEmailErr("Please enter an email");
             isRequired = false;
         } else if (registrationEmail.indexOf('@') === -1) {
@@ -65,7 +62,6 @@ export function ProfileView(props) {
         }
 
         if (!registrationBirthday) {
-            // setRegistrationBirthday(getDate())
             setBirthdayErr("Please enter a birthday");
             isRequired = false;
         }
@@ -117,7 +113,6 @@ export function ProfileView(props) {
             headers: { Authorization: `Bearer ${token}` }
         }).then((response) => {
             console.log(response);
-            // setFavorites(response.data.FavoriteMovies);
             setUser(response.data);
             alert("Movie has been deleted")
         }).catch(function (error) {
@@ -147,15 +142,11 @@ export function ProfileView(props) {
 
             <Row>
                 <Col>
+                    <Button onClick={() => { onBackClick(null) }}>
+                        Back
+                    </Button>
                     <Card className="profile-view">
                         <Card.Body>
-                            {/* <Card.Title>Profile Informaion</Card.Title>
-                            <Card.Subtitle>Username</Card.Subtitle>
-                            <Card.Text>{user.Username}</Card.Text>
-                            <Card.Subtitle>Email</Card.Subtitle>
-                            <Card.Text>{user.Email}</Card.Text>
-                            <Card.Subtitle>Birthday</Card.Subtitle>
-                            <Card.Text>{user.Birthday}</Card.Text> */}
                             <Card.Title>Profile Informaion</Card.Title>
                             <Card.Subtitle>Username</Card.Subtitle>
                             <Card.Text>{userObject.Username}</Card.Text>
@@ -180,16 +171,6 @@ export function ProfileView(props) {
                         </Col>
                     )) : <p>No favorite movies</p>
                 }
-
-                {/* {
-                    favorites.length && favorites.map((movie) => (
-                        <Col xs={12} sm={6} md={4} lg={6} xl={6} xxl={6} key={movie._id}>
-                            <MovieCard
-                                movieData={movies.find((m) => m._id === movie)} key={movie} />
-                            <Button type="danger" onClick={(e) => deleteFavorite((movies.find((m) => m._id === movie))._id)}>Delete</Button>
-                        </Col>
-                    ))
-                } */}
             </Row>
             <br /><br /><br /><br />
             <Row>
