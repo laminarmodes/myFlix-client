@@ -22785,7 +22785,7 @@ class MainView extends _reactDefault.default.Component {
     constructor(){
         super();
         this.state = {
-            user: null,
+            userName: null,
             userObject: {
             }
         };
@@ -22801,20 +22801,13 @@ class MainView extends _reactDefault.default.Component {
         if (accessToken !== null) {
             // If access key is present, user is logged in and can call getMovies method
             this.setState({
-                user: localStorage.getItem('user')
+                userName: localStorage.getItem('user')
             });
             // Make the get request only if the user is logged in
             this.getMovies(accessToken);
             this.getUser(accessToken, user);
         }
     }
-    /*When a movie is clicked, this function is 
-    invoked and updates the state of 
-    the `selectedMovie` *property to that movie*/ // setSelectedMovie(newSelectedMovie) {
-    //     this.setState({
-    //         selectedMovie: newSelectedMovie
-    //     });
-    // }
     getUser(token, userName) {
         //const userName = localStorage.getItem("user");
         //const token = localStorage.getItem("token");
@@ -22847,8 +22840,7 @@ class MainView extends _reactDefault.default.Component {
         // auth data contains both user and token
         console.log(authData);
         this.setState({
-            // The user's username is saved in the user state
-            user: authData.user.Username,
+            userName: authData.user.Username,
             userObject: authData.user
         });
         // The token and user are saved in localStorage, as key and value
@@ -22863,7 +22855,7 @@ class MainView extends _reactDefault.default.Component {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         this.setState({
-            user: null,
+            userName: null,
             userObject: authData.user
         });
     }
@@ -22880,52 +22872,49 @@ class MainView extends _reactDefault.default.Component {
             //     movies: response.data
             // });
             this.props.setMovies(response.data);
-        //this.props.dispatch(setMovies(response.data));
         }).catch(function(error) {
             console.log("error in getMovies");
             console.log(error);
         });
     }
     render() {
-        // const { movies, selectedMovie, user, userObject } = this.state;
         let { movies  } = this.props;
-        let { user , userObject  } = this.state;
-        console.log(`there are ${movies[0]}`);
+        let { userName , userObject  } = this.state;
         return(/*#__PURE__*/ _jsxRuntime.jsxs(_reactRouterDom.BrowserRouter, {
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 160
+                lineNumber: 145
             },
             __self: this,
             children: [
                 /*#__PURE__*/ _jsxRuntime.jsx(_navbarView.NavBar, {
                     onLoggedOut: ()=>this.onLoggedOut()
                     ,
-                    user: this.state.user,
+                    userName: this.state.userName,
                     __source: {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 162
+                        lineNumber: 147
                     },
                     __self: this
                 }),
                 /*#__PURE__*/ _jsxRuntime.jsx(_containerDefault.default, {
                     __source: {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 164
+                        lineNumber: 149
                     },
                     __self: this,
                     children: /*#__PURE__*/ _jsxRuntime.jsxs(_rowDefault.default, {
                         className: "justify-content-md-center",
                         __source: {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 165
+                            lineNumber: 150
                         },
                         __self: this,
                         children: [
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                                 path: "/register",
                                 render: ()=>{
-                                    if (user) return(/*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Redirect, {
+                                    if (userName) return(/*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Redirect, {
                                         to: "/"
                                     }));
                                     return(/*#__PURE__*/ _jsxRuntime.jsx(_rowDefault.default, {
@@ -22952,7 +22941,7 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 168
+                                    lineNumber: 153
                                 },
                                 __self: this
                             }),
@@ -22960,7 +22949,7 @@ class MainView extends _reactDefault.default.Component {
                                 exact: true,
                                 path: "/",
                                 render: ()=>{
-                                    if (!user) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
+                                    if (!userName) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
                                         xs: 12,
                                         sm: 12,
                                         md: 12,
@@ -22968,7 +22957,7 @@ class MainView extends _reactDefault.default.Component {
                                         xl: 12,
                                         xxl: 12,
                                         children: /*#__PURE__*/ _jsxRuntime.jsx(_loginView.LoginView, {
-                                            onLoggedIn: (user1)=>this.onLoggedIn(user1)
+                                            onLoggedIn: (user)=>this.onLoggedIn(user)
                                         })
                                     }));
                                     if (movies.length === 0) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
@@ -22977,7 +22966,7 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 186
+                                    lineNumber: 171
                                 },
                                 __self: this
                             }),
@@ -22997,14 +22986,14 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 200
+                                    lineNumber: 185
                                 },
                                 __self: this
                             }),
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                                 path: "/movies/:movieId",
                                 render: ({ match , history  })=>{
-                                    if (!user) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
+                                    if (!userName) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
                                         xs: 12,
                                         sm: 12,
                                         md: 12,
@@ -23012,7 +23001,7 @@ class MainView extends _reactDefault.default.Component {
                                         xl: 12,
                                         xxl: 12,
                                         children: /*#__PURE__*/ _jsxRuntime.jsx(_loginView.LoginView, {
-                                            onLoggedIn: (user1)=>this.onLoggedIn(user1)
+                                            onLoggedIn: (user)=>this.onLoggedIn(user)
                                         })
                                     }));
                                     if (movies.length === 0) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
@@ -23029,14 +23018,14 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 214
+                                    lineNumber: 199
                                 },
                                 __self: this
                             }),
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                                 path: "/genres/:name",
                                 render: ({ match , history  })=>{
-                                    if (!user) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
+                                    if (!userName) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
                                         xs: 12,
                                         sm: 12,
                                         md: 12,
@@ -23044,7 +23033,7 @@ class MainView extends _reactDefault.default.Component {
                                         xl: 12,
                                         xxl: 12,
                                         children: /*#__PURE__*/ _jsxRuntime.jsx(_loginView.LoginView, {
-                                            onLoggedIn: (user1)=>this.onLoggedIn(user1)
+                                            onLoggedIn: (user)=>this.onLoggedIn(user)
                                         })
                                     }));
                                     if (movies.length === 0) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
@@ -23061,14 +23050,14 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 233
+                                    lineNumber: 218
                                 },
                                 __self: this
                             }),
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                                 path: "/directors/:name",
                                 render: ({ match , history  })=>{
-                                    if (!user) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
+                                    if (!userName) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
                                         xs: 12,
                                         sm: 12,
                                         md: 12,
@@ -23076,7 +23065,7 @@ class MainView extends _reactDefault.default.Component {
                                         xl: 12,
                                         xxl: 12,
                                         children: /*#__PURE__*/ _jsxRuntime.jsx(_loginView.LoginView, {
-                                            onLoggedIn: (user1)=>this.onLoggedIn(user1)
+                                            onLoggedIn: (user)=>this.onLoggedIn(user)
                                         })
                                     }));
                                     if (movies.length === 0) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
@@ -23093,14 +23082,14 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 252
+                                    lineNumber: 237
                                 },
                                 __self: this
                             }),
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                                 path: "/profile",
                                 render: ({ match , history  })=>{
-                                    if (!user) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
+                                    if (!userName) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
                                         xs: 12,
                                         sm: 12,
                                         md: 12,
@@ -23108,7 +23097,7 @@ class MainView extends _reactDefault.default.Component {
                                         xl: 12,
                                         xxl: 12,
                                         children: /*#__PURE__*/ _jsxRuntime.jsx(_loginView.LoginView, {
-                                            onLoggedIn: (user1)=>this.onLoggedIn(user1)
+                                            onLoggedIn: (user)=>this.onLoggedIn(user)
                                         })
                                     }));
                                     if (movies.length === 0) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
@@ -23118,7 +23107,7 @@ class MainView extends _reactDefault.default.Component {
                                         children: /*#__PURE__*/ _jsxRuntime.jsx(_profileView.ProfileView, {
                                             movies: movies,
                                             //user={this.state.user}
-                                            setUser: (user1)=>this.setUser(user1)
+                                            setUser: (user)=>this.setUser(user)
                                             ,
                                             userObject: userObject,
                                             onBackClick: ()=>history.goBack()
@@ -23127,7 +23116,7 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 271
+                                    lineNumber: 256
                                 },
                                 __self: this
                             })
@@ -34580,7 +34569,7 @@ var _reactRouterDomDefault = parcelHelpers.interopDefault(_reactRouterDom);
 var _button = require("react-bootstrap/Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
 var _navbarViewScss = require("./navbar-view.scss");
-function NavBar({ user  }) {
+function NavBar({ userName  }) {
     const currentUser = localStorage.getItem("user");
     onLoggedOut = ()=>{
         localStorage.clear();
@@ -34663,7 +34652,7 @@ function NavBar({ user  }) {
                                 __self: this,
                                 children: "Logout"
                             }),
-                            user ? null : /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Link, {
+                            userName ? null : /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Link, {
                                 href: "/",
                                 __source: {
                                     fileName: "src/components/navbar-view/navbar-view.jsx",
@@ -34672,7 +34661,7 @@ function NavBar({ user  }) {
                                 __self: this,
                                 children: "Sign-in"
                             }),
-                            user ? null : /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Link, {
+                            userName ? null : /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Link, {
                                 href: "/register",
                                 __source: {
                                     fileName: "src/components/navbar-view/navbar-view.jsx",

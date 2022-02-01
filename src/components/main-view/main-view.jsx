@@ -30,7 +30,7 @@ export class MainView extends React.Component {
     constructor() {
         super();
         this.state = {
-            user: null,
+            userName: null,
             userObject: {}
         };
     }
@@ -49,8 +49,7 @@ export class MainView extends React.Component {
         if (accessToken !== null) {
             // If access key is present, user is logged in and can call getMovies method
             this.setState({
-
-                user: localStorage.getItem('user')
+                userName: localStorage.getItem('user')
             });
             // Make the get request only if the user is logged in
             this.getMovies(accessToken);
@@ -58,15 +57,6 @@ export class MainView extends React.Component {
         }
 
     }
-
-    /*When a movie is clicked, this function is 
-    invoked and updates the state of 
-    the `selectedMovie` *property to that movie*/
-    // setSelectedMovie(newSelectedMovie) {
-    //     this.setState({
-    //         selectedMovie: newSelectedMovie
-    //     });
-    // }
 
     getUser(token, userName) {
         //const userName = localStorage.getItem("user");
@@ -105,9 +95,7 @@ export class MainView extends React.Component {
         // auth data contains both user and token
         console.log(authData)
         this.setState({
-            // The user's username is saved in the user state
-
-            user: authData.user.Username,
+            userName: authData.user.Username,
             userObject: authData.user
         });
 
@@ -124,7 +112,7 @@ export class MainView extends React.Component {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         this.setState({
-            user: null,
+            userName: null,
             userObject: authData.user
         });
     }
@@ -140,7 +128,6 @@ export class MainView extends React.Component {
             //     movies: response.data
             // });
             this.props.setMovies(response.data);
-            //this.props.dispatch(setMovies(response.data));
         }).catch(function (error) {
             console.log("error in getMovies")
             console.log(error);
@@ -149,24 +136,22 @@ export class MainView extends React.Component {
 
     render() {
 
-        // const { movies, selectedMovie, user, userObject } = this.state;
-
         let { movies } = this.props;
-        let { user, userObject } = this.state;
+        let { userName, userObject } = this.state;
 
-        console.log(`there are ${movies[0]}`)
+
 
         return (
             <Router>
 
-                <NavBar onLoggedOut={() => this.onLoggedOut()} user={this.state.user} />
+                <NavBar onLoggedOut={() => this.onLoggedOut()} userName={this.state.userName} />
 
                 <Container>
                     < Row className="justify-content-md-center" >
 
                         {/* Registration */}
                         <Route path="/register" render={() => {
-                            if (user) {
+                            if (userName) {
                                 return <Redirect to="/" />
                             }
                             return (
@@ -184,7 +169,7 @@ export class MainView extends React.Component {
 
                         {/* Login */}
                         <Route exact path="/" render={() => {
-                            if (!user) return (
+                            if (!userName) return (
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                                     <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                                 </Col>
@@ -212,7 +197,7 @@ export class MainView extends React.Component {
 
                         {/* Single Movie View */}
                         < Route path="/movies/:movieId" render={({ match, history }) => {
-                            if (!user) return (
+                            if (!userName) return (
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                                     <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                                 </Col>
@@ -231,7 +216,7 @@ export class MainView extends React.Component {
 
                         {/* Genere View */}
                         < Route path="/genres/:name" render={({ match, history }) => {
-                            if (!user) return (
+                            if (!userName) return (
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                                     <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                                 </Col>
@@ -250,7 +235,7 @@ export class MainView extends React.Component {
 
                         {/* Director View */}
                         < Route path="/directors/:name" render={({ match, history }) => {
-                            if (!user) return (
+                            if (!userName) return (
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                                     <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                                 </Col>
@@ -269,7 +254,7 @@ export class MainView extends React.Component {
 
                         {/* Profile View */}
                         <Route path="/profile" render={({ match, history }) => {
-                            if (!user) return (
+                            if (!userName) return (
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                                     <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                                 </Col>

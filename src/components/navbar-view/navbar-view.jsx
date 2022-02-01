@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 
 import "./navbar-view.scss";
 
-export function NavBar({ user }) {
+export function NavBar({ userName }) {
 
     const currentUser = localStorage.getItem("user");
 
@@ -43,9 +43,9 @@ export function NavBar({ user }) {
                         {isAuth() && <Button variant="link" onClick={() => {
                             this.onLoggedOut()
                         }}>Logout</Button>}
-                        {user ? null : <Nav.Link href="/">Sign-in</Nav.Link>}
+                        {userName ? null : <Nav.Link href="/">Sign-in</Nav.Link>}
 
-                        {user ? null : <Nav.Link href="/register">Sign-up</Nav.Link>}
+                        {userName ? null : <Nav.Link href="/register">Sign-up</Nav.Link>}
                     </Nav>
                 </Navbar.Collapse>
             </Container>
