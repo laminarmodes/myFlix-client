@@ -102,7 +102,7 @@ export class MainView extends React.Component {
         // Gets the movies from API once the user is logged in
         // Remember 'this' refers to the object itself (the MainView class)
         this.getMovies(authData.token);
-        this.getUser(accessToken, user);
+        this.getUser(accessToken, authData.user.Username); //2nd argument used to be user
     }
 
     onLoggedOut() {
