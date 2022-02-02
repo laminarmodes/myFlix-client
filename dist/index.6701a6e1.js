@@ -22956,7 +22956,7 @@ class MainView extends _reactDefault.default.Component {
                                         xl: 12,
                                         xxl: 12,
                                         children: /*#__PURE__*/ _jsxRuntime.jsx(_loginView.LoginView, {
-                                            onLoggedIn: (user)=>this.onLoggedIn(user)
+                                            onLoggedIn: (data)=>this.onLoggedIn(data)
                                         })
                                     }));
                                     if (movies.length === 0) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
@@ -22994,7 +22994,7 @@ class MainView extends _reactDefault.default.Component {
                                         xl: 12,
                                         xxl: 12,
                                         children: /*#__PURE__*/ _jsxRuntime.jsx(_loginView.LoginView, {
-                                            onLoggedIn: (user)=>this.onLoggedIn(user)
+                                            onLoggedIn: (data)=>this.onLoggedIn(data)
                                         })
                                     }));
                                     if (movies.length === 0) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
@@ -23026,7 +23026,7 @@ class MainView extends _reactDefault.default.Component {
                                         xl: 12,
                                         xxl: 12,
                                         children: /*#__PURE__*/ _jsxRuntime.jsx(_loginView.LoginView, {
-                                            onLoggedIn: (user)=>this.onLoggedIn(user)
+                                            onLoggedIn: (data)=>this.onLoggedIn(data)
                                         })
                                     }));
                                     if (movies.length === 0) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
@@ -23058,7 +23058,7 @@ class MainView extends _reactDefault.default.Component {
                                         xl: 12,
                                         xxl: 12,
                                         children: /*#__PURE__*/ _jsxRuntime.jsx(_loginView.LoginView, {
-                                            onLoggedIn: (user)=>this.onLoggedIn(user)
+                                            onLoggedIn: (data)=>this.onLoggedIn(data)
                                         })
                                     }));
                                     if (movies.length === 0) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
@@ -23090,7 +23090,7 @@ class MainView extends _reactDefault.default.Component {
                                         xl: 12,
                                         xxl: 12,
                                         children: /*#__PURE__*/ _jsxRuntime.jsx(_loginView.LoginView, {
-                                            onLoggedIn: (user)=>this.onLoggedIn(user)
+                                            onLoggedIn: (data)=>this.onLoggedIn(data)
                                         })
                                     }));
                                     if (movies.length === 0) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {

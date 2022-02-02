@@ -168,7 +168,7 @@ export class MainView extends React.Component {
                         <Route exact path="/" render={() => {
                             if (!userName) return (
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-                                    <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+                                    <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
                                 </Col>
                             );
                             if (movies.length === 0) {
@@ -189,7 +189,7 @@ export class MainView extends React.Component {
                         < Route path="/movies/:movieId" render={({ match, history }) => {
                             if (!userName) return (
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-                                    <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+                                    <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
                                 </Col>
                             );
                             if (movies.length === 0) {
@@ -208,7 +208,7 @@ export class MainView extends React.Component {
                         < Route path="/genres/:name" render={({ match, history }) => {
                             if (!userName) return (
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-                                    <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+                                    <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
                                 </Col>
                             );
                             if (movies.length === 0) {
@@ -227,7 +227,7 @@ export class MainView extends React.Component {
                         < Route path="/directors/:name" render={({ match, history }) => {
                             if (!userName) return (
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-                                    <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+                                    <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
                                 </Col>
                             );
                             if (movies.length === 0) {
@@ -246,7 +246,7 @@ export class MainView extends React.Component {
                         <Route path="/profile" render={({ match, history }) => {
                             if (!userName) return (
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-                                    <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+                                    <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
                                 </Col>
                             );
                             if (movies.length === 0) {
