@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 import { setMovies } from '../../actions/actions';
 import MoviesList from '../movies-list/movies-list';
+import { setUserObject } from '../../actions/actions';
 
 import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
@@ -30,14 +31,13 @@ export class MainView extends React.Component {
     constructor() {
         super();
         this.state = {
-            userName: null,
+            // userName: null,
             userObject: {}
         };
     }
 
     // This is called every time the user loads the page
     componentDidMount() {
-
         // Persist login data
         // Check if the user is logged in by checking localStorage
         // Get the value of the token from the localStorage
@@ -45,14 +45,14 @@ export class MainView extends React.Component {
         let user = localStorage.getItem('user');
         if (accessToken !== null) {
             // If access key is present, user is logged in and can call getMovies method
-            this.setState({
-                userName: localStorage.getItem('user')
-            });
+            // this.setState({
+            //     userName: localStorage.getItem('user')
+            // });
+
             // Make the get request only if the user is logged in
             this.getMovies(accessToken);
             this.getUser(accessToken, user);
         }
-
     }
 
     getUser(token, userName) {
@@ -79,7 +79,6 @@ export class MainView extends React.Component {
             userObject: userObject
         });
         localStorage.setItem('user', userObject.Username);
-
     }
 
     /* When a user successfully logs in, 
@@ -92,7 +91,7 @@ export class MainView extends React.Component {
         // auth data contains both user and token
         console.log(authData)
         this.setState({
-            userName: authData.user.Username,
+            // userName: authData.user.Username,
             userObject: authData.user
         });
 
@@ -109,7 +108,7 @@ export class MainView extends React.Component {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         this.setState({
-            userName: null,
+            // userName: null,
             userObject: authData.user
         });
     }
@@ -131,24 +130,29 @@ export class MainView extends React.Component {
         });
     }
 
+    isEmpty(obj) {
+        return Object.keys(obj).length === 0;
+    }
+
     render() {
 
         let { movies } = this.props;
-        let { userName, userObject } = this.state;
+        // let { userName, userObject } = this.state;
+        let { userObject } = this.state;
 
 
 
         return (
             <Router>
 
-                <NavBar onLoggedOut={() => this.onLoggedOut()} userName={this.state.userName} />
+                <NavBar onLoggedOut={() => this.onLoggedOut()} userName={this.state.userObject.Username} />
 
                 <Container>
                     < Row className="justify-content-md-center" >
 
                         {/* Registration */}
                         <Route path="/register" render={() => {
-                            if (userName) {
+                            if (!this.isEmpty(userObject)) {
                                 return <Redirect to="/" />
                             }
                             return (
@@ -166,7 +170,7 @@ export class MainView extends React.Component {
 
                         {/* Login */}
                         <Route exact path="/" render={() => {
-                            if (!userName) return (
+                            if (this.isEmpty(userObject)) return (
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                                     <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
                                 </Col>
@@ -187,7 +191,7 @@ export class MainView extends React.Component {
 
                         {/* Single Movie View */}
                         < Route path="/movies/:movieId" render={({ match, history }) => {
-                            if (!userName) return (
+                            if (this.isEmpty(userObject)) return (
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                                     <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
                                 </Col>
@@ -206,7 +210,7 @@ export class MainView extends React.Component {
 
                         {/* Genere View */}
                         < Route path="/genres/:name" render={({ match, history }) => {
-                            if (!userName) return (
+                            if (this.isEmpty(userObject)) return (
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                                     <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
                                 </Col>
@@ -225,7 +229,7 @@ export class MainView extends React.Component {
 
                         {/* Director View */}
                         < Route path="/directors/:name" render={({ match, history }) => {
-                            if (!userName) return (
+                            if (this.isEmpty(userObject)) return (
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                                     <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
                                 </Col>
@@ -244,7 +248,7 @@ export class MainView extends React.Component {
 
                         {/* Profile View */}
                         <Route path="/profile" render={({ match, history }) => {
-                            if (!userName) return (
+                            if (this.isEmpty(userObject)) return (
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                                     <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
                                 </Col>
@@ -256,15 +260,13 @@ export class MainView extends React.Component {
                                 <Col>
                                     <ProfileView movies={movies} setUser={userObject => this.setUser(userObject)} userObject={userObject} onBackClick={() => history.goBack()}
                                     />
-                                </Col>
+                                </Col> // 
                             )
                         }} />
 
                     </Row >
 
                 </Container>
-
-
             </Router >
         );
 

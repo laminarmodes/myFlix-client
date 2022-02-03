@@ -22785,7 +22785,7 @@ class MainView extends _reactDefault.default.Component {
     constructor(){
         super();
         this.state = {
-            userName: null,
+            // userName: null,
             userObject: {
             }
         };
@@ -22799,9 +22799,9 @@ class MainView extends _reactDefault.default.Component {
         let user = localStorage.getItem('user');
         if (accessToken !== null) {
             // If access key is present, user is logged in and can call getMovies method
-            this.setState({
-                userName: localStorage.getItem('user')
-            });
+            // this.setState({
+            //     userName: localStorage.getItem('user')
+            // });
             // Make the get request only if the user is logged in
             this.getMovies(accessToken);
             this.getUser(accessToken, user);
@@ -22839,7 +22839,7 @@ class MainView extends _reactDefault.default.Component {
         // auth data contains both user and token
         console.log(authData);
         this.setState({
-            userName: authData.user.Username,
+            // userName: authData.user.Username,
             userObject: authData.user
         });
         // The token and user are saved in localStorage, as key and value
@@ -22854,7 +22854,7 @@ class MainView extends _reactDefault.default.Component {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         this.setState({
-            userName: null,
+            // userName: null,
             userObject: authData.user
         });
     }
@@ -22876,44 +22876,48 @@ class MainView extends _reactDefault.default.Component {
             console.log(error);
         });
     }
+    isEmpty(obj) {
+        return Object.keys(obj).length === 0;
+    }
     render() {
         let { movies  } = this.props;
-        let { userName , userObject  } = this.state;
+        // let { userName, userObject } = this.state;
+        let { userObject  } = this.state;
         return(/*#__PURE__*/ _jsxRuntime.jsxs(_reactRouterDom.BrowserRouter, {
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 142
+                lineNumber: 146
             },
             __self: this,
             children: [
                 /*#__PURE__*/ _jsxRuntime.jsx(_navbarView.NavBar, {
                     onLoggedOut: ()=>this.onLoggedOut()
                     ,
-                    userName: this.state.userName,
+                    userName: this.state.userObject.Username,
                     __source: {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 144
+                        lineNumber: 148
                     },
                     __self: this
                 }),
                 /*#__PURE__*/ _jsxRuntime.jsx(_containerDefault.default, {
                     __source: {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 146
+                        lineNumber: 150
                     },
                     __self: this,
                     children: /*#__PURE__*/ _jsxRuntime.jsxs(_rowDefault.default, {
                         className: "justify-content-md-center",
                         __source: {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 147
+                            lineNumber: 151
                         },
                         __self: this,
                         children: [
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                                 path: "/register",
                                 render: ()=>{
-                                    if (userName) return(/*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Redirect, {
+                                    if (!this.isEmpty(userObject)) return(/*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Redirect, {
                                         to: "/"
                                     }));
                                     return(/*#__PURE__*/ _jsxRuntime.jsx(_rowDefault.default, {
@@ -22940,7 +22944,7 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 150
+                                    lineNumber: 154
                                 },
                                 __self: this
                             }),
@@ -22948,7 +22952,7 @@ class MainView extends _reactDefault.default.Component {
                                 exact: true,
                                 path: "/",
                                 render: ()=>{
-                                    if (!userName) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
+                                    if (this.isEmpty(userObject)) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
                                         xs: 12,
                                         sm: 12,
                                         md: 12,
@@ -22965,7 +22969,7 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 168
+                                    lineNumber: 172
                                 },
                                 __self: this
                             }),
@@ -22979,14 +22983,14 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 182
+                                    lineNumber: 186
                                 },
                                 __self: this
                             }),
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                                 path: "/movies/:movieId",
                                 render: ({ match , history  })=>{
-                                    if (!userName) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
+                                    if (this.isEmpty(userObject)) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
                                         xs: 12,
                                         sm: 12,
                                         md: 12,
@@ -23011,14 +23015,14 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 189
+                                    lineNumber: 193
                                 },
                                 __self: this
                             }),
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                                 path: "/genres/:name",
                                 render: ({ match , history  })=>{
-                                    if (!userName) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
+                                    if (this.isEmpty(userObject)) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
                                         xs: 12,
                                         sm: 12,
                                         md: 12,
@@ -23043,14 +23047,14 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 208
+                                    lineNumber: 212
                                 },
                                 __self: this
                             }),
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                                 path: "/directors/:name",
                                 render: ({ match , history  })=>{
-                                    if (!userName) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
+                                    if (this.isEmpty(userObject)) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
                                         xs: 12,
                                         sm: 12,
                                         md: 12,
@@ -23075,14 +23079,14 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 227
+                                    lineNumber: 231
                                 },
                                 __self: this
                             }),
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                                 path: "/profile",
                                 render: ({ match , history  })=>{
-                                    if (!userName) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
+                                    if (this.isEmpty(userObject)) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
                                         xs: 12,
                                         sm: 12,
                                         md: 12,
@@ -23104,11 +23108,12 @@ class MainView extends _reactDefault.default.Component {
                                             userObject: userObject,
                                             onBackClick: ()=>history.goBack()
                                         })
-                                    }));
+                                    }) // 
+                                    );
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 246
+                                    lineNumber: 250
                                 },
                                 __self: this
                             })
@@ -28670,20 +28675,15 @@ parcelHelpers.export(exports, "SET_FILTER", ()=>SET_FILTER
 );
 parcelHelpers.export(exports, "SET_USER", ()=>SET_USER
 );
-parcelHelpers.export(exports, "SET_USEROBJECT", ()=>SET_USEROBJECT
-);
 parcelHelpers.export(exports, "setMovies", ()=>setMovies
 );
 parcelHelpers.export(exports, "setFilter", ()=>setFilter
-);
-parcelHelpers.export(exports, "setUser", ()=>setUser
 );
 parcelHelpers.export(exports, "setUserObject", ()=>setUserObject
 );
 const SET_MOVIES = 'SET_MOVIES';
 const SET_FILTER = 'SET_FILTER';
 const SET_USER = 'SET_USER';
-const SET_USEROBJECT = 'SET_USEROBJECT';
 function setMovies(value) {
     console.log("SET_MOVIES action triggered");
     return {
@@ -28694,12 +28694,6 @@ function setMovies(value) {
 function setFilter(value) {
     return {
         type: SET_FILTER,
-        value
-    };
-}
-function setUser(value) {
-    return {
-        type: SET_USER,
         value
     };
 }
@@ -36940,15 +36934,6 @@ function movies(state = [], action) {
             return state;
     }
 }
-function user(state = [], action) {
-    switch(action.type){
-        case _actions.SET_USER:
-            console.log("SET_USER reducer reached");
-            return action.value;
-        default:
-            return state;
-    }
-}
 function userObject(state = [], action) {
     switch(action.type){
         case _actions.SET_USEROBJECT:
@@ -36961,7 +36946,6 @@ function userObject(state = [], action) {
 const moviesApp = _redux.combineReducers({
     visibilityFilter,
     movies,
-    user,
     userObject
 });
 exports.default = moviesApp;
