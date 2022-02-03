@@ -140,7 +140,7 @@ export class MainView extends React.Component {
         // let { userName, userObject } = this.state;
         let { userObject } = this.state;
 
-
+        let userIsLoggedIn = localStorage.getItem('user');
 
         return (
             <Router>
@@ -152,7 +152,7 @@ export class MainView extends React.Component {
 
                         {/* Registration */}
                         <Route path="/register" render={() => {
-                            if (!this.isEmpty(userObject)) {
+                            if (userIsLoggedIn) {
                                 return <Redirect to="/" />
                             }
                             return (
@@ -170,7 +170,7 @@ export class MainView extends React.Component {
 
                         {/* Login */}
                         <Route exact path="/" render={() => {
-                            if (this.isEmpty(userObject)) return (
+                            if (!userIsLoggedIn) return (
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                                     <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
                                 </Col>
@@ -191,7 +191,7 @@ export class MainView extends React.Component {
 
                         {/* Single Movie View */}
                         < Route path="/movies/:movieId" render={({ match, history }) => {
-                            if (this.isEmpty(userObject)) return (
+                            if (!userIsLoggedIn) return (
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                                     <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
                                 </Col>
@@ -210,7 +210,7 @@ export class MainView extends React.Component {
 
                         {/* Genere View */}
                         < Route path="/genres/:name" render={({ match, history }) => {
-                            if (this.isEmpty(userObject)) return (
+                            if (!userIsLoggedIn) return (
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                                     <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
                                 </Col>
@@ -229,7 +229,7 @@ export class MainView extends React.Component {
 
                         {/* Director View */}
                         < Route path="/directors/:name" render={({ match, history }) => {
-                            if (this.isEmpty(userObject)) return (
+                            if (!userIsLoggedIn) return (
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                                     <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
                                 </Col>
@@ -248,7 +248,7 @@ export class MainView extends React.Component {
 
                         {/* Profile View */}
                         <Route path="/profile" render={({ match, history }) => {
-                            if (this.isEmpty(userObject)) return (
+                            if (!userIsLoggedIn) return (
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                                     <LoginView onLoggedIn={data => this.onLoggedIn(data)} />
                                 </Col>

@@ -22883,6 +22883,7 @@ class MainView extends _reactDefault.default.Component {
         let { movies  } = this.props;
         // let { userName, userObject } = this.state;
         let { userObject  } = this.state;
+        let userIsLoggedIn = localStorage.getItem('user');
         return(/*#__PURE__*/ _jsxRuntime.jsxs(_reactRouterDom.BrowserRouter, {
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
@@ -22917,7 +22918,7 @@ class MainView extends _reactDefault.default.Component {
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                                 path: "/register",
                                 render: ()=>{
-                                    if (!this.isEmpty(userObject)) return(/*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Redirect, {
+                                    if (userIsLoggedIn) return(/*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Redirect, {
                                         to: "/"
                                     }));
                                     return(/*#__PURE__*/ _jsxRuntime.jsx(_rowDefault.default, {
@@ -22952,7 +22953,7 @@ class MainView extends _reactDefault.default.Component {
                                 exact: true,
                                 path: "/",
                                 render: ()=>{
-                                    if (this.isEmpty(userObject)) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
+                                    if (!userIsLoggedIn) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
                                         xs: 12,
                                         sm: 12,
                                         md: 12,
@@ -22990,7 +22991,7 @@ class MainView extends _reactDefault.default.Component {
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                                 path: "/movies/:movieId",
                                 render: ({ match , history  })=>{
-                                    if (this.isEmpty(userObject)) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
+                                    if (!userIsLoggedIn) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
                                         xs: 12,
                                         sm: 12,
                                         md: 12,
@@ -23022,7 +23023,7 @@ class MainView extends _reactDefault.default.Component {
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                                 path: "/genres/:name",
                                 render: ({ match , history  })=>{
-                                    if (this.isEmpty(userObject)) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
+                                    if (!userIsLoggedIn) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
                                         xs: 12,
                                         sm: 12,
                                         md: 12,
@@ -23054,7 +23055,7 @@ class MainView extends _reactDefault.default.Component {
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                                 path: "/directors/:name",
                                 render: ({ match , history  })=>{
-                                    if (this.isEmpty(userObject)) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
+                                    if (!userIsLoggedIn) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
                                         xs: 12,
                                         sm: 12,
                                         md: 12,
@@ -23086,7 +23087,7 @@ class MainView extends _reactDefault.default.Component {
                             /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
                                 path: "/profile",
                                 render: ({ match , history  })=>{
-                                    if (this.isEmpty(userObject)) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
+                                    if (!userIsLoggedIn) return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
                                         xs: 12,
                                         sm: 12,
                                         md: 12,
