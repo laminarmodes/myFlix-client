@@ -32,7 +32,7 @@ export class MainView extends React.Component {
         super();
         this.state = {
             // userName: null,
-            userObject: {}
+            // userObject: {}
         };
     }
 
@@ -55,45 +55,24 @@ export class MainView extends React.Component {
         }
     }
 
-    getUser(token, userName) {
-        //const userName = localStorage.getItem("user");
-        //const token = localStorage.getItem("token");
-        axios
-            .get(`https://myflixappcf.herokuapp.com/users/${userName}`, {
-                headers: { Authorization: `Bearer ${token}` },
-            })
-            .then((response) => {
-                this.setState({
-                    userObject: response.data
-                });
-                console.log("got user")
-            })
-            .catch(function (error) {
-                console.log("error in getUser");
-                console.log(error);
-            });
-    }
 
-    setUser = (userObject) => {
-        this.setState({
-            userObject: userObject
-        });
-        localStorage.setItem('user', userObject.Username);
-    }
 
-    /* When a user successfully logs in, 
-    this function updates the `user` property in 
-    state to that *particular user*/
-    // This method will be passed in as a prop with the same name to LoginView
-    // It is called when the user logs in, by the handleSubmit method
-    // When handleSubmit method is called, it updates the state with the logged in authData
+    // setUser = (userObject) => {
+    //     this.setState({
+    //         userObject: userObject
+    //     });
+    //     localStorage.setItem('user', userObject.Username);
+    // }
+
     onLoggedIn(authData) {
         // auth data contains both user and token
         console.log(authData)
-        this.setState({
-            // userName: authData.user.Username,
-            userObject: authData.user
-        });
+        // this.setState({
+        //     // userName: authData.user.Username,
+        //     userObject: authData.user
+        // });
+
+        this.props.setUserObject(authData.user);
 
         // The token and user are saved in localStorage, as key and value
         localStorage.setItem('token', authData.token);
@@ -107,10 +86,35 @@ export class MainView extends React.Component {
     onLoggedOut() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        this.setState({
-            // userName: null,
-            userObject: authData.user
-        });
+        // this.setState({
+        //     // userName: null,
+        //     userObject: authData.user
+        // });
+        this.props.setUserObject(authData.user);
+    }
+
+    // setUser(updateUser) {
+    //     this.props.setUserObject(updateUser);
+    // }
+
+    getUser(token, userName) {
+        //const userName = localStorage.getItem("user");
+        //const token = localStorage.getItem("token");
+        axios
+            .get(`https://myflixappcf.herokuapp.com/users/${userName}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((response) => {
+                // this.setState({
+                //     userObject: response.data
+                // });
+                this.props.setUserObject(response.data);
+                console.log("got user")
+            })
+            .catch(function (error) {
+                console.log("error in getUser");
+                console.log(error);
+            });
     }
 
     getMovies(token) {
@@ -136,16 +140,18 @@ export class MainView extends React.Component {
 
     render() {
 
-        let { movies } = this.props;
+        let { movies, userObject } = this.props;
         // let { userName, userObject } = this.state;
-        let { userObject } = this.state;
+        // let { userObject } = this.state;
 
         let userIsLoggedIn = localStorage.getItem('user');
 
         return (
             <Router>
 
-                <NavBar onLoggedOut={() => this.onLoggedOut()} userName={this.state.userObject.Username} />
+                {/* <NavBar onLoggedOut={() => this.onLoggedOut()} userName={this.state.userObject.Username} /> */}
+
+                <NavBar onLoggedOut={() => this.onLoggedOut()} userObject={userObject} />
 
                 <Container>
                     < Row className="justify-content-md-center" >
@@ -258,7 +264,7 @@ export class MainView extends React.Component {
                             }
                             return (
                                 <Col>
-                                    <ProfileView movies={movies} setUser={userObject => this.setUser(userObject)} userObject={userObject} onBackClick={() => history.goBack()}
+                                    <ProfileView movies={movies} userObject={userObject} onBackClick={() => history.goBack()}
                                     />
                                 </Col> // 
                             )
@@ -279,7 +285,10 @@ export class MainView extends React.Component {
 let mapStateToProps = state => {
     // The movies is the prop
     // Passing movies as the prop of this component
-    return { movies: state.movies }
+    return {
+        movies: state.movies,
+        userObject: state.userObject
+    }
 }
 
 // npm install react-router-dom@5.2.0
@@ -287,4 +296,4 @@ let mapStateToProps = state => {
 
 // setMovies is the action creator
 // can now use this.props.setMovies
-export default connect(mapStateToProps, { setMovies })(MainView);
+export default connect(mapStateToProps, { setMovies, setUserObject })(MainView);

@@ -7,7 +7,10 @@ import Button from 'react-bootstrap/Button';
 
 import "./navbar-view.scss";
 
-export function NavBar({ userName }) {
+import { connect } from 'react-redux';
+import { setUserObject } from '../../actions/actions';
+
+export function NavBar({ userObject }) {
 
     const currentUser = localStorage.getItem("user");
 
@@ -43,12 +46,18 @@ export function NavBar({ userName }) {
                         {isAuth() && <Button variant="link" onClick={() => {
                             this.onLoggedOut()
                         }}>Logout</Button>}
-                        {userName ? null : <Nav.Link href="/">Sign-in</Nav.Link>}
+                        {currentUser ? null : <Nav.Link href="/">Sign-in</Nav.Link>}
 
-                        {userName ? null : <Nav.Link href="/register">Sign-up</Nav.Link>}
+                        {currentUser ? null : <Nav.Link href="/register">Sign-up</Nav.Link>}
                     </Nav>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
     );
 }
+
+let mapStateToProps = state => {
+    return { userObject: state.userObject }
+}
+
+export default connect(mapStateToProps, { setUserObject })(Navbar);

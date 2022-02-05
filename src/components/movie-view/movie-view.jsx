@@ -37,6 +37,10 @@ export class MovieView extends React.Component {
         return (
 
             <div>
+                <Button variant="info" className="back-button" variant="info" onClick={() => { onBackClick(null) }}>
+                    Back
+                </Button>
+
                 <Card className="movie-view">
                     <Card.Img variant="top" src={movieObject.ImagePath} />
                     <Card.Body>
@@ -64,10 +68,8 @@ export class MovieView extends React.Component {
 
                     </Card.Body>
 
-                    <Button onClick={() => { onBackClick(null) }}>
-                        Back
-                    </Button>
-                    <Button onClick={() => this.addToFavorites(movieObject._id)}>Add to favorites</Button>
+
+                    <Button className="add-favorite" variant="info" onClick={() => this.addToFavorites(movieObject._id)}>Add to favorites</Button>
                 </Card>
 
                 <Row>

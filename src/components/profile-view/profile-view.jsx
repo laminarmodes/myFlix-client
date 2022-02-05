@@ -10,11 +10,12 @@ import axios from 'axios';
 
 import { MovieCard } from '../movie-card/movie-card';
 
+import { connect } from 'react-redux';
+import { setUserObject } from '../../actions/actions';
+
 export function ProfileView(props) {
 
-    //const { movies, user, userObject, setUser, onLoggedOut, onBackClick } = props;
-
-    const { movies, userObject, setUser, onBackClick } = props;
+    const { movies, userObject, onBackClick } = props;
 
     const [registrationUsername, setRegistrationUsername] = useState('');
     const [registrationPassword, setRegistrationPassword] = useState('');
@@ -27,9 +28,6 @@ export function ProfileView(props) {
     const [passwordErr, setPasswordErr] = useState('');
     const [emailErr, setEmailErr] = useState('');
     const [birthdayErr, setBirthdayErr] = useState('');
-
-    // User information
-    const [favorites, setFavorites] = useState(userObject.FavoriteMovies);
 
     const validate = () => {
 
@@ -86,16 +84,10 @@ export function ProfileView(props) {
                 {
                     headers: { Authorization: `Bearer ${token}` }
                 }).then((response) => {
-
                     const data = response.data;
                     console.log(data);
-
-
-                    setUser(response.data); // Did this delete me as a user?
-
-
+                    this.props.setUserObject(response.data);
                     localStorage.setItem('user', data.Username);
-                    //alert(`Profile is updated with ${response.data.Username}, ${data}`);
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -113,7 +105,9 @@ export function ProfileView(props) {
             headers: { Authorization: `Bearer ${token}` }
         }).then((response) => {
             console.log(response);
-            setUser(response.data);
+            //setUser(response.data);
+            this.props.setUserObject(response.data);
+
             alert("Movie has been deleted")
         }).catch(function (error) {
             console.log(error);
@@ -142,9 +136,14 @@ export function ProfileView(props) {
 
             <Row>
                 <Col>
-                    <Button onClick={() => { onBackClick(null) }}>
+                    <Button variant="info" className="back-button" onClick={() => { onBackClick(null) }}>
                         Back
                     </Button>
+                </Col>
+            </Row>
+
+            <Row>
+                <Col>
                     <Card className="profile-view">
                         <Card.Body>
                             <Card.Title>Profile Informaion</Card.Title>
@@ -158,26 +157,23 @@ export function ProfileView(props) {
                     </Card>
                 </Col>
             </Row>
-            <br />
-            <br />
-            <Row>
 
+            <Row>
                 {
                     userObject.FavoriteMovies.length ? userObject.FavoriteMovies.map((movie) => (
-                        <Col xs={12} sm={6} md={4} lg={6} xl={6} xxl={6}>
-                            <MovieCard
-                                movieData={movies.find((m) => m._id === movie)} key={movie._id} />
-                            <Button type="danger" onClick={(e) => deleteFavorite((movies.find((m) => m._id === movie))._id)}>Delete</Button>
+                        <Col xs={12} sm={6} md={3} lg={3} xl={3} xxl={3}>
+                            <MovieCard movieData={movies.find((m) => m._id === movie)} withDelete={true} key={movie._id} />
+                            <Button variant="link" size="lg" className="delete-button" onClick={(e) => deleteFavorite((movies.find((m) => m._id === movie))._id)}>x remove</Button>
                         </Col>
                     )) : <p>No favorite movies</p>
                 }
             </Row>
-            <br /><br /><br /><br />
+
             <Row>
                 <Col>
-                    Update Information
-                    <Form>
+                    <Form className="update-info">
                         <Form.Group controlId="formUsername">
+                            <h3>Update Information</h3>
                             <Form.Label>Username </Form.Label>
                             <Form.Control type="text" onChange={e => setRegistrationUsername(e.target.value)} />
                             {usernameErr && <p>{usernameErr}</p>}
@@ -207,16 +203,23 @@ export function ProfileView(props) {
                             {passwordErr && <p>{passwordErr}</p>}
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" onClick={(e) => handleUpdate(e)}>
-                            Update
-                        </Button>
-                        <br />
-                        <br />
-                        <br />
-                        <Button variant="danger" onClick={(e) => deleteUser()}>
+                        <div>
+                            <Button className="update-info-button" variant="info" type="submit" onClick={(e) => handleUpdate(e)}>
+                                Update
+                            </Button>
+                        </div>
+
+                    </Form>
+                </Col>
+            </Row>
+
+            <Row>
+                <Col>
+                    <div>
+                        <Button className="delete-user" variant="danger" onClick={(e) => deleteUser()}>
                             Delete my account
                         </Button>
-                    </Form>
+                    </div>
                 </Col>
             </Row>
 
@@ -225,15 +228,10 @@ export function ProfileView(props) {
 
 }
 
-// Enforce and validate data types based on apps configuration
-ProfileView.propTypes = {
-    // The movie prop may contain a title of type string
-    // shape({}) means it is an actual object
-    userObject: PropTypes.shape({
-        Username: PropTypes.string.isRequired,
-        Email: PropTypes.string.isRequired,
-        Password: PropTypes.string.isRequired,
-        Birthday: PropTypes.string,
-        FavoriteMovies: PropTypes.array
-    }).isRequired
-};
+let mapStateToProps = state => {
+    return { userObject: state.userObject }
+}
+
+// export default connect(mapStateToProps, { setUserObject })(ProfileView);
+
+export default connect(mapStateToProps, { setUserObject })(ProfileView)

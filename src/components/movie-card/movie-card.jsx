@@ -11,6 +11,7 @@ export class MovieCard extends React.Component {
         // Access the movie data
         // This refers to the class component you are working on
         const { movieData, onMovieClick } = this.props;
+
         return (
 
             <Card className="movie-card">
@@ -20,7 +21,7 @@ export class MovieCard extends React.Component {
                     <Card.Subtitle>Directed by</Card.Subtitle>
                     <Card.Text>{movieData.Director.Name}</Card.Text>
                     <Link to={`/movies/${movieData._id}`}>
-                        <Button variant="link">
+                        <Button variant="info" className="open-button">
                             Open
                         </Button>
                     </Link>

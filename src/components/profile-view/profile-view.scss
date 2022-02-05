@@ -1,0 +1,40 @@
+.profile-view {
+    background: rgba(255, 255, 255, 0.3) !important;
+    border: 0.5px solid rgba(255, 255, 255, 0.5);
+    box-sizing: border-box;
+    box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(40px);
+    border-radius: 30px 30px 30px 30px;
+    margin-bottom: 5%;
+}
+
+.update-info {
+    background: rgba(255, 255, 255, 0.3) !important;
+    border: 0.5px solid rgba(255, 255, 255, 0.5);
+    box-sizing: border-box;
+    box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(40px);
+    border-radius: 30px 30px 30px 30px;
+    padding: 5%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.delete-button {
+    width: 100%;
+    margin-top: 1%;
+}
+
+.back-button {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.update-info-button {
+    margin-top: 2%;
+}
+
+.delete-user {
+    margin-top: 1%;
+    margin-bottom: 5%;
+}
