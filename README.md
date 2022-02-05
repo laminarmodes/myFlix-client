@@ -1,46 +1,91 @@
-# myFlix-client
+# MyFlix
 
-Test the project build using parcel src/index.html
+The MyFlix Client is the User Interface that obtains information about movies through the movies API and database.
 
-When issue just remove ""@parcel/transformer-sass": "^2.0.0-rc.0"" and run parcel again
+## Installation
 
--or-
+Confirm that Node and npm are already installed and try to use the Chrome browser.
 
-When running into a package mismatch issue
-- delet package-lock.json
-- delete 'node_modules' folder
-run npm i
+Ensure parecel 2.*... is installed, if not install for all projects
 
--or- 
+```bash
+npm install -g parcel@next
+```
 
-rm -rf node_modulles package-lock.json && npm i
+Inside my-flix-client foldder, make sure to install packages and dependencies needed for React development
 
-### Open browser and navigate to http://localhost:1234 and look for message
+```bash
+npm install --save react react-dom
+```
 
-movie database hosted in MongoDB
-movie API hosted in heroku
+Axios
 
-MovieAPI
+```bash
+npm install axios --save
+```
 
-Dependencies
+propTypes
 
+```bash
+npm install --save prop-types
+```
 
+React Bootstrap
 
-Client
+```bash
+npm install --save react-bootstrap
+```
 
-Dependencies
+React Router
 
-    "axios": "^0.24.0",
-    "cors": "^2.8.5",
-    "prop-types": "^15.8.1",
-    "react": "^17.0.2",
-    "react-bootstrap": "^2.1.1",
-    "react-dom": "^17.0.2",
-    "react-router-dom": "^5.2.0"
-    redux
+```bash
+yarn add react-router-dom
+```
 
-Developer Dependencies
+Redux
 
-"@parcel/transformer-image": "^2.0.0-rc.0",
-    "@parcel/transformer-sass": "^2.0.0-rc.0"
- 
+```bash
+npm install redux --save
+```
+
+React Redux
+
+```bash
+npm install react-redux --save
+```
+
+Redux Devtools
+
+```bash
+npm install --save redux-devtools-extension
+```
+
+## Rnnning locally
+
+To build using parcel
+
+```bash
+parcel src/index.html
+```
+
+For any issues delete the mode modules and package.json and reinstall
+
+```bash
+rm -rf node_modules package-lock.json && npm i
+```
+
+Running app locally http://localhost:1234/
+
+## Usage
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+```
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
