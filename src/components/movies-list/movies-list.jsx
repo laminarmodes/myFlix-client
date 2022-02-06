@@ -1,6 +1,6 @@
 import React from 'react';
 import Col from 'react-bootstrap/Col';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 
 import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';
 
@@ -13,7 +13,10 @@ const mapStateToProps = (state) => {
 };
 
 function MoviesList(props) {
-    const { movies, visibilityFilter } = props;
+
+    const { visibilityFilter } = props;
+    const movies = useSelector((state) => state.movies);
+
     let filteredMovies = movies;
 
     if (visibilityFilter !== '') {
@@ -26,14 +29,12 @@ function MoviesList(props) {
     }
 
     return (
-
         <>
             <Col md={12} style={{ margin: '1em' }}>
                 <br />
                 <br />
                 <br />
                 <br />
-
                 <VisibilityFilterInput visibilityFilter={visibilityFilter} />
             </Col>
             {
@@ -47,10 +48,7 @@ function MoviesList(props) {
 
     )
 
-
 }
-
-
 
 // Connect the MoviesList to the store
 // mapStateToProps converts or transforms the store into props that the MoviewList component will use

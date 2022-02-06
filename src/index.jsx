@@ -16,6 +16,7 @@ const store = createStore(moviesApp, devToolsEnhancer());
 class MyFlixApplication extends React.Component {
     render() {
         return (
+            // Wrap in provider so that all components will have access to the store
             <Provider store={store}>
                 <MainView />
             </Provider>

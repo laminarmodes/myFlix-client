@@ -9,12 +9,14 @@ import axios from 'axios';
 
 import { MovieCard } from '../movie-card/movie-card';
 
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { setUserObject } from '../../actions/actions';
 
 export function ProfileView(props) {
 
-    const { movies, userObject, onBackClick } = props;
+    const { onBackClick } = props;
+    const userObject = useSelector((state) => state.userObject);
+    const movies = useSelector((state) => state.movies);
 
     const [registrationUsername, setRegistrationUsername] = useState('');
     const [registrationPassword, setRegistrationPassword] = useState('');
@@ -131,8 +133,8 @@ export function ProfileView(props) {
     }
 
     return (
-        <div>
 
+        <div>
             <Row>
                 <Col>
                     <Button variant="info" className="back-button" onClick={() => { onBackClick(null) }}>
@@ -161,7 +163,7 @@ export function ProfileView(props) {
                 {
                     userObject.FavoriteMovies.length ? userObject.FavoriteMovies.map((movie) => (
                         <Col xs={12} sm={6} md={3} lg={3} xl={3} xxl={3}>
-                            <MovieCard movieData={movies.find((m) => m._id === movie)} withDelete={true} key={movie._id} />
+                            <MovieCard movieData={movies.find((m) => m._id === movie)} key={movie._id} />
                             <Button variant="link" size="lg" className="delete-button" onClick={(e) => deleteFavorite((movies.find((m) => m._id === movie))._id)}>x remove</Button>
                         </Col>
                     )) : <p>No favorite movies</p>

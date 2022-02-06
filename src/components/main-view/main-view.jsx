@@ -28,10 +28,7 @@ export class MainView extends React.Component {
 
     constructor() {
         super();
-        this.state = {
-            // userName: null,
-            // userObject: {}
-        };
+
     }
 
     // This is called every time the user loads the page
@@ -188,8 +185,9 @@ export class MainView extends React.Component {
 
                         {/* Movie List */}
                         <Route exact path="/" render={() => {
-                            return (
-                                < MoviesList movies={movies} />
+                            if (userIsLoggedIn) return (
+                                // < MoviesList movies={movies} />
+                                < MoviesList />
                             )
                         }} />
 
@@ -262,9 +260,11 @@ export class MainView extends React.Component {
                             }
                             return (
                                 <Col>
-                                    <ProfileView movies={movies} userObject={userObject} onBackClick={() => history.goBack()}
+                                    {/* <ProfileView movies={movies} userObject={userObject} onBackClick={() => history.goBack()}
+                                    /> */}
+                                    <ProfileView onBackClick={() => history.goBack()}
                                     />
-                                </Col> // 
+                                </Col>
                             )
                         }} />
 
