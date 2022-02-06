@@ -78,6 +78,8 @@ Running app locally http://localhost:1234/
 
 ## Usage
 
+The MyFlix Client is the basic UI for the MyFlix App written in React
+
 ```javascript
 import React from 'react';
 import ReactDOM from 'react-dom';

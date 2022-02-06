@@ -5,7 +5,7 @@
   box-sizing: border-box;
   box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(40px);
-  border-radius: 16px 16px 16px 16px;
+  border-radius: 0px 0px 0px 0px;
 }
 
 .open-button {
@@ -17,7 +17,8 @@
   box-sizing: border-box;
   box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(40px);
-  border-radius: 0px 60px 60px 60px;
+  border-radius: 0px 0px 0px 0px;
+  margin-bottom: 5%;
 }
 
 .back-button {
@@ -28,8 +29,36 @@
 .add-favorite {
   margin: 5%;
 }
+.director-view {
+  background: rgba(255, 255, 255, 0.3) !important;
+  border: 0.5px solid rgba(255, 255, 255, 0.5);
+  box-sizing: border-box;
+  box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(40px);
+  border-radius: 0px 0px 0px 0px;
+  margin-bottom: 5%;
+  margin-top: 5%;
+}
 
+.back-button {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+.genre-view {
+  background: rgba(255, 255, 255, 0.3) !important;
+  border: 0.5px solid rgba(255, 255, 255, 0.5);
+  box-sizing: border-box;
+  box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(40px);
+  border-radius: 0px 0px 0px 0px;
+  margin-bottom: 5%;
+  margin-top: 5%;
+}
 
+.back-button {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
 .profile-view {
   background: rgba(255, 255, 255, 0.3) !important;
   border: 0.5px solid rgba(255, 255, 255, 0.5);
@@ -77,8 +106,8 @@
 }
 
 body {
-  background: #757575;
-  background: linear-gradient(335deg, #757575 0%, #bdbdbd 24%, #eeeeee 49%, #bdbdbd 76%, #757575 100%);
+  background: #757575 !important;
+  background: linear-gradient(335deg, #757575 0%, #bdbdbd 24%, #eeeeee 49%, #bdbdbd 76%, #757575 100%) !important;
   height: 100%;
   margin: 0;
   display: flex;

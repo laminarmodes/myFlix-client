@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MovieCard } from '../movie-card/movie-card';
 import Card from 'react-bootstrap/Card';
-import Carousel from 'react-bootstrap/Carousel';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
@@ -46,23 +44,21 @@ export class MovieView extends React.Component {
                     <Card.Body>
                         <Card.Title>{movieObject.Title}</Card.Title>
                         <Card.Subtitle>Directed by</Card.Subtitle>
-                        <Card.Text> {movieObject.Director.Name}</Card.Text>
-
+                        <br />
                         <Link to={`/directors/${movieObject.Director.Name}`}>
-                            <Button variant="link">
-                                Director Info
+                            <Button variant="outline-info">
+                                {movieObject.Director.Name}
                             </Button>
                         </Link>
-
+                        <br /><br />
                         <Card.Subtitle>Plot</Card.Subtitle>
                         <Card.Text>{movieObject.Description}</Card.Text>
 
                         <Card.Subtitle>Genre</Card.Subtitle>
-                        <Card.Text>{movieObject.Genre.Name}</Card.Text>
-
+                        <br />
                         <Link to={`/genres/${movieObject.Genre.Name}`}>
-                            <Button variant="link">
-                                Genre Info
+                            <Button variant="outline-info">
+                                {movieObject.Genre.Name}
                             </Button>
                         </Link>
 
