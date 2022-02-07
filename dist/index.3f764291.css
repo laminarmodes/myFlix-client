@@ -105,10 +105,14 @@
   color: steelblue;
 }
 
+html {
+  min-height: 100%;
+}
+
 body {
   background: #757575 !important;
   background: linear-gradient(335deg, #757575 0%, #bdbdbd 24%, #eeeeee 49%, #bdbdbd 76%, #757575 100%) !important;
-  height: 100%;
+  min-height: 100%;
   margin: 0;
   display: flex;
   justify-content: center;

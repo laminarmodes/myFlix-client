@@ -11,10 +11,10 @@ import { setUserObject } from '../../actions/actions';
 
 import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
-import { MovieView } from '../movie-view/movie-view';
+import MovieView from '../movie-view/movie-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
-import { ProfileView } from '../profile-view/profile-view';
+import ProfileView from '../profile-view/profile-view';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './main-view.scss';
@@ -22,7 +22,6 @@ import Container from 'react-bootstrap/Container';
 
 import { NavBar } from '../navbar-view/navbar-view';
 import { Link } from "react-router-dom";
-import { ProfileView } from '../profile-view/profile-view';
 
 export class MainView extends React.Component {
 
@@ -39,25 +38,12 @@ export class MainView extends React.Component {
         let accessToken = localStorage.getItem('token');
         let user = localStorage.getItem('user');
         if (accessToken !== null) {
-            // If access key is present, user is logged in and can call getMovies method
-            // this.setState({
-            //     userName: localStorage.getItem('user')
-            // });
 
             // Make the get request only if the user is logged in
             this.getMovies(accessToken);
             this.getUser(accessToken, user);
         }
     }
-
-
-
-    // setUser = (userObject) => {
-    //     this.setState({
-    //         userObject: userObject
-    //     });
-    //     localStorage.setItem('user', userObject.Username);
-    // }
 
     onLoggedIn(authData) {
         // auth data contains both user and token
@@ -136,8 +122,6 @@ export class MainView extends React.Component {
     render() {
 
         let { movies, userObject } = this.props;
-        // let { userName, userObject } = this.state;
-        // let { userObject } = this.state;
 
         let userIsLoggedIn = localStorage.getItem('user');
 
@@ -204,7 +188,7 @@ export class MainView extends React.Component {
                             return (
                                 <Col md={8}>
                                     <MovieView
-                                        movieObject={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()}
+                                        userObject={userObject} movieObject={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()}
                                     />
                                 </Col>
                             )

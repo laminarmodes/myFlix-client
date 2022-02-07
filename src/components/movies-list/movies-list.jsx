@@ -14,6 +14,7 @@ const mapStateToProps = (state) => {
 
 function MoviesList(props) {
 
+    //const { movies, visibilityFilter } = props;
     const { visibilityFilter } = props;
     const movies = useSelector((state) => state.movies);
 

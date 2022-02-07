@@ -14,6 +14,7 @@ import { setUserObject } from '../../actions/actions';
 
 export function ProfileView(props) {
 
+    // const { movies, userObject, onBackClick } = props;
     const { onBackClick } = props;
     const userObject = useSelector((state) => state.userObject);
     const movies = useSelector((state) => state.movies);
@@ -87,7 +88,7 @@ export function ProfileView(props) {
                 }).then((response) => {
                     const data = response.data;
                     console.log(data);
-                    this.props.setUserObject(response.data);
+                    props.setUserObject(response.data);
                     localStorage.setItem('user', data.Username);
                 }).catch(function (error) {
                     console.log(error);
@@ -107,7 +108,7 @@ export function ProfileView(props) {
         }).then((response) => {
             console.log(response);
             //setUser(response.data);
-            this.props.setUserObject(response.data);
+            props.setUserObject(response.data);
 
             alert("Movie has been deleted")
         }).catch(function (error) {

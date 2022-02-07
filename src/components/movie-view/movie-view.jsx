@@ -9,6 +9,9 @@ import './movie-view.scss';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
+import { connect } from 'react-redux';
+import { setUserObject } from '../../actions/actions';
+
 export class MovieView extends React.Component {
 
     keypressCallback(event) {
@@ -24,17 +27,22 @@ export class MovieView extends React.Component {
             method: `POST`
         }).then((response) => {
             alert("Added movie to favorites");
+            props.setUserObject(response.data);
         }).catch(function (error) {
             console.log(error)
         });
     }
 
     render() {
-        const { movieObject, onBackClick } = this.props;
+
+        const { userObject, movieObject, onBackClick } = this.props;
+        //const { userObject } = this.props;
+        const isFavorite = userObject.FavoriteMovies.some((favoriteMovie) => (favoriteMovie == movieObject._id));
 
         return (
 
             <div>
+                {console.log("hi")}
                 <Button variant="info" className="back-button" variant="info" onClick={() => { onBackClick(null) }}>
                     Back
                 </Button>
@@ -65,7 +73,7 @@ export class MovieView extends React.Component {
                     </Card.Body>
 
 
-                    <Button className="add-favorite" variant="info" onClick={() => this.addToFavorites(movieObject._id)}>Add to favorites</Button>
+                    <Button className="add-favorite" variant="info" disabled={isFavorite ? true : false} onClick={() => this.addToFavorites(movieObject._id)}>{isFavorite ? "Is Favorite" : "Add to Favoirites"}</Button>
                 </Card>
 
                 <Row>
@@ -81,6 +89,9 @@ export class MovieView extends React.Component {
 
         );
     }
+
+
+
 }
 
 MovieView.propTypes = {
@@ -95,3 +106,13 @@ MovieView.propTypes = {
     }).isRequired,
     onBackClick: PropTypes.func.isRequired
 };
+
+let mapStateToProps = state => {
+    const { isFavorite } = state;
+    return {
+        userObject: state.userObject,
+        isFavorite
+    }
+}
+
+export default connect(mapStateToProps, { setUserObject })(MovieView)
