@@ -27,7 +27,7 @@ export class MovieView extends React.Component {
             method: `POST`
         }).then((response) => {
             alert("Added movie to favorites");
-            props.setUserObject(response.data);
+            this.props.setUserObject(response.data);
         }).catch(function (error) {
             console.log(error)
         });
@@ -48,32 +48,32 @@ export class MovieView extends React.Component {
                 </Button>
 
                 <Card className="movie-view">
-                    <Card.Img variant="top" src={movieObject.ImagePath} />
-                    <Card.Body>
-                        <Card.Title>{movieObject.Title}</Card.Title>
-                        <Card.Subtitle>Directed by</Card.Subtitle>
-                        <br />
-                        <Link to={`/directors/${movieObject.Director.Name}`}>
-                            <Button variant="outline-info">
-                                {movieObject.Director.Name}
-                            </Button>
-                        </Link>
-                        <br /><br />
-                        <Card.Subtitle>Plot</Card.Subtitle>
-                        <Card.Text>{movieObject.Description}</Card.Text>
+                    <div className="card-contents">
+                        <Card.Img variant="top" src={movieObject.ImagePath} />
+                        <Card.Body>
+                            <Card.Title>{movieObject.Title}</Card.Title>
+                            <Card.Subtitle>Directed by</Card.Subtitle>
+                            <br />
+                            <Link to={`/directors/${movieObject.Director.Name}`}>
+                                <Button variant="outline-info">
+                                    {movieObject.Director.Name}
+                                </Button>
+                            </Link>
+                            <br /><br />
+                            <Card.Subtitle>Plot</Card.Subtitle>
+                            <Card.Text>{movieObject.Description}</Card.Text>
 
-                        <Card.Subtitle>Genre</Card.Subtitle>
-                        <br />
-                        <Link to={`/genres/${movieObject.Genre.Name}`}>
-                            <Button variant="outline-info">
-                                {movieObject.Genre.Name}
-                            </Button>
-                        </Link>
+                            <Card.Subtitle>Genre</Card.Subtitle>
+                            <br />
+                            <Link to={`/genres/${movieObject.Genre.Name}`}>
+                                <Button variant="outline-info">
+                                    {movieObject.Genre.Name}
+                                </Button>
+                            </Link>
 
-                    </Card.Body>
-
-
-                    <Button className="add-favorite" variant="info" disabled={isFavorite ? true : false} onClick={() => this.addToFavorites(movieObject._id)}>{isFavorite ? "Is Favorite" : "Add to Favoirites"}</Button>
+                        </Card.Body>
+                        <Button className="add-favorite" variant="info" disabled={isFavorite ? true : false} onClick={() => this.addToFavorites(movieObject._id)}>{isFavorite ? "Is Favorite" : "Add to Favoirites"}</Button>
+                    </div>
                 </Card>
 
                 <Row>

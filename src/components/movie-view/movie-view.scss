@@ -6,6 +6,12 @@
     backdrop-filter: blur(40px);
     border-radius: 0px 0px 0px 0px;
     margin-bottom: 5%;
+    
+}
+
+.card-contents {
+    display: flex;
+    flex-direction: row;
 }
 
 .back-button {
