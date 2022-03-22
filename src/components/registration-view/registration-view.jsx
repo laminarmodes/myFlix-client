@@ -1,3 +1,6 @@
+/** 
+ * @module RegistrationView renders the page for the user to register
+ */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
@@ -6,14 +9,11 @@ import axios from 'axios';
 
 export function RegistrationView(props) {
 
-    // Set initial value of login variable
     const [registrationUsername, setRegistrationUsername] = useState('');
     const [registrationPassword, setRegistrationPassword] = useState('');
     const [confirmRegistrationPassword, setConfirmRegistrationPassword] = useState('');
     const [registrationEmail, setRegistrationEmail] = useState('');
     const [registrationBirthday, setRegistrationBirthday] = useState('');
-
-    // Form validation
     const [nameErr, setNameErr] = useState('');
     const [usernameErr, setUsernameErr] = useState('');
     const [passwordErr, setPasswordErr] = useState('');
@@ -53,11 +53,8 @@ export function RegistrationView(props) {
         return isRequired;
     }
 
-
-    // Update the user state of MainView and make the movies list appear
     const handleRegistration = (e) => {
 
-        // Prevents submit button from causing page to refresh
         e.preventDefault();
 
         const isRequired = validate();
@@ -124,7 +121,3 @@ export function RegistrationView(props) {
 
     )
 }
-
-// RegistrationView.propTypes = {
-//     onRegistered: PropTypes.func.isRequired
-// };

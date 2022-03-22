@@ -1,3 +1,6 @@
+/** 
+ * @module DirectorView renders the component that displays information about the director
+ */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
@@ -12,9 +15,7 @@ export class DirectorView extends React.Component {
 
     render() {
         const { directorObject, onBackClick } = this.props;
-
         return (
-
             <div>
                 <Button variant="info" className="back-button" onClick={() => { onBackClick(null) }}>
                     Back
@@ -25,11 +26,8 @@ export class DirectorView extends React.Component {
                         <Card.Subtitle>Bio</Card.Subtitle>
                         <Card.Text> {directorObject.Bio}</Card.Text>
                     </Card.Body>
-
-
                 </Card>
             </div>
-
         );
     }
 }

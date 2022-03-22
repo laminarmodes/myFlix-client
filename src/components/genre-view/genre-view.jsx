@@ -1,3 +1,6 @@
+/** 
+ * @module GenreView renders the component that displays information about the genre
+ */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
@@ -12,9 +15,7 @@ export class GenreView extends React.Component {
 
     render() {
         const { genreObject, onBackClick } = this.props;
-
         return (
-
             <div>
                 <Button className="back-button" variant="info" onClick={() => { onBackClick(null) }}>
                     Back
@@ -27,7 +28,6 @@ export class GenreView extends React.Component {
                     </Card.Body>
                 </Card>
             </div>
-
         );
     }
 }

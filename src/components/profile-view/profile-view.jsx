@@ -1,3 +1,6 @@
+/** 
+ * @module ProfileView renders the page that displays the user profile
+ */
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -6,26 +9,20 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './profile-view.scss';
 import axios from 'axios';
-
 import { MovieCard } from '../movie-card/movie-card';
-
 import { connect, useSelector } from 'react-redux';
 import { setUserObject } from '../../actions/actions';
 
 export function ProfileView(props) {
 
-    // const { movies, userObject, onBackClick } = props;
     const { onBackClick } = props;
     const userObject = useSelector((state) => state.userObject);
     const movies = useSelector((state) => state.movies);
-
     const [registrationUsername, setRegistrationUsername] = useState('');
     const [registrationPassword, setRegistrationPassword] = useState('');
     const [confirmRegistrationPassword, setConfirmRegistrationPassword] = useState('');
     const [registrationEmail, setRegistrationEmail] = useState('');
     const [registrationBirthday, setRegistrationBirthday] = useState('');
-
-    // Form validation
     const [usernameErr, setUsernameErr] = useState('');
     const [passwordErr, setPasswordErr] = useState('');
     const [emailErr, setEmailErr] = useState('');
@@ -106,10 +103,7 @@ export function ProfileView(props) {
         axios.delete(`https://myflixappcf.herokuapp.com/users/${userName}/movies/${movieId}`, {
             headers: { Authorization: `Bearer ${token}` }
         }).then((response) => {
-            console.log(response);
-            //setUser(response.data);
             props.setUserObject(response.data);
-
             alert("Movie has been deleted")
         }).catch(function (error) {
             console.log(error);
@@ -138,7 +132,7 @@ export function ProfileView(props) {
         <div>
             <Row>
                 <Col>
-                    <Button variant="info" className="back-button" onClick={() => { onBackClick(null) }}>
+                    <Button variant="light" className="back-button" onClick={() => { onBackClick(null) }}>
                         Back
                     </Button>
                 </Col>
@@ -154,7 +148,7 @@ export function ProfileView(props) {
                             <Card.Subtitle>Email</Card.Subtitle>
                             <Card.Text>{userObject.Email}</Card.Text>
                             <Card.Subtitle>Birthday</Card.Subtitle>
-                            <Card.Text>{userObject.Birthday}</Card.Text>
+                            <Card.Text>{Date(userObject.Birthday).toString()}</Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -233,7 +227,5 @@ export function ProfileView(props) {
 let mapStateToProps = state => {
     return { userObject: state.userObject }
 }
-
-// export default connect(mapStateToProps, { setUserObject })(ProfileView);
 
 export default connect(mapStateToProps, { setUserObject })(ProfileView)

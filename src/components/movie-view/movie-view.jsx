@@ -1,3 +1,6 @@
+/** 
+ * @module MovieView renders the grid of movies
+ */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
@@ -5,10 +8,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import './movie-view.scss';
-
 import { Link } from "react-router-dom";
 import axios from 'axios';
-
 import { connect } from 'react-redux';
 import { setUserObject } from '../../actions/actions';
 
@@ -36,17 +37,15 @@ export class MovieView extends React.Component {
     render() {
 
         const { userObject, movieObject, onBackClick } = this.props;
-        //const { userObject } = this.props;
         const isFavorite = userObject.FavoriteMovies.some((favoriteMovie) => (favoriteMovie == movieObject._id));
 
         return (
 
             <div>
                 {console.log("hi")}
-                <Button variant="info" className="back-button" variant="info" onClick={() => { onBackClick(null) }}>
+                <Button variant="light" className="back-button" variant="info" onClick={() => { onBackClick(null) }}>
                     Back
                 </Button>
-
                 <Card className="movie-view">
                     <div className="card-contents">
                         <Card.Img variant="top" src={movieObject.ImagePath} />
@@ -70,12 +69,10 @@ export class MovieView extends React.Component {
                                     {movieObject.Genre.Name}
                                 </Button>
                             </Link>
-
                         </Card.Body>
                         <Button className="add-favorite" variant="info" disabled={isFavorite ? true : false} onClick={() => this.addToFavorites(movieObject._id)}>{isFavorite ? "Is Favorite" : "Add to Favoirites"}</Button>
                     </div>
                 </Card>
-
                 <Row>
                     {movieObject.Actors.map(actor => (
                         <Col md={3}>
@@ -86,12 +83,8 @@ export class MovieView extends React.Component {
                     ))}
                 </Row>
             </div>
-
         );
     }
-
-
-
 }
 
 MovieView.propTypes = {
