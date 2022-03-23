@@ -13,7 +13,7 @@ export function NavBar({ userObject }) {
 
     const currentUser = localStorage.getItem("user");
 
-    onLoggedOut = () => {
+    const onLoggedOut = () => {
         localStorage.clear();
         window.open("/", "_self");
     };
@@ -43,7 +43,7 @@ export function NavBar({ userObject }) {
                     <Nav className="ml-auto">
                         {isAuth() && <Nav.Link href="/profile">{currentUser}</Nav.Link>}
                         {isAuth() && <Button variant="link" onClick={() => {
-                            this.onLoggedOut()
+                            onLoggedOut()
                         }}>Logout</Button>}
                         {currentUser ? null : <Nav.Link href="/">Sign-in</Nav.Link>}
 

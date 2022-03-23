@@ -32644,7 +32644,7 @@ var _reactRedux = require("react-redux");
 var _actions = require("../../actions/actions");
 function NavBar({ userObject  }) {
     const currentUser = localStorage.getItem("user");
-    onLoggedOut = ()=>{
+    const onLoggedOut = ()=>{
         localStorage.clear();
         window.open("/", "_self");
     };
@@ -32693,7 +32693,7 @@ function NavBar({ userObject  }) {
                             isAuth() && /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_buttonDefault.default, {
                                 variant: "link",
                                 onClick: ()=>{
-                                    this.onLoggedOut();
+                                    onLoggedOut();
                                 },
                                 children: "Logout"
                             }, void 0, false, {

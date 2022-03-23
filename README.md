@@ -65,7 +65,7 @@ npm install --save redux-devtools-extension
 To build using parcel
 
 ```bash
-parcel src/index.html
+npx parcel src/index.html
 ```
 
 For any issues delete the mode modules and package.json and reinstall
